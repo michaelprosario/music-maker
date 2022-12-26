@@ -14,7 +14,7 @@ public class MakeDrumTrackService
         this.midiServices = midiServices ?? throw new ArgumentNullException(nameof(midiServices));
     }
 
-    MakeDrumTrackResponse MakeDrumTrack(MakeDrumTrackCommand command) {
+    public MakeDrumTrackResponse MakeDrumTrack(MakeDrumTrackCommand command) {
         if(command == null)
         {
             throw new ArgumentException("command is required");
