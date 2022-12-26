@@ -3,38 +3,40 @@ public class MakeDrumTrackResponse {
     public int Code = 200;
     public string Message = "";
     public List<string> Errors = new List<string>();
-    public string File{get;set} = "";
+    public string File{get;set;} = "";
 }
 
 public class MakeDrumTrackService
 {
-    public MakeDrumTrackService(IMidServices midiServices){
+    private readonly IMidiServices midiServices;
+
+    public MakeDrumTrackService(IMidiServices midiServices){
+        this.midiServices = midiServices ?? throw new ArgumentNullException(nameof(midiServices));
     }
 
-    MakeDrumTrackResponse makeDrumTrack(command: ) {
-        MakeDrumTrackResponse response = new MakeDrumTrackResponse();
-
-        // make sure command is defined
-        if(!command){
-            response.message = "command is not defined";
-            response.code = 400;
-            return response;
+    MakeDrumTrackResponse MakeDrumTrack(MakeDrumTrackCommand command) {
+        if(command == null)
+        {
+            throw new ArgumentException("command is required");
         }
 
+        MakeDrumTrackResponse response = new MakeDrumTrackResponse();
+
         // make sure command is filled out
-        if(command.tracks.length === 0){
-            response.message = "command.tracks is not defined";
-            response.code = 400;
+        if(command.Tracks.Count == 0){
+            response.Message = "command.tracks is not defined";
+            response.Code = 400;
             return response;
         }
 
         // make sure user is defined
-        if(!command.userId || command.userId.length === 0){
-            response.message = "command.userId is not defined";
-            response.code = 400;
+        if(string.IsNullOrEmpty(command.UserId))
+        {
+            response.Message = "command.userId is not defined";
+            response.Code = 400;
             return response;
         }
 
-        return this.midiService.makeDrumTrack(command);
+        return this.midiServices.MakeDrumTrack(command);
     }
 }
