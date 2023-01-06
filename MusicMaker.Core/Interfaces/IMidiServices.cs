@@ -6,6 +6,6 @@ namespace MusicMaker.Core.Interfaces
     public interface IMidiServices
     {
         MakeDrumTrackResponse MakeDrumTrack(MakeDrumTrackCommand command);
-        // GetNoteNumber(note: any): number;
+        int GetNoteNumber(string note);
     }
 }

@@ -12,6 +12,11 @@ namespace MusicMaker.Infra
 {
     public class MidiServices : IMidiServices
     {
+        public int GetNoteNumber(string note){
+            return 42;
+        }
+
+
         public MakeDrumTrackResponse MakeDrumTrack(MakeDrumTrackCommand command)
         {
             MakeDrumTrackResponse response = new();
@@ -43,6 +48,11 @@ namespace MusicMaker.Infra
             midiFile.Write(command.FileName);            
 
             return response;
+        }
+
+        public override string? ToString()
+        {
+            return base.ToString();
         }
 
         private TrackChunk MakePattern(byte channel,

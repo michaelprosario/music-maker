@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using MusicMaker.Core.Interfaces;
 using MusicMaker.Core.Requests;
 
