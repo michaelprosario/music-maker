@@ -12,10 +12,9 @@ namespace MusicMaker.Infra
 {
     public class MidiServices : IMidiServices
     {
-        public int GetNoteNumber(string note){
-            return 42;
+        public int GetNoteNumber(string noteName){
+            return Note.Parse(noteName).NoteNumber;
         }
-
 
         public MakeDrumTrackResponse MakeDrumTrack(MakeDrumTrackCommand command)
         {
