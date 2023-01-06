@@ -45,7 +45,7 @@ public class MidiServices : IMidiServices
         {
             if (character == 'x')
             {
-                pattern.Note(Notes.A0);
+                pattern.Note(track.InstrumentNumber);
             }
             else if (character == '-')
             {
