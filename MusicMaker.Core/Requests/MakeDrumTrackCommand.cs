@@ -20,5 +20,6 @@ namespace MusicMaker.Core.Requests
         public int BeatsPerMinute { get; set; }
         public List<DrumTrackRow> Tracks { get; set; }
         public string UserId { get; set; }
+        public string FileName { get; set; }
     }
 }

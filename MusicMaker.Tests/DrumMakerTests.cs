@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using MusicMaker.Core.Enums;
 using MusicMaker.Core.Interfaces;
 using MusicMaker.Core.Requests;
@@ -15,24 +16,42 @@ namespace MusicMaker.Tests
         public void DrumMakerService__MakeDrumTrack__HandleValidData()
         {
             // arrange
+            string fileName = "testDrums.mid";
+            
+            if(File.Exists(fileName))
+                File.Delete(fileName);
+            
             IMidiServices midiServices = new MidiServices();
             var service = new MakeDrumTrackService(midiServices);
-            var command = new MakeDrumTrackCommand();
-            command.BeatsPerMinute = 90;
-            command.Tracks = new List<DrumTrackRow>
+            var command = new MakeDrumTrackCommand
             {
-                new()
+                BeatsPerMinute = 50,
+                FileName = fileName,
+                Tracks = new List<DrumTrackRow>
                 {
-                    Pattern = "x---|x---|x---|x---|",
-                    InstrumentNumber = DrumConstants.AcousticBassDrum
+                    new()
+                    {
+                        Pattern = "x-x-|x-x-|x-x-|x-x-|x-x-|x-x-|x-x-|x-x-|",
+                        InstrumentNumber = DrumConstants.HiHat
+                    },                    
+                    new()
+                    {
+                        Pattern = "x---|----|x---|----|x---|----|x---|----|",
+                        InstrumentNumber = DrumConstants.AcousticBassDrum
+                    },
+                    new()
+                    {
+                        Pattern = "----|x---|----|x--x|----|x---|----|x--x|",
+                        InstrumentNumber = DrumConstants.AcousticSnare
+                    },
+                    new()
+                    {
+                        Pattern = "-x-x|x-x-|-x-x|x--x|-xx-|xx--|-xx-|x--x|",
+                        InstrumentNumber = DrumConstants.HiBongo
+                    }
                 },
-                new()
-                {
-                    Pattern = "--x-|--x-|--x-|--x-|",
-                    InstrumentNumber = DrumConstants.AcousticSnare
-                }
+                UserId = "system"
             };
-            command.UserId = "system";
 
             // act
             var response = service.MakeDrumTrack(command);

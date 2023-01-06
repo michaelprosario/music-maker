@@ -10,7 +10,6 @@ namespace MusicMaker.Core.Services
         public int Code = 200;
         public List<string> Errors = new();
         public string Message = "";
-        public string File { get; set; } = "";
     }
 
     public class MakeDrumTrackService
@@ -43,6 +42,13 @@ namespace MusicMaker.Core.Services
                 response.Code = 400;
                 return response;
             }
+            
+            if (string.IsNullOrEmpty(command.FileName))
+            {
+                response.Message = "command.FileName is not defined";
+                response.Code = 400;
+                return response;
+            }            
 
             return _midiServices.MakeDrumTrack(command);
         }
