@@ -1,5 +1,11 @@
-public interface IMidiServices
+using MusicMaker.Core.Requests;
+using MusicMaker.Core.Services;
+
+namespace MusicMaker.Core.Interfaces
 {
-    MakeDrumTrackResponse MakeDrumTrack(MakeDrumTrackCommand command);
-    // GetNoteNumber(note: any): number;
+    public interface IMidiServices
+    {
+        MakeDrumTrackResponse MakeDrumTrack(MakeDrumTrackCommand command);
+        // GetNoteNumber(note: any): number;
+    }
 }

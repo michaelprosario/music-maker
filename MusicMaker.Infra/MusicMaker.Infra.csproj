@@ -1,17 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
 
-  <ItemGroup>
-      <ProjectReference Include="..\MusicMaker.Core\MusicMaker.Core.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\MusicMaker.Core\MusicMaker.Core.csproj"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Melanchall.DryWetMidi" Version="6.1.4-prerelease2" />
-  </ItemGroup>  
+    <ItemGroup>
+        <PackageReference Include="Melanchall.DryWetMidi" Version="6.1.4-prerelease2"/>
+    </ItemGroup>
 
 </Project>

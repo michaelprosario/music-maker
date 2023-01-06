@@ -1,42 +1,50 @@
+using System;
+using System.Collections.Generic;
+using MusicMaker.Core.Interfaces;
+using MusicMaker.Core.Requests;
 
-public class MakeDrumTrackResponse {
-    public int Code = 200;
-    public string Message = "";
-    public List<string> Errors = new List<string>();
-    public string File{get;set;} = "";
-}
-
-public class MakeDrumTrackService
+namespace MusicMaker.Core.Services
 {
-    private readonly IMidiServices midiServices;
-
-    public MakeDrumTrackService(IMidiServices midiServices){
-        this.midiServices = midiServices ?? throw new ArgumentNullException(nameof(midiServices));
+    public class MakeDrumTrackResponse
+    {
+        public int Code = 200;
+        public List<string> Errors = new();
+        public string Message = "";
+        public string File { get; set; } = "";
     }
 
-    public MakeDrumTrackResponse MakeDrumTrack(MakeDrumTrackCommand command) {
-        if(command == null)
+    public class MakeDrumTrackService
+    {
+        private readonly IMidiServices _midiServices;
+
+        public MakeDrumTrackService(IMidiServices midiServices)
         {
-            throw new ArgumentException("command is required");
+            _midiServices = midiServices ?? throw new ArgumentNullException(nameof(midiServices));
         }
 
-        MakeDrumTrackResponse response = new MakeDrumTrackResponse();
-
-        // make sure command is filled out
-        if(command.Tracks.Count == 0){
-            response.Message = "command.tracks is not defined";
-            response.Code = 400;
-            return response;
-        }
-
-        // make sure user is defined
-        if(string.IsNullOrEmpty(command.UserId))
+        public MakeDrumTrackResponse MakeDrumTrack(MakeDrumTrackCommand command)
         {
-            response.Message = "command.userId is not defined";
-            response.Code = 400;
-            return response;
-        }
+            if (command == null) throw new ArgumentException("command is required");
 
-        return this.midiServices.MakeDrumTrack(command);
+            MakeDrumTrackResponse response = new();
+
+            // make sure command is filled out
+            if (command.Tracks.Count == 0)
+            {
+                response.Message = "command.tracks is not defined";
+                response.Code = 400;
+                return response;
+            }
+
+            // make sure user is defined
+            if (string.IsNullOrEmpty(command.UserId))
+            {
+                response.Message = "command.userId is not defined";
+                response.Code = 400;
+                return response;
+            }
+
+            return _midiServices.MakeDrumTrack(command);
+        }
     }
 }

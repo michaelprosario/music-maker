@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicMaker.Core", "MusicMaker.Core\MusicMaker.Core.csproj", "{392DFB92-87F6-4BE9-A6FB-27A5878644B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicMaker.Infra", "MusicMaker.Infra\MusicMaker.Infra.csproj", "{625A4335-949F-4B40-BD5D-94BED3DE6A4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicMaker.Tests", "MusicMaker.Tests\MusicMaker.Tests.csproj", "{99DA8A4D-3401-4BAA-A77B-92446E834DFF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{392DFB92-87F6-4BE9-A6FB-27A5878644B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{392DFB92-87F6-4BE9-A6FB-27A5878644B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{392DFB92-87F6-4BE9-A6FB-27A5878644B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{392DFB92-87F6-4BE9-A6FB-27A5878644B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{625A4335-949F-4B40-BD5D-94BED3DE6A4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{625A4335-949F-4B40-BD5D-94BED3DE6A4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{625A4335-949F-4B40-BD5D-94BED3DE6A4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{625A4335-949F-4B40-BD5D-94BED3DE6A4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99DA8A4D-3401-4BAA-A77B-92446E834DFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99DA8A4D-3401-4BAA-A77B-92446E834DFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99DA8A4D-3401-4BAA-A77B-92446E834DFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99DA8A4D-3401-4BAA-A77B-92446E834DFF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

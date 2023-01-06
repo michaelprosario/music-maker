@@ -1,4 +1,7 @@
-public interface IRequest
+namespace MusicMaker.Core.Requests
 {
-    public string UserId { get; set; }
+    public interface IRequest
+    {
+        public string UserId { get; set; }
+    }
 }
