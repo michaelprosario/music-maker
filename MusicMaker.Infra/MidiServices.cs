@@ -49,11 +49,6 @@ namespace MusicMaker.Infra
             return response;
         }
 
-        public override string? ToString()
-        {
-            return base.ToString();
-        }
-
         private TrackChunk MakePattern(byte channel,
             DrumTrackRow track,
             PatternBuilder pattern, TempoMap tempoMap)
