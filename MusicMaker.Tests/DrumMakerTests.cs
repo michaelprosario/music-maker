@@ -10,6 +10,20 @@ public class DrumMakerTests
         IMidiServices midiServices = new MidiServices();
         var service = new MakeDrumTrackService(midiServices);
         var command = new MakeDrumTrackCommand();
+        command.BeatsPerMinute = 90;
+        command.Tracks = new List<DrumTrackRow>{
+            new DrumTrackRow()
+            {
+                Pattern = "x---|x---|x---|x---|",
+                InstrumentNumber = DrumConstants.AcousticBassDrum
+            },
+            new DrumTrackRow()
+            {
+                Pattern = "--x-|--x-|--x-|--x-|",
+                InstrumentNumber = DrumConstants.AcousticSnare
+            }
+        };
+        command.UserId = "system";
 
         // act
         var response = service.MakeDrumTrack(command);
@@ -17,5 +31,4 @@ public class DrumMakerTests
         // assert
         Assert.IsTrue(response != null);
     }
-
 }

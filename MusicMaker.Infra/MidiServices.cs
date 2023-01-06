@@ -16,9 +16,7 @@ public class MidiServices : IMidiServices
         // https://melanchall.github.io/drywetmidi/articles/composing/Pattern.html
         var defaultNoteLength = MusicalTimeSpan.Sixteenth;
         var defaultVelocity = (SevenBitNumber)90;
-
         var tracks = new List<Melanchall.DryWetMidi.Core.TrackChunk>();
-
 
         byte channel = 1;
         foreach(var track in command.Tracks)
@@ -28,9 +26,7 @@ public class MidiServices : IMidiServices
                 .SetVelocity(defaultVelocity);
 
             MakePattern(channel, track, pattern, tracks);
-            channel++;
-
-            
+            channel++;            
         }
 
         return response;
