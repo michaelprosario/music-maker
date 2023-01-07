@@ -12,15 +12,16 @@ namespace MusicMaker.Infra
 {
     public class MidiServices : IMidiServices
     {
-        public int GetNoteNumber(string noteName){
+        public int GetNoteNumber(string noteName)
+        {
             return Note.Parse(noteName).NoteNumber;
         }
 
         public MakeDrumTrackResponse MakeDrumTrack(MakeDrumTrackCommand command)
         {
             MakeDrumTrackResponse response = new();
-            
-            TempoMap tempoMap = TempoMap.Create(Tempo.FromBeatsPerMinute(command.BeatsPerMinute));            
+
+            TempoMap tempoMap = TempoMap.Create(Tempo.FromBeatsPerMinute(command.BeatsPerMinute));
 
             // https://melanchall.github.io/drywetmidi/articles/composing/Pattern.html
             var defaultNoteLength = MusicalTimeSpan.Sixteenth;
@@ -37,14 +38,11 @@ namespace MusicMaker.Infra
                 var trackChunk = MakePattern(channel, track, pattern, tempoMap);
                 tracks.Add(trackChunk);
             }
-            
+
             var midiFile = new MidiFile();
-            foreach (var trackChunk in tracks)
-            {
-                midiFile.Chunks.Add(trackChunk);    
-            }
-            
-            midiFile.Write(command.FileName);            
+            foreach (var trackChunk in tracks) midiFile.Chunks.Add(trackChunk);
+
+            midiFile.Write(command.FileName);
 
             return response;
         }
@@ -54,7 +52,6 @@ namespace MusicMaker.Infra
             PatternBuilder pattern, TempoMap tempoMap)
         {
             foreach (var character in track.Pattern)
-            {
                 switch (character)
                 {
                     case 'x':
@@ -67,8 +64,7 @@ namespace MusicMaker.Infra
                         pattern.StepForward(MusicalTimeSpan.Sixteenth);
                         break;
                 }
-            }
-            
+
             return pattern.Build().ToTrackChunk(tempoMap, new FourBitNumber(channel));
         }
     }

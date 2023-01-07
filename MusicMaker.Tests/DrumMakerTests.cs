@@ -17,10 +17,10 @@ namespace MusicMaker.Tests
         {
             // arrange
             string fileName = "testDrums.mid";
-            
-            if(File.Exists(fileName))
+
+            if (File.Exists(fileName))
                 File.Delete(fileName);
-            
+
             IMidiServices midiServices = new MidiServices();
             var service = new MakeDrumTrackService(midiServices);
             var command = new MakeDrumTrackCommand
@@ -33,7 +33,7 @@ namespace MusicMaker.Tests
                     {
                         Pattern = "x-x-|x-x-|x-x-|x-x-|x-x-|x-x-|x-x-|x-x-|",
                         InstrumentNumber = DrumConstants.HiHat
-                    },                    
+                    },
                     new()
                     {
                         Pattern = "x---|----|x---|----|x---|----|x---|----|",

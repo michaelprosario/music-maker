@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using MusicMaker.Core.Enums;
 using MusicMaker.Core.Interfaces;
 using MusicMaker.Core.ValueObjects;
@@ -15,7 +17,7 @@ namespace MusicMaker.Core.Services
 
         public ChordNotes MakeChordNotes(string root, ChordType type)
         {
-            int intRoot = _midiServices.GetNoteNumber(root);
+            var intRoot = _midiServices.GetNoteNumber(root);
             var aChord = new List<int>();
 
             if (type == ChordType.Major)
@@ -29,7 +31,6 @@ namespace MusicMaker.Core.Services
                 aChord.Add(intRoot);
                 aChord.Add(intRoot + 3);
                 aChord.Add(intRoot + 7);
-
             }
             else if (type == ChordType.Major7)
             {
@@ -59,6 +60,5 @@ namespace MusicMaker.Core.Services
 
             return new ChordNotes(aChord.ToArray(), root, type);
         }
-
     }
 }

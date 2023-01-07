@@ -1,32 +1,31 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Composing;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
+using Melanchall.DryWetMidi.Standards;
 using MusicMaker.Core.Services;
 
 namespace MusicMaker.Infra
 {
     public class ChordPlayerTrack : IChordPlayerTrack
     {
-        private readonly int channel;
-        private readonly int tempo;
-        public PatternBuilder PatternBuilder;
+        private readonly int _channel;
+        private readonly int _tempo;
+        public readonly PatternBuilder PatternBuilder;
+
         public ChordPlayerTrack(int instrument, int channel, int tempo)
         {
             PatternBuilder = new PatternBuilder();
-            PatternBuilder.ProgramChange((SevenBitNumber)instrument);
-            this.channel = channel;
-            this.tempo = tempo;
+            GeneralMidi2Program generalMidiProgram = (GeneralMidi2Program)instrument;
+            PatternBuilder.ProgramChange(generalMidiProgram);
+            this._channel = channel;
+            this._tempo = tempo;
         }
 
         public TrackChunk MakeTrackChunk()
         {
-            TempoMap tempoMap = TempoMap.Create(Tempo.FromBeatsPerMinute(tempo));            
-            return PatternBuilder.Build().ToTrackChunk(tempoMap, new FourBitNumber((byte)channel));
+            TempoMap tempoMap = TempoMap.Create(Tempo.FromBeatsPerMinute(_tempo));
+            return PatternBuilder.Build().ToTrackChunk(tempoMap, new FourBitNumber((byte)_channel));
         }
     }
 }

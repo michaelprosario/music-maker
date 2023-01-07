@@ -42,13 +42,13 @@ namespace MusicMaker.Core.Services
                 response.Code = 400;
                 return response;
             }
-            
+
             if (string.IsNullOrEmpty(command.FileName))
             {
                 response.Message = "command.FileName is not defined";
                 response.Code = 400;
                 return response;
-            }            
+            }
 
             return _midiServices.MakeDrumTrack(command);
         }

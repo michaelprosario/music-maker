@@ -1,10 +1,10 @@
+using System.Collections.Generic;
 using MusicMaker.Core.ValueObjects;
 
 namespace MusicMaker.Core.Services
 {
     public interface IChordPlayerTrack
     {
-
     }
 
     public abstract class AbstractChordPlayer
@@ -17,7 +17,6 @@ namespace MusicMaker.Core.Services
         public void PlayFromChordChanges(IChordPlayerTrack track, List<ChordChange2> chordList, int channel)
         {
             foreach (var chordChange in chordList)
-            {
                 if (chordChange.BeatCount == 2)
                 {
                     PlayTwoBarPattern(track, channel, chordChange);
@@ -34,13 +33,6 @@ namespace MusicMaker.Core.Services
                 {
                     PlayOneBarPattern(track, channel, chordChange);
                 }
-                else
-                {
-                    //track.AddChord(channel, chordChange.Chord, chordChange.Length * 128);
-                }
-
-            }
         }
     }
-
 }
