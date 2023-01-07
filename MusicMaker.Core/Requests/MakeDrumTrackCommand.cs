@@ -15,6 +15,7 @@ namespace MusicMaker.Core.Requests
             BeatsPerMinute = 120;
             Tracks = new List<DrumTrackRow>();
             UserId = "";
+            FileName = "";
         }
 
         public int BeatsPerMinute { get; set; }

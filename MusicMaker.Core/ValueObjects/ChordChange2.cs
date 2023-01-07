@@ -8,7 +8,7 @@ namespace MusicMaker.Core.ValueObjects
         public int ChordRoot;
         public ChordType ChordType;
 
-        private ChordChange2(int root, ChordType chordType, int beats)
+        public ChordChange2(int root, ChordType chordType, int beats)
         {
             ChordRoot = root;
             ChordType = chordType;

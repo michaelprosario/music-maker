@@ -1,5 +1,6 @@
 using MusicMaker.Core.Enums;
 using MusicMaker.Core.Interfaces;
+using MusicMaker.Core.ValueObjects;
 
 namespace MusicMaker.Core.Services
 {
@@ -12,7 +13,7 @@ namespace MusicMaker.Core.Services
             _midiServices = midiServices ?? throw new ArgumentNullException(nameof(midiServices));
         }
 
-        public int[] MakeChordNoteNumbers(string root, ChordType type)
+        public ChordNotes MakeChordNotes(string root, ChordType type)
         {
             int intRoot = _midiServices.GetNoteNumber(root);
             var aChord = new List<int>();
@@ -56,7 +57,7 @@ namespace MusicMaker.Core.Services
                 throw new Exception("Help...Handle new chord type");
             }
 
-            return aChord.ToArray();
+            return new ChordNotes(aChord.ToArray(), root, type);
         }
 
     }
