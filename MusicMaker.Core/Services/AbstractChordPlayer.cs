@@ -9,29 +9,36 @@ namespace MusicMaker.Core.Services
 
     public abstract class AbstractChordPlayer
     {
-        public abstract void PlayOneBarPattern(IChordPlayerTrack track, int channel, ChordChange2 chordChange);
-        public abstract void PlayTwoBarPattern(IChordPlayerTrack track, int channel, ChordChange2 chordChange);
-        public abstract void PlayThreeBarPattern(IChordPlayerTrack track, int channel, ChordChange2 chordChange);
-        public abstract void PlayFourBarPattern(IChordPlayerTrack track, int channel, ChordChange2 chordChange);
+        private readonly IChordPlayerTrack _chordPlayerTrack;
 
-        public void PlayFromChordChanges(IChordPlayerTrack track, List<ChordChange2> chordList, int channel)
+        protected AbstractChordPlayer(IChordPlayerTrack chordPlayerTrack)
+        {
+            _chordPlayerTrack = chordPlayerTrack;
+        }
+        
+        public abstract void PlayOneBarPattern(ChordChange chordChange);
+        public abstract void PlayTwoBarPattern(ChordChange chordChange);
+        public abstract void PlayThreeBarPattern(ChordChange chordChange);
+        public abstract void PlayFourBarPattern(ChordChange chordChange);
+
+        public void PlayFromChordChanges(List<ChordChange> chordList)
         {
             foreach (var chordChange in chordList)
                 if (chordChange.BeatCount == 2)
                 {
-                    PlayTwoBarPattern(track, channel, chordChange);
+                    PlayTwoBarPattern(chordChange);
                 }
                 else if (chordChange.BeatCount == 4)
                 {
-                    PlayFourBarPattern(track, channel, chordChange);
+                    PlayFourBarPattern(chordChange);
                 }
                 else if (chordChange.BeatCount == 3)
                 {
-                    PlayFourBarPattern(track, channel, chordChange);
+                    PlayFourBarPattern(chordChange);
                 }
                 else if (chordChange.BeatCount == 1)
                 {
-                    PlayOneBarPattern(track, channel, chordChange);
+                    PlayOneBarPattern(chordChange);
                 }
         }
     }
