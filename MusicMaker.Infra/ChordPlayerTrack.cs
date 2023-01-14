@@ -13,10 +13,10 @@ namespace MusicMaker.Infra
         private readonly int _tempo;
         public PatternBuilder PatternBuilder;
 
-        public ChordPlayerTrack(int instrument, int channel, int tempo)
+        public ChordPlayerTrack(byte instrument, int channel, int tempo)
         {
             PatternBuilder = new PatternBuilder();
-            GeneralMidi2Program generalMidiProgram = (GeneralMidi2Program)instrument;
+            GeneralMidiProgram generalMidiProgram = (GeneralMidiProgram)instrument;
             PatternBuilder.ProgramChange(generalMidiProgram);
             this._channel = channel;
             this._tempo = tempo;

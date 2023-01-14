@@ -31,7 +31,7 @@ namespace MusicMaker.Tests
         public void BaseOnePlayer__Test1()
         {
             var tempo = 180;
-            var instrument = Instruments.ElectricPiano1;
+            var instrument = (byte)Instruments.ElectricPiano1;
             var channel = 1;
 
             var track = new ChordPlayerTrack(instrument, channel, tempo);
