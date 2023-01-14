@@ -11,7 +11,7 @@ namespace MusicMaker.Infra
     {
         private readonly int _channel;
         private readonly int _tempo;
-        public readonly PatternBuilder PatternBuilder;
+        public PatternBuilder PatternBuilder;
 
         public ChordPlayerTrack(int instrument, int channel, int tempo)
         {

@@ -1,16 +1,18 @@
-using System.Collections.Generic;
+using MusicMaker.Core.Enums;
 
 namespace MusicMaker.Core.ValueObjects
 {
     public class ChordChange
     {
-        public List<int> Chord;
-        public int Length;
+        public int BeatCount;
+        public int ChordRoot;
+        public ChordType ChordType;
 
-        private ChordChange(List<int> chord, int length)
+        public ChordChange(int root, ChordType chordType, int beats)
         {
-            Chord = chord;
-            Length = length;
+            ChordRoot = root;
+            ChordType = chordType;
+            BeatCount = beats;
         }
     }
 }

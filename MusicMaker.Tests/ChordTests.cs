@@ -34,10 +34,10 @@ namespace MusicMaker.Tests
             var instrument = Instruments.ElectricPiano1;
             var channel = 1;
 
-            ChordPlayerTrack track = new(instrument, channel, tempo);
+            var track = new ChordPlayerTrack(instrument, channel, tempo);
             
             var player = new BassOnePlayer(track);
-            var chordChanges = new List<ChordChange2>
+            var chordChanges = new List<ChordChange>
             {
                 new(Note.Parse("C4").NoteNumber, ChordType.Major, 4),
                 new(Note.Parse("A4").NoteNumber, ChordType.Major, 4),
@@ -45,7 +45,7 @@ namespace MusicMaker.Tests
                 new(Note.Parse("G4").NoteNumber, ChordType.Major, 4)
             };
 
-            player.PlayFromChordChanges(track, chordChanges, channel);
+            player.PlayFromChordChanges(chordChanges);
 
             var midiFile = new MidiFile();
             midiFile.Chunks.Add(track.MakeTrackChunk());
