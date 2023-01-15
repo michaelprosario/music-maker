@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Melanchall.DryWetMidi.Common;
+﻿using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Composing;
-using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
 using MusicMaker.Core.Enums;
 using MusicMaker.Core.Requests;
@@ -72,9 +69,44 @@ namespace MusicMaker.Infra
                     case 's':
                     {
                         var instrumentNote = noteNumber;
+                        pattern.SetNoteLength(MusicalTimeSpan.Sixteenth);
                         pattern.Note(Note.Get((SevenBitNumber)instrumentNote));
                         break;
                     }
+                    case 'e':
+                    {
+                        var instrumentNote = noteNumber;
+                        pattern.SetNoteLength(MusicalTimeSpan.Eighth);
+                        pattern.Note(Note.Get((SevenBitNumber)instrumentNote));
+                        pattern.SetNoteLength(MusicalTimeSpan.Sixteenth);
+                        break;
+                    }
+                    case 'q':
+                    {
+                        var instrumentNote = noteNumber;
+                        pattern.SetNoteLength(MusicalTimeSpan.Quarter);
+                        pattern.Note(Note.Get((SevenBitNumber)instrumentNote));
+                        pattern.SetNoteLength(MusicalTimeSpan.Sixteenth);
+                        break;
+                    }      
+                    case 'h':
+                    {
+                        var instrumentNote = noteNumber;
+                        pattern.SetNoteLength(MusicalTimeSpan.Half);
+                        pattern.Note(Note.Get((SevenBitNumber)instrumentNote));
+                        pattern.SetNoteLength(MusicalTimeSpan.Sixteenth);
+
+                        break;
+                    } 
+                    case 'w':
+                    {
+                        var instrumentNote = noteNumber;
+                        pattern.SetNoteLength(MusicalTimeSpan.Whole);
+                        pattern.Note(Note.Get((SevenBitNumber)instrumentNote));
+                        pattern.SetNoteLength(MusicalTimeSpan.Sixteenth);
+
+                        break;
+                    }                                                       
                     case '-':
                         pattern.StepForward(MusicalTimeSpan.Sixteenth);
                         break;
