@@ -238,9 +238,9 @@ namespace MusicMaker.Tests
                         new() { Type = ArpeggioPatternRowType.Fifth, Octave = 2, Pattern = "----|----|----|----|" },
                         new() { Type = ArpeggioPatternRowType.Third, Octave = 2, Pattern = "----|----|----|----|" },
                         new() { Type = ArpeggioPatternRowType.Root, Octave = 2,  Pattern = "----|----|----|----|" },
-                        new() { Type = ArpeggioPatternRowType.Fifth, Octave = 1, Pattern = "----|----|q---|e---|" },
-                        new() { Type = ArpeggioPatternRowType.Third, Octave = 1, Pattern = "----|----|----|--e-|" },
-                        new() { Type = ArpeggioPatternRowType.Root, Octave = 1,  Pattern = "h---|----|----|----|" },
+                        new() { Type = ArpeggioPatternRowType.Fifth, Octave = 1, Pattern = "----|----|q~~~|e~--|" },
+                        new() { Type = ArpeggioPatternRowType.Third, Octave = 1, Pattern = "----|----|----|--e~|" },
+                        new() { Type = ArpeggioPatternRowType.Root, Octave = 1,  Pattern = "h~~~|~~~~|----|----|" },
                     },
                     InstrumentNumber = Instruments.Banjo
                 },

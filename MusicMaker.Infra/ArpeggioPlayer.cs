@@ -78,7 +78,6 @@ namespace MusicMaker.Infra
                         var instrumentNote = noteNumber;
                         pattern.SetNoteLength(MusicalTimeSpan.Eighth);
                         pattern.Note(Note.Get((SevenBitNumber)instrumentNote));
-                        pattern.SetNoteLength(MusicalTimeSpan.Sixteenth);
                         break;
                     }
                     case 'q':
@@ -86,7 +85,6 @@ namespace MusicMaker.Infra
                         var instrumentNote = noteNumber;
                         pattern.SetNoteLength(MusicalTimeSpan.Quarter);
                         pattern.Note(Note.Get((SevenBitNumber)instrumentNote));
-                        pattern.SetNoteLength(MusicalTimeSpan.Sixteenth);
                         break;
                     }      
                     case 'h':
@@ -94,8 +92,6 @@ namespace MusicMaker.Infra
                         var instrumentNote = noteNumber;
                         pattern.SetNoteLength(MusicalTimeSpan.Half);
                         pattern.Note(Note.Get((SevenBitNumber)instrumentNote));
-                        pattern.SetNoteLength(MusicalTimeSpan.Sixteenth);
-
                         break;
                     } 
                     case 'w':
@@ -103,8 +99,6 @@ namespace MusicMaker.Infra
                         var instrumentNote = noteNumber;
                         pattern.SetNoteLength(MusicalTimeSpan.Whole);
                         pattern.Note(Note.Get((SevenBitNumber)instrumentNote));
-                        pattern.SetNoteLength(MusicalTimeSpan.Sixteenth);
-
                         break;
                     }                                                       
                     case '-':
