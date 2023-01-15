@@ -35,7 +35,7 @@ namespace MusicMaker.Tests
             var channel = 1;
 
             var track = new ChordPlayerTrack(instrument, channel, tempo);
-            
+
             var player = new BassOnePlayer(track);
             var chordChanges = new List<ChordChange>
             {
