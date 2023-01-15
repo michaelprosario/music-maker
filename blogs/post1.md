@@ -1,10 +1,30 @@
+Curious about making music with code? As a software engineer and music guy, I have enjoyed seeing the connections between music and computers.   The first computer programmer, Ada Lovelace predicted that computers will move beyond doing boring stats problems into the world of creative arts.   If a problem can be converted to a system of symbols, she reasoned that computers could help.  She used music as her example.
 
-catch
-- what
-- where
-- when
-- why
-- how
+In previous experiments, I have explored the ideas of code and music using TypeScript, NodeJs, and Angular.  You can find this work here.  
+
+- [NG-Music-Maker](https://github.com/michaelprosario/ng-music-maker)
+
+After looking around GitHub, I found a really cool music library for C# devs. I'm hoping to use it create tools to make quick practice backup tracks for practicing improv. It's just fun to explore electronic music, music theory, and computational music.  Make sure to check out the blog post by Maxim.  It's a pretty comprehensive guide to his library.
+
+- [drywetmidi](https://github.com/melanchall/drywetmidi)
+- [DryWetMIDI High level-processing of-MIDI files](https://www.codeproject.com/Articles/1200014/DryWetMIDI-High-level-processing-of-MIDI-files)
+
+
+# What is MIDI?
+- talk about MIDI for the novice
+
+
+# DryWetMidi Features
+- Reading MIDI files
+- Writing MIDI files
+    - low level
+    - higher level api
+- Productive composition API
+- Tools to playback MIDI files on Windows
+- MIDI chord extraction - 
+- Device interaction
+    - Sending MIDI events
+    - Receiving events
 
 
 
@@ -47,25 +67,19 @@ var response = service.MakeDrumTrack(command);
 
 ``` csharp
 var tempo = 180;
-var instrument = Instruments.ElectricPiano1;
+var instrument = (byte)Instruments.AcousticGrandPiano;
 var channel = 1;
 
-ChordPlayerTrack track = new(instrument, channel, tempo);
+var track = new ChordPlayerTrack(instrument, channel, tempo);
+var command = ArpeggioPatternCommandFactory.MakeArpeggioPatternCommand1();
+var player = new ArpeggioPlayer(track, );
+var chordChanges = GetChords1();
 
-var player = new BassOnePlayer(track);
-var chordChanges = new List<ChordChange2>
-{
-    new(Note.Parse("C4").NoteNumber, ChordType.Major, 4),
-    new(Note.Parse("A4").NoteNumber, ChordType.Major, 4),
-    new(Note.Parse("F4").NoteNumber, ChordType.Major, 4),
-    new(Note.Parse("G4").NoteNumber, ChordType.Major, 4)
-};
-
-player.PlayFromChordChanges(track, chordChanges, channel);
+player.PlayFromChordChanges(chordChanges);
 
 var midiFile = new MidiFile();
 midiFile.Chunks.Add(track.MakeTrackChunk());
-midiFile.Write("bass3.mid", true);
+midiFile.Write("arp1.mid", true);
 ```
 
 
