@@ -15,6 +15,11 @@ namespace MusicMaker.Infra
 
         public ChordPlayerTrack(byte instrument, int channel, int tempo)
         {
+            if(channel < 0)
+                throw new ArgumentException("Channel should not be negative");
+            if(channel > 15)
+                throw new ArgumentException("Channel should not be greater than 15");
+
             PatternBuilder = new PatternBuilder();
             var generalMidiProgram = (GeneralMidiProgram)instrument;
             PatternBuilder.ProgramChange(generalMidiProgram);

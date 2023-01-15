@@ -22,7 +22,7 @@ namespace MusicMaker.Tests
 
             var track = new ChordPlayerTrack(instrument, channel, tempo);
 
-            var player = new ArpeggioPlayer(track, MakeArpeggioPatternCommand1());
+            var player = new ArpeggioPlayer(track, ArpeggioPatternCommandFactory.MakeArpeggioPatternCommand1());
             var chordChanges = GetChords1();
 
             player.PlayFromChordChanges(chordChanges);
@@ -41,7 +41,7 @@ namespace MusicMaker.Tests
 
             var track = new ChordPlayerTrack(instrument, channel, tempo);
 
-            var player = new ArpeggioPlayer(track, MakeArpeggioPatternCommand4());
+            var player = new ArpeggioPlayer(track, ArpeggioPatternCommandFactory.MakeArpeggioPatternCommand4());
             var chordChanges = GetChords1();
 
             player.PlayFromChordChanges(chordChanges);
@@ -84,9 +84,9 @@ namespace MusicMaker.Tests
             var track2 = new ChordPlayerTrack((byte)GeneralMidiProgram.Vibraphone, 2, tempo);
             var track3 = new ChordPlayerTrack((byte)GeneralMidiProgram.ElectricBass1, 3, tempo);
 
-            var player = new ArpeggioPlayer(track, MakeArpeggioPatternCommand2());
-            var player2 = new ArpeggioPlayer(track2, MakeArpeggioPatternCommand1());
-            var player3 = new ArpeggioPlayer(track3, MakeArpeggioPatternCommand3());
+            var player = new ArpeggioPlayer(track, ArpeggioPatternCommandFactory.MakeArpeggioPatternCommand2());
+            var player2 = new ArpeggioPlayer(track2, ArpeggioPatternCommandFactory.MakeArpeggioPatternCommand1());
+            var player3 = new ArpeggioPlayer(track3, ArpeggioPatternCommandFactory.MakeArpeggioPatternCommand3());
 
             var chordChanges = GetChords2();
 
@@ -154,125 +154,12 @@ namespace MusicMaker.Tests
             return chordChanges;
         }
 
-        private MakeArpeggioPatternCommand MakeArpeggioPatternCommand1()
-        {
-            var command = new MakeArpeggioPatternCommand
-            {
-                Pattern = new ArpeggioPattern
-                {
-                    Rows = new List<ArpeggioPatternRow>
-                    {
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Fifth, Octave = 2, Pattern = "----|----|----|---s|" },
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Third, Octave = 2, Pattern = "----|--s-|s---|s---|" },
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Root, Octave = 2, Pattern = "---s|-s-s|---s|-s--|" },
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Fifth, Octave = 1, Pattern = "--s-|s---|--s-|--s-|" },
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Third, Octave = 1, Pattern = "-s--|----|-s--|----|" },
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Root, Octave = 1, Pattern = "s---|----|s---|----|" }
-                    },
-                    InstrumentNumber = Instruments.Banjo
-                },
-                UserId = "mrosario",
-                BeatsPerMinute = 120,
-                Channel = 0
-            };
-            return command;
-        }
+       
 
-        private MakeArpeggioPatternCommand MakeArpeggioPatternCommand2()
-        {
-            var command = new MakeArpeggioPatternCommand
-            {
-                Pattern = new ArpeggioPattern
-                {
-                    Rows = new List<ArpeggioPatternRow>
-                    {
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Fifth, Octave = 2, Pattern = "----|----|----|----|" },
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Third, Octave = 2, Pattern = "----|----|----|----|" },
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Root, Octave = 2, Pattern = "----|----|----|----|" },
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Fifth, Octave = 1, Pattern = "--s-|--s-|--s-|s--s|" },
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Third, Octave = 1, Pattern = "--s-|--s-|--s-|s--s|" },
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Root, Octave = 1, Pattern = "--s-|--s-|--s-|s--s|" }
-                    },
-                    InstrumentNumber = Instruments.Banjo
-                },
-                UserId = "mrosario",
-                BeatsPerMinute = 120,
-                Channel = 0
-            };
-            return command;
-        }
+        
 
-        private MakeArpeggioPatternCommand MakeArpeggioPatternCommand3()
-        {
-            var command = new MakeArpeggioPatternCommand
-            {
-                Pattern = new ArpeggioPattern
-                {
-                    Rows = new List<ArpeggioPatternRow>
-                    {
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Fifth, Octave = 2, Pattern = "----|----|----|----|" },
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Third, Octave = 2, Pattern = "----|----|----|----|" },
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Root, Octave = 2, Pattern = "----|----|----|----|" },
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Fifth, Octave = 1, Pattern = "----|----|----|---s|" },
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Third, Octave = 1, Pattern = "----|----|----|----|" },
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Root, Octave = 1, Pattern = "s-s-|s-s-|s-s-|s-s-|" }
-                    },
-                    InstrumentNumber = Instruments.Banjo
-                },
-                UserId = "mrosario",
-                BeatsPerMinute = 120,
-                Channel = 0
-            };
-            return command;
-        }
+        
 
-        private MakeArpeggioPatternCommand MakeArpeggioPatternCommand4()
-        {
-            // pattern includes half and eighth note items
-            var command = new MakeArpeggioPatternCommand
-            {
-                Pattern = new ArpeggioPattern
-                {
-                    Rows = new List<ArpeggioPatternRow>
-                    {
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Fifth, Octave = 2, Pattern = "----|----|----|----|" },
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Third, Octave = 2, Pattern = "----|----|----|----|" },
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Root, Octave = 2, Pattern = "----|----|----|----|" },
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Fifth, Octave = 1, Pattern = "----|----|q~~~|e~--|" },
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Third, Octave = 1, Pattern = "----|----|----|--e~|" },
-                        new ArpeggioPatternRow
-                            { Type = ArpeggioPatternRowType.Root, Octave = 1, Pattern = "h~~~|~~~~|----|----|" }
-                    },
-                    InstrumentNumber = Instruments.Banjo
-                },
-                UserId = "mrosario",
-                BeatsPerMinute = 120,
-                Channel = 0
-            };
-            return command;
-        }
+        
     }
 }
