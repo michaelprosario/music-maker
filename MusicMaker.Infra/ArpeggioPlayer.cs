@@ -1,4 +1,5 @@
-﻿using Melanchall.DryWetMidi.Common;
+﻿using System;
+using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Composing;
 using Melanchall.DryWetMidi.Interaction;
 using MusicMaker.Core.Enums;
@@ -11,28 +12,28 @@ namespace MusicMaker.Infra
 {
     public class ArpeggioPlayer : AbstractChordPlayer
     {
-        private readonly ChordPlayerTrack _track;
         private readonly MakeArpeggioPatternCommand _command;
-        
+        private readonly ChordPlayerTrack _track;
+
         public ArpeggioPlayer(ChordPlayerTrack track, MakeArpeggioPatternCommand command) : base(track)
         {
             _track = track ?? throw new ArgumentNullException(nameof(track));
             _command = command ?? throw new ArgumentNullException(nameof(command));
         }
-        
+
         public override void PlayOneBarPattern(ChordChange chordChange)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public override void PlayTwoBarPattern(ChordChange chordChange)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public override void PlayThreeBarPattern(ChordChange chordChange)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public override void PlayFourBarPattern(ChordChange chordChange)
@@ -48,19 +49,19 @@ namespace MusicMaker.Infra
             var responsePattern = PatternUtilities.CombineInParallel(patterns);
             _track.PatternBuilder.Pattern(responsePattern);
         }
-        
+
         private Pattern MakePattern
         (
             ArpeggioPatternRow arpPatternRow,
             ChordChange chordChange
-            )
+        )
         {
             var defaultNoteLength = MusicalTimeSpan.Sixteenth;
-            var defaultVelocity = (SevenBitNumber)90;            
+            var defaultVelocity = (SevenBitNumber)90;
             var pattern = new PatternBuilder()
                 .SetNoteLength(defaultNoteLength)
-                .SetVelocity(defaultVelocity);         
-            
+                .SetVelocity(defaultVelocity);
+
             var noteNumber = GetNoteNumber(arpPatternRow, chordChange);
 
             foreach (var character in arpPatternRow.Pattern)
@@ -86,21 +87,21 @@ namespace MusicMaker.Infra
                         pattern.SetNoteLength(MusicalTimeSpan.Quarter);
                         pattern.Note(Note.Get((SevenBitNumber)instrumentNote));
                         break;
-                    }      
+                    }
                     case 'h':
                     {
                         var instrumentNote = noteNumber;
                         pattern.SetNoteLength(MusicalTimeSpan.Half);
                         pattern.Note(Note.Get((SevenBitNumber)instrumentNote));
                         break;
-                    } 
+                    }
                     case 'w':
                     {
                         var instrumentNote = noteNumber;
                         pattern.SetNoteLength(MusicalTimeSpan.Whole);
                         pattern.Note(Note.Get((SevenBitNumber)instrumentNote));
                         break;
-                    }                                                       
+                    }
                     case '-':
                         pattern.StepForward(MusicalTimeSpan.Sixteenth);
                         break;
@@ -112,10 +113,10 @@ namespace MusicMaker.Infra
         private static int GetNoteNumber(ArpeggioPatternRow track, ChordChange chordChange)
         {
             // calculate noteNumber
-            int noteNumber = chordChange.ChordRoot;
+            var noteNumber = chordChange.ChordRoot;
 
             // move the instrument number up based on octave
-            noteNumber = noteNumber + ((track.Octave - 1) * 24);
+            noteNumber = noteNumber + (track.Octave - 1) * 24;
 
             switch (track.Type)
             {
@@ -126,14 +127,10 @@ namespace MusicMaker.Infra
                     break;
                 case ArpeggioPatternRowType.Third:
                     if (chordChange.ChordType == ChordType.Minor || chordChange.ChordType == ChordType.Minor7)
-                    {
                         noteNumber += 3;
-                    }
                     else
-                    {
                         // chord is some kind of major chord
                         noteNumber += 4;
-                    }
 
                     break;
                 case ArpeggioPatternRowType.Fifth:

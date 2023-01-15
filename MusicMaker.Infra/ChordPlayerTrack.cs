@@ -16,10 +16,10 @@ namespace MusicMaker.Infra
         public ChordPlayerTrack(byte instrument, int channel, int tempo)
         {
             PatternBuilder = new PatternBuilder();
-            GeneralMidiProgram generalMidiProgram = (GeneralMidiProgram)instrument;
+            var generalMidiProgram = (GeneralMidiProgram)instrument;
             PatternBuilder.ProgramChange(generalMidiProgram);
-            this._channel = channel;
-            this._tempo = tempo;
+            _channel = channel;
+            _tempo = tempo;
         }
 
         public TrackChunk MakeTrackChunk()

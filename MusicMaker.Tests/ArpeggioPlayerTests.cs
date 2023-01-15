@@ -58,7 +58,7 @@ namespace MusicMaker.Tests
                 new(Note.Parse("A4").NoteNumber, ChordType.Minor, 4),
                 new(Note.Parse("G4").NoteNumber, ChordType.Major, 4),
                 new(Note.Parse("F4").NoteNumber, ChordType.Major, 4),
-                new(Note.Parse("E4").NoteNumber, ChordType.Major, 4),
+                new(Note.Parse("E4").NoteNumber, ChordType.Major, 4)
             };
             return chordChanges;
         }
@@ -70,7 +70,7 @@ namespace MusicMaker.Tests
                 new(Note.Parse("C4").NoteNumber, ChordType.Major, 4),
                 new(Note.Parse("E4").NoteNumber, ChordType.Minor, 4),
                 new(Note.Parse("F4").NoteNumber, ChordType.Major, 4),
-                new(Note.Parse("G4").NoteNumber, ChordType.Major, 4),
+                new(Note.Parse("G4").NoteNumber, ChordType.Major, 4)
             };
             return chordChanges;
         }
@@ -149,7 +149,7 @@ namespace MusicMaker.Tests
                 new(Note.Parse("G4").NoteNumber, ChordType.Major, 4),
                 new(Note.Parse("D4").NoteNumber, ChordType.Major, 4),
                 new(Note.Parse("C4").NoteNumber, ChordType.Major, 4),
-                new(Note.Parse("C4").NoteNumber, ChordType.Major, 4),
+                new(Note.Parse("C4").NoteNumber, ChordType.Major, 4)
             };
             return chordChanges;
         }
@@ -158,16 +158,22 @@ namespace MusicMaker.Tests
         {
             var command = new MakeArpeggioPatternCommand
             {
-                Pattern = new ArpeggioPattern()
+                Pattern = new ArpeggioPattern
                 {
-                    Rows = new()
+                    Rows = new List<ArpeggioPatternRow>
                     {
-                        new() { Type = ArpeggioPatternRowType.Fifth, Octave = 2, Pattern = "----|----|----|---s  |" },
-                        new() { Type = ArpeggioPatternRowType.Third, Octave = 2, Pattern = "----|--s-|s---|s---|" },
-                        new() { Type = ArpeggioPatternRowType.Root, Octave = 2, Pattern =  "---s|-s-s|---s|-s--|" },
-                        new() { Type = ArpeggioPatternRowType.Fifth, Octave = 1, Pattern = "--s-|s---|--s-|--s-|" },
-                        new() { Type = ArpeggioPatternRowType.Third, Octave = 1, Pattern = "-s--|----|-s--|----|" },
-                        new() { Type = ArpeggioPatternRowType.Root, Octave = 1, Pattern =  "s---|----|s---|----|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Fifth, Octave = 2, Pattern = "----|----|----|---s|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Third, Octave = 2, Pattern = "----|--s-|s---|s---|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Root, Octave = 2, Pattern = "---s|-s-s|---s|-s--|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Fifth, Octave = 1, Pattern = "--s-|s---|--s-|--s-|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Third, Octave = 1, Pattern = "-s--|----|-s--|----|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Root, Octave = 1, Pattern = "s---|----|s---|----|" }
                     },
                     InstrumentNumber = Instruments.Banjo
                 },
@@ -182,16 +188,22 @@ namespace MusicMaker.Tests
         {
             var command = new MakeArpeggioPatternCommand
             {
-                Pattern = new ArpeggioPattern()
+                Pattern = new ArpeggioPattern
                 {
-                    Rows = new()
+                    Rows = new List<ArpeggioPatternRow>
                     {
-                        new() { Type = ArpeggioPatternRowType.Fifth, Octave = 2, Pattern = "----|----|----|----|" },
-                        new() { Type = ArpeggioPatternRowType.Third, Octave = 2, Pattern = "----|----|----|----|" },
-                        new() { Type = ArpeggioPatternRowType.Root, Octave = 2, Pattern =  "----|----|----|----|" },
-                        new() { Type = ArpeggioPatternRowType.Fifth, Octave = 1, Pattern = "--s-|--s-|--s-|s--s|" },
-                        new() { Type = ArpeggioPatternRowType.Third, Octave = 1, Pattern = "--s-|--s-|--s-|s--s|" },
-                        new() { Type = ArpeggioPatternRowType.Root, Octave = 1, Pattern =  "--s-|--s-|--s-|s--s|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Fifth, Octave = 2, Pattern = "----|----|----|----|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Third, Octave = 2, Pattern = "----|----|----|----|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Root, Octave = 2, Pattern = "----|----|----|----|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Fifth, Octave = 1, Pattern = "--s-|--s-|--s-|s--s|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Third, Octave = 1, Pattern = "--s-|--s-|--s-|s--s|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Root, Octave = 1, Pattern = "--s-|--s-|--s-|s--s|" }
                     },
                     InstrumentNumber = Instruments.Banjo
                 },
@@ -206,16 +218,22 @@ namespace MusicMaker.Tests
         {
             var command = new MakeArpeggioPatternCommand
             {
-                Pattern = new ArpeggioPattern()
+                Pattern = new ArpeggioPattern
                 {
-                    Rows = new()
+                    Rows = new List<ArpeggioPatternRow>
                     {
-                        new() { Type = ArpeggioPatternRowType.Fifth, Octave = 2, Pattern = "----|----|----|----|" },
-                        new() { Type = ArpeggioPatternRowType.Third, Octave = 2, Pattern = "----|----|----|----|" },
-                        new() { Type = ArpeggioPatternRowType.Root, Octave = 2, Pattern =  "----|----|----|----|" },
-                        new() { Type = ArpeggioPatternRowType.Fifth, Octave = 1, Pattern = "----|----|----|---s|" },
-                        new() { Type = ArpeggioPatternRowType.Third, Octave = 1, Pattern = "----|----|----|----|" },
-                        new() { Type = ArpeggioPatternRowType.Root, Octave = 1, Pattern =  "s-s-|s-s-|s-s-|s-s-|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Fifth, Octave = 2, Pattern = "----|----|----|----|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Third, Octave = 2, Pattern = "----|----|----|----|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Root, Octave = 2, Pattern = "----|----|----|----|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Fifth, Octave = 1, Pattern = "----|----|----|---s|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Third, Octave = 1, Pattern = "----|----|----|----|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Root, Octave = 1, Pattern = "s-s-|s-s-|s-s-|s-s-|" }
                     },
                     InstrumentNumber = Instruments.Banjo
                 },
@@ -231,16 +249,22 @@ namespace MusicMaker.Tests
             // pattern includes half and eighth note items
             var command = new MakeArpeggioPatternCommand
             {
-                Pattern = new ArpeggioPattern()
+                Pattern = new ArpeggioPattern
                 {
-                    Rows = new()
+                    Rows = new List<ArpeggioPatternRow>
                     {
-                        new() { Type = ArpeggioPatternRowType.Fifth, Octave = 2, Pattern = "----|----|----|----|" },
-                        new() { Type = ArpeggioPatternRowType.Third, Octave = 2, Pattern = "----|----|----|----|" },
-                        new() { Type = ArpeggioPatternRowType.Root, Octave = 2,  Pattern = "----|----|----|----|" },
-                        new() { Type = ArpeggioPatternRowType.Fifth, Octave = 1, Pattern = "----|----|q~~~|e~--|" },
-                        new() { Type = ArpeggioPatternRowType.Third, Octave = 1, Pattern = "----|----|----|--e~|" },
-                        new() { Type = ArpeggioPatternRowType.Root, Octave = 1,  Pattern = "h~~~|~~~~|----|----|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Fifth, Octave = 2, Pattern = "----|----|----|----|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Third, Octave = 2, Pattern = "----|----|----|----|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Root, Octave = 2, Pattern = "----|----|----|----|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Fifth, Octave = 1, Pattern = "----|----|q~~~|e~--|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Third, Octave = 1, Pattern = "----|----|----|--e~|" },
+                        new ArpeggioPatternRow
+                            { Type = ArpeggioPatternRowType.Root, Octave = 1, Pattern = "h~~~|~~~~|----|----|" }
                     },
                     InstrumentNumber = Instruments.Banjo
                 },
@@ -250,6 +274,5 @@ namespace MusicMaker.Tests
             };
             return command;
         }
-
     }
 }
