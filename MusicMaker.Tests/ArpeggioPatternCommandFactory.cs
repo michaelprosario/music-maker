@@ -91,10 +91,10 @@ namespace MusicMaker.Tests
                     {
                         new() { Type = ArpeggioPatternRowType.Fifth, Octave = 2, Pattern = "----|----|----|---s|" },
                         new() { Type = ArpeggioPatternRowType.Third, Octave = 2, Pattern = "----|--s-|s---|s---|" },
-                        new() { Type = ArpeggioPatternRowType.Root, Octave = 2, Pattern = "---s|-s-s|---s|-s--|" },
+                        new() { Type = ArpeggioPatternRowType.Root, Octave = 2, Pattern =  "---s|-s-s|---s|-s--|" },
                         new() { Type = ArpeggioPatternRowType.Fifth, Octave = 1, Pattern = "--s-|s---|--s-|--s-|" },
                         new() { Type = ArpeggioPatternRowType.Third, Octave = 1, Pattern = "-s--|----|-s--|----|" },
-                        new() { Type = ArpeggioPatternRowType.Root, Octave = 1, Pattern = "s---|----|s---|----|" }
+                        new() { Type = ArpeggioPatternRowType.Root, Octave = 1, Pattern =  "s---|----|s---|----|" }
                     },
                     InstrumentNumber = Instruments.Banjo
                 },
