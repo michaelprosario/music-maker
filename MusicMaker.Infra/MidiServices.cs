@@ -51,7 +51,7 @@ namespace MusicMaker.Infra
 
             var midiFile = new MidiFile();
             foreach (var trackChunk in drumTrackChunks) midiFile.Chunks.Add(trackChunk);
-            midiFile.Write(outputFilePath + command.FileName);
+            midiFile.Write(outputFilePath + Path.DirectorySeparatorChar + command.FileName, true);
 
             return response;
         }

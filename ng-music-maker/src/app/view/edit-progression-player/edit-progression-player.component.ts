@@ -1,8 +1,9 @@
-import { MakeSongFromChordsCommand, ServerClient } from 'src/app/core/services/server-client';
+//import { MakeSongFromChordsCommand, ServerClient } from 'src/app/core/services/server-client';
 import { Component, OnInit } from '@angular/core';
 // @ts-ignore
 import * as Blockly from 'blockly';
 import { environment } from 'src/environments/environment';
+import { MusicMakerService } from 'src/app/core/services/music-maker-service';
 declare var Blockly: any;
 
 let chordsToPlay: Array<any> = [];
@@ -22,7 +23,7 @@ export class EditProgressionPlayerComponent implements OnInit {
   midiUrl: string;
 
   // @ts-ignore
-  constructor(private serverClient: ServerClient) {
+  constructor(private musicMakerService: MusicMakerService) {
     this.midiUrl = `${environment.apiUrl}/getSong/user1`;
   }
 
@@ -55,12 +56,12 @@ export class EditProgressionPlayerComponent implements OnInit {
     console.log(chordsToPlay);
 
     // send request to server
-    const command = new MakeSongFromChordsCommand();
-    command.chords = chordsToPlay;
-    command.userId = "user1";
-    this.serverClient.makeSongFromChords(command);
+    //const command = new MakeSongFromChordsCommand();
+    //command.chords = chordsToPlay;
+    //command.userId = "user1";
+    //this.serverClient.makeSongFromChords(command);
 
-    this.playSong();
+    //this.playSong();
   }
 
   private playSong() {

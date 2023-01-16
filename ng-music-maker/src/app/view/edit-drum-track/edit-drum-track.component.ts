@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DrumTrackRow, MakeDrumTrackCommand, ServerClient } from 'src/app/core/services/server-client';
+import { MusicMakerService } from 'src/app/core/services/music-maker-service';
+import { DrumTrackRow, MakeDrumTrackCommand } from 'src/app/core/services/server-client';
 import { environment } from 'src/environments/environment';
 import { DrumTrackViewModel } from './drum-track-view-model';
 
@@ -27,7 +28,7 @@ export class EditDrumTrackComponent implements OnInit {
   tracks: DrumTrackViewModel[];
   midiUrl: string;
 
-  constructor(private serverClient: ServerClient) {
+  constructor(private musicMakerService: MusicMakerService) {
     this.tracks = [];
     this.midiUrl = `${environment.apiUrl}/getDrumTrack/user1`;
   }
@@ -108,14 +109,10 @@ export class EditDrumTrackComponent implements OnInit {
 
   async onPlayTracks(){
     // map tracks view model to command ...
-    let command = new MakeDrumTrackCommand();
-    command.beatsPerMinute = this.tempo;
-    command.userId = "user1";
-    command.tracks = this.getTracks();
-    console.log(command);
+    let command = this.buildCommand();
 
     // execute midi file build process ...
-    let response = await this.serverClient.makeDrumTrack(command);
+    let response = await this.musicMakerService.makeDrumTrack(command).toPromise();
     console.log("response from make drum track .........")
     console.log(response);
 
@@ -126,6 +123,16 @@ export class EditDrumTrackComponent implements OnInit {
     // @ts-ignore
     setTimeout(() => { midiPlayer.start() }, 3000)
 
+  }
+
+  private buildCommand() {
+    let command = new MakeDrumTrackCommand();
+    command.beatsPerMinute = this.tempo;
+    command.userId = "user1";
+    command.tracks = this.getTracks();
+    command.fileName = 'fixme.mid';
+    console.log(command);
+    return command;
   }
 
   getTracks(): DrumTrackRow[] {
