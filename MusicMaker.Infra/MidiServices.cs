@@ -17,10 +17,8 @@ namespace MusicMaker.Infra
             return Note.Parse(noteName).NoteNumber;
         }
 
-        public MakeDrumTrackResponse MakeDrumTrack(MakeDrumTrackCommand command)
+        public new List<TrackChunk> MakeDrumTrackChunks(MakeDrumTrackCommand command)
         {
-            MakeDrumTrackResponse response = new();
-
             TempoMap tempoMap = TempoMap.Create(Tempo.FromBeatsPerMinute(command.BeatsPerMinute));
 
             // https://melanchall.github.io/drywetmidi/articles/composing/Pattern.html
@@ -39,13 +37,25 @@ namespace MusicMaker.Infra
                 tracks.Add(trackChunk);
             }
 
-            var midiFile = new MidiFile();
-            foreach (var trackChunk in tracks) midiFile.Chunks.Add(trackChunk);
+            //var midiFile = new MidiFile();
+            //foreach (var trackChunk in tracks) midiFile.Chunks.Add(trackChunk);
+            //midiFile.Write(command.FileName);
 
-            midiFile.Write(command.FileName);
+            return tracks;
+        }
+
+        public MakeDrumTrackResponse MakeDrumTrack(MakeDrumTrackCommand command, string outputFilePath)
+        {
+            var response = new MakeDrumTrackResponse();
+            var drumTrackChunks = MakeDrumTrackChunks(command);
+
+            var midiFile = new MidiFile();
+            foreach (var trackChunk in drumTrackChunks) midiFile.Chunks.Add(trackChunk);
+            midiFile.Write(outputFilePath + command.FileName);
 
             return response;
         }
+
 
         private TrackChunk MakePattern(byte channel,
             DrumTrackRow track,
