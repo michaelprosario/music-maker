@@ -27,10 +27,12 @@ export class EditDrumTrackComponent implements OnInit {
   numberOfMeasures: number = 4;
   tracks: DrumTrackViewModel[];
   midiUrl: string;
+                                    currentFile: string = '';
 
   constructor(private musicMakerService: MusicMakerService) {
     this.tracks = [];
-    this.midiUrl = `${environment.apiUrl}/getDrumTrack/user1`;
+    this.currentFile = "drumTest1.mid";
+    this.midiUrl = `${environment.apiUrl}/api/MediaFiles/v1/File/${this.currentFile}`;
   }
 
   onDownload(){
@@ -47,15 +49,30 @@ export class EditDrumTrackComponent implements OnInit {
 
   private setupDrumStuff() {
     this.tracks = [];
-    let aTrack = new DrumTrackViewModel("Base Drum", 36, this.numberOfMeasures, this.beatsPerMeasure);
-    this.tracks.push(aTrack);
-    aTrack = new DrumTrackViewModel("Snare Drum", 38, this.numberOfMeasures, this.beatsPerMeasure);
-    this.tracks.push(aTrack);
-    aTrack = new DrumTrackViewModel("Closed High hat", 42, this.numberOfMeasures, this.beatsPerMeasure);
+    this.setupBasicDrumKit();
+    this.addCongaDrums();
+    this.addToms();
+
+    // Needs more cow bell
+    let aTrack = new DrumTrackViewModel("Cow bell", 56, this.numberOfMeasures, this.beatsPerMeasure);
     this.tracks.push(aTrack);
 
-    // Conga ....
-    aTrack = new DrumTrackViewModel("Conga 1", 60, this.numberOfMeasures, this.beatsPerMeasure);
+    aTrack = new DrumTrackViewModel("Shaker", 70, this.numberOfMeasures, this.beatsPerMeasure);
+    this.tracks.push(aTrack);
+  }
+
+  private addToms() {
+    let aTrack = new DrumTrackViewModel("Low Tom", 45, this.numberOfMeasures, this.beatsPerMeasure);
+    this.tracks.push(aTrack);
+    aTrack = new DrumTrackViewModel("Medium Tom", 47, this.numberOfMeasures, this.beatsPerMeasure);
+    this.tracks.push(aTrack);
+    aTrack = new DrumTrackViewModel("High Tom", 50, this.numberOfMeasures, this.beatsPerMeasure);
+    this.tracks.push(aTrack);
+    return aTrack;
+  }
+
+  private addCongaDrums() {
+    let aTrack = new DrumTrackViewModel("Conga 1", 60, this.numberOfMeasures, this.beatsPerMeasure);
     this.tracks.push(aTrack);
     aTrack = new DrumTrackViewModel("Conga 2", 61, this.numberOfMeasures, this.beatsPerMeasure);
     this.tracks.push(aTrack);
@@ -65,22 +82,17 @@ export class EditDrumTrackComponent implements OnInit {
     this.tracks.push(aTrack);
     aTrack = new DrumTrackViewModel("Conga 5", 64, this.numberOfMeasures, this.beatsPerMeasure);
     this.tracks.push(aTrack);
+    return aTrack;
+  }
 
-    // toms ....
-    aTrack = new DrumTrackViewModel("Low Tom", 45, this.numberOfMeasures, this.beatsPerMeasure);
+  private setupBasicDrumKit() {
+    let aTrack = new DrumTrackViewModel("Base Drum", 36, this.numberOfMeasures, this.beatsPerMeasure);
     this.tracks.push(aTrack);
-    aTrack = new DrumTrackViewModel("Medium Tom", 47, this.numberOfMeasures, this.beatsPerMeasure);
+    aTrack = new DrumTrackViewModel("Snare Drum", 38, this.numberOfMeasures, this.beatsPerMeasure);
     this.tracks.push(aTrack);
-    aTrack = new DrumTrackViewModel("High Tom", 50, this.numberOfMeasures, this.beatsPerMeasure);
+    aTrack = new DrumTrackViewModel("Closed High hat", 42, this.numberOfMeasures, this.beatsPerMeasure);
     this.tracks.push(aTrack);
-
-    // Needs more cow bell
-    aTrack = new DrumTrackViewModel("Cow bell", 56, this.numberOfMeasures, this.beatsPerMeasure);
-    this.tracks.push(aTrack);
-
-    // Shaker ...
-    aTrack = new DrumTrackViewModel("Shaker", 70, this.numberOfMeasures, this.beatsPerMeasure);
-    this.tracks.push(aTrack);
+    return aTrack;
   }
 
   onClearTracks(){
@@ -91,7 +103,6 @@ export class EditDrumTrackComponent implements OnInit {
       }
     }
   }
-
 
   onRandomTracks() {
     for (let track of this.tracks) {
@@ -107,22 +118,23 @@ export class EditDrumTrackComponent implements OnInit {
     }
   }
 
-  async onPlayTracks(){
-    // map tracks view model to command ...
+  async onPlayTracks()
+  {
     let command = this.buildCommand();
 
-    // execute midi file build process ...
     let response = await this.musicMakerService.makeDrumTrack(command).toPromise();
     console.log("response from make drum track .........")
     console.log(response);
 
-    // play it
+    this.playCurrentFile();
+  }
+
+  private playCurrentFile() {
     let midiPlayer = document.getElementById("midiPlayer");
     // @ts-ignore
     midiPlayer.reload();
     // @ts-ignore
-    setTimeout(() => { midiPlayer.start() }, 3000)
-
+    setTimeout(() => { midiPlayer.start(); }, 3000);
   }
 
   private buildCommand() {
@@ -130,7 +142,7 @@ export class EditDrumTrackComponent implements OnInit {
     command.beatsPerMinute = this.tempo;
     command.userId = "user1";
     command.tracks = this.getTracks();
-    command.fileName = 'fixme.mid';
+    command.fileName = this.currentFile;
     console.log(command);
     return command;
   }
