@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace MusicMaker.Core.ValueObjects
 {
+    [DataContract]
     public enum ArpeggioPatternRowType
     {
         Root,
@@ -13,16 +15,18 @@ namespace MusicMaker.Core.ValueObjects
         MajorSeventh
     }
 
+    [DataContract]
     public class ArpeggioPatternRow
     {
-        public int Octave { get; set; }
-        public ArpeggioPatternRowType Type { get; set; }
-        public string Pattern { get; set; } = "";
+        [DataMember] public int Octave { get; set; }
+        [DataMember] public ArpeggioPatternRowType Type { get; set; }
+        [DataMember] public string Pattern { get; set; } = "";
     }
 
+    [DataContract]
     public class ArpeggioPattern
     {
-        public List<ArpeggioPatternRow> Rows { get; set; } = new();
-        public int InstrumentNumber { get; set; }
+        [DataMember] public List<ArpeggioPatternRow> Rows { get; set; } = new();
+        [DataMember] public int InstrumentNumber { get; set; }
     }
 }

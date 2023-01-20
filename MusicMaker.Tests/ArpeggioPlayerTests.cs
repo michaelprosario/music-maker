@@ -3,7 +3,6 @@ using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.MusicTheory;
 using Melanchall.DryWetMidi.Standards;
 using MusicMaker.Core.Enums;
-using MusicMaker.Core.Requests;
 using MusicMaker.Core.ValueObjects;
 using MusicMaker.Infra;
 using NUnit.Framework;
@@ -153,13 +152,5 @@ namespace MusicMaker.Tests
             };
             return chordChanges;
         }
-
-       
-
-        
-
-        
-
-        
     }
 }

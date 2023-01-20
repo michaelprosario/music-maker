@@ -1,0 +1,64 @@
+{
+  "instrument": 1,
+  "id": "fc166a5b-22dd-41b0-86b5-d9c0144edd18",
+  "chordChanges": [
+    {
+      "beatCount": 4,
+      "chordRoot": 69,
+      "chordType": 1
+    },
+    {
+      "beatCount": 4,
+      "chordRoot": 67,
+      "chordType": 0
+    },
+    {
+      "beatCount": 4,
+      "chordRoot": 65,
+      "chordType": 0
+    },
+    {
+      "beatCount": 4,
+      "chordRoot": 64,
+      "chordType": 0
+    }
+  ],
+  "pattern": {
+    "rows": [
+      {
+        "octave": 2,
+        "type": 3,
+        "pattern": "----|----|----|----|"
+      },
+      {
+        "octave": 2,
+        "type": 2,
+        "pattern": "----|----|----|----|"
+      },
+      {
+        "octave": 2,
+        "type": 0,
+        "pattern": "----|----|----|----|"
+      },
+      {
+        "octave": 1,
+        "type": 3,
+        "pattern": "--s-|--s-|--s-|s--s|"
+      },
+      {
+        "octave": 1,
+        "type": 2,
+        "pattern": "--s-|--s-|--s-|s--s|"
+      },
+      {
+        "octave": 1,
+        "type": 0,
+        "pattern": "--s-|--s-|--s-|s--s|"
+      }
+    ],
+    "instrumentNumber": 105
+  },
+  "beatsPerMinute": 80,
+  "channel": 1,
+  "userId": "mrosario"
+}

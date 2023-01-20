@@ -1,15 +1,12 @@
 using System;
-using System.Collections.Generic;
 using MusicMaker.Core.Interfaces;
 using MusicMaker.Core.Requests;
+using MusicMaker.Core.Responses;
 
 namespace MusicMaker.Core.Services
 {
-    public class MakeDrumTrackResponse
+    public class MakeDrumTrackResponse : CommonResponse
     {
-        public int Code = 200;
-        public List<string> Errors = new();
-        public string Message = "";
     }
 
     public class MakeDrumTrackService
@@ -21,9 +18,10 @@ namespace MusicMaker.Core.Services
             _midiServices = midiServices ?? throw new ArgumentNullException(nameof(midiServices));
         }
 
-        public MakeDrumTrackResponse MakeDrumTrack(MakeDrumTrackCommand command)
+        public MakeDrumTrackResponse MakeDrumTrack(MakeDrumTrackCommand command, string outputPath)
         {
             if (command == null) throw new ArgumentException("command is required");
+            if (string.IsNullOrEmpty(outputPath)) throw new ArgumentException("outputPath is required");
 
             MakeDrumTrackResponse response = new();
 
@@ -50,7 +48,7 @@ namespace MusicMaker.Core.Services
                 return response;
             }
 
-            return _midiServices.MakeDrumTrack(command);
+            return _midiServices.MakeDrumTrack(command, outputPath);
         }
     }
 }

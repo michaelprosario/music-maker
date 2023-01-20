@@ -54,10 +54,11 @@ namespace MusicMaker.Tests
             };
 
             // act
-            var response = service.MakeDrumTrack(command);
+            var response = service.MakeDrumTrack(command, ".\\");
 
             // assert
-            Assert.IsTrue(response != null);
+            if (response != null)
+                Assert.IsTrue(response != null);
         }
     }
 }

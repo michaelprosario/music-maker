@@ -1,9 +1,10 @@
+using System;
 using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Composing;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
 using Melanchall.DryWetMidi.Standards;
-using MusicMaker.Core.Services;
+using MusicMaker.Core.Interfaces;
 
 namespace MusicMaker.Infra
 {
@@ -15,9 +16,9 @@ namespace MusicMaker.Infra
 
         public ChordPlayerTrack(byte instrument, int channel, int tempo)
         {
-            if(channel < 0)
+            if (channel < 0)
                 throw new ArgumentException("Channel should not be negative");
-            if(channel > 15)
+            if (channel > 15)
                 throw new ArgumentException("Channel should not be greater than 15");
 
             PatternBuilder = new PatternBuilder();

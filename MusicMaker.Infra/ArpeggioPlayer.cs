@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Composing;
 using Melanchall.DryWetMidi.Interaction;
@@ -46,7 +47,7 @@ namespace MusicMaker.Infra
                 patterns.Add(pattern);
             }
 
-            var responsePattern = PatternUtilities.CombineInParallel(patterns);
+            var responsePattern = patterns.CombineInParallel();
             _track.PatternBuilder.Pattern(responsePattern);
         }
 

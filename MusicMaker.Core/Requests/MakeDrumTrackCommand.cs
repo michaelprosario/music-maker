@@ -1,26 +1,21 @@
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace MusicMaker.Core.Requests
 {
+    [DataContract]
     public class DrumTrackRow
     {
-        public int InstrumentNumber = 0;
-        public string Pattern = "";
+        [DataMember] public int InstrumentNumber { get; set; }
+        [DataMember] public string Pattern { get; set; } = "";
     }
 
+    [DataContract]
     public class MakeDrumTrackCommand : IRequest
     {
-        public MakeDrumTrackCommand()
-        {
-            BeatsPerMinute = 120;
-            Tracks = new List<DrumTrackRow>();
-            UserId = "";
-            FileName = "";
-        }
-
-        public int BeatsPerMinute { get; set; }
-        public List<DrumTrackRow> Tracks { get; set; }
-        public string FileName { get; set; }
-        public string UserId { get; set; }
+        [DataMember] public int BeatsPerMinute { get; set; }
+        [DataMember] public List<DrumTrackRow> Tracks { get; set; }
+        [DataMember] public string FileName { get; set; }
+        [DataMember] public string UserId { get; set; }
     }
 }
