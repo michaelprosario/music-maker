@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MusicMakerService } from 'src/app/core/services/music-maker-service';
-import { DrumTrackRow, MakeDrumTrackCommand } from 'src/app/core/services/server-client';
+import { DrumTrackRow, MakeDrumTrackCommand, MakeMidiFromArpeggioCommand } from 'src/app/core/services/server-client';
 import { DrumTrackViewModel } from '../edit-drum-track/drum-track-view-model';
 import { environment } from 'src/environments/environment';
 
@@ -36,7 +36,7 @@ export class EditArpeggioComponent implements OnInit {
 
   constructor(private musicMakerService: MusicMakerService) {
     this.tracks = [];
-    this.currentFile = "drumTest1.mid";
+    this.currentFile = "fc166a5b-22dd-41b0-86b5-d9c0144edd18.mid";
     this.midiUrl = `${environment.apiUrl}/api/MediaFiles/v1/File/${this.currentFile}`;
   }
 
@@ -127,7 +127,7 @@ export class EditArpeggioComponent implements OnInit {
   {
     let command = this.buildCommand();
 
-    let response = await this.musicMakerService.makeDrumTrack(command).toPromise();
+    let response = await this.musicMakerService.makeMidiFromArpeggio(command).toPromise();
     console.log("response from make drum track .........")
     console.log(response);
 
@@ -142,13 +142,72 @@ export class EditArpeggioComponent implements OnInit {
     setTimeout(() => { midiPlayer.start(); }, 3000);
   }
 
-  private buildCommand() {
-    let command = new MakeDrumTrackCommand();
-    command.beatsPerMinute = this.tempo;
-    command.userId = "user1";
-    command.tracks = this.getTracks();
-    command.fileName = this.currentFile;
-    console.log(command);
+  private buildCommand() : MakeMidiFromArpeggioCommand {
+    let command = {
+      "instrument": 3,
+      "id": "fc166a5b-22dd-41b0-86b5-d9c0144edd18",
+      "chordChanges": [
+        {
+          "beatCount": 4,
+          "chordRoot": 69,
+          "chordType": 1
+        },
+        {
+          "beatCount": 4,
+          "chordRoot": 67,
+          "chordType": 0
+        },
+        {
+          "beatCount": 4,
+          "chordRoot": 65,
+          "chordType": 0
+        },
+        {
+          "beatCount": 4,
+          "chordRoot": 64,
+          "chordType": 0
+        }
+      ],
+      "pattern": {
+        "rows": [
+          {
+            "octave": 2,
+            "type": 3,
+            "pattern": "----|----|----|----|"
+          },
+          {
+            "octave": 2,
+            "type": 2,
+            "pattern": "----|----|----|----|"
+          },
+          {
+            "octave": 2,
+            "type": 0,
+            "pattern": "----|----|----|----|"
+          },
+          {
+            "octave": 1,
+            "type": 3,
+            "pattern": "--s-|--s-|--s-|s--s|"
+          },
+          {
+            "octave": 1,
+            "type": 2,
+            "pattern": "--s-|--s-|--s-|s--s|"
+          },
+          {
+            "octave": 1,
+            "type": 0,
+            "pattern": "--s-|--s-|--s-|s--s|"
+          }
+        ],
+        "instrumentNumber": 105
+      },
+      "beatsPerMinute": 80,
+      "channel": 1,
+      "userId": "mrosario"
+    } as MakeMidiFromArpeggioCommand;
+
     return command;
   }
 
