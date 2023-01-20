@@ -57,7 +57,7 @@ namespace MusicMaker.Tests
             var response = service.MakeDrumTrack(command, "c:\\dev\\");
 
             // assert
-            if(response != null)
+            if (response != null)
                 Assert.IsTrue(response != null);
         }
     }

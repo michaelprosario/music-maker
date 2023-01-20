@@ -6,7 +6,7 @@ namespace MusicMaker.Core.Requests
     [DataContract]
     public class DrumTrackRow
     {
-        [DataMember] public int InstrumentNumber { get; set; } = 0;
+        [DataMember] public int InstrumentNumber { get; set; }
         [DataMember] public string Pattern { get; set; } = "";
     }
 

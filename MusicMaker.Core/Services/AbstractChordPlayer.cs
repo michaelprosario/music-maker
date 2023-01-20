@@ -1,12 +1,9 @@
 using System.Collections.Generic;
+using MusicMaker.Core.Interfaces;
 using MusicMaker.Core.ValueObjects;
 
 namespace MusicMaker.Core.Services
 {
-    public interface IChordPlayerTrack
-    {
-    }
-
     public abstract class AbstractChordPlayer
     {
         private readonly IChordPlayerTrack _chordPlayerTrack;

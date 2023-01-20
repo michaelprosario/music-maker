@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Composing;
 using Melanchall.DryWetMidi.Core;
@@ -17,7 +18,19 @@ namespace MusicMaker.Infra
             return Note.Parse(noteName).NoteNumber;
         }
 
-        public new List<TrackChunk> MakeDrumTrackChunks(MakeDrumTrackCommand command)
+        public MakeDrumTrackResponse MakeDrumTrack(MakeDrumTrackCommand command, string outputFilePath)
+        {
+            var response = new MakeDrumTrackResponse();
+            var drumTrackChunks = MakeDrumTrackChunks(command);
+
+            var midiFile = new MidiFile();
+            foreach (var trackChunk in drumTrackChunks) midiFile.Chunks.Add(trackChunk);
+            midiFile.Write(outputFilePath + Path.DirectorySeparatorChar + command.FileName, true);
+
+            return response;
+        }
+
+        public List<TrackChunk> MakeDrumTrackChunks(MakeDrumTrackCommand command)
         {
             TempoMap tempoMap = TempoMap.Create(Tempo.FromBeatsPerMinute(command.BeatsPerMinute));
 
@@ -42,18 +55,6 @@ namespace MusicMaker.Infra
             //midiFile.Write(command.FileName);
 
             return tracks;
-        }
-
-        public MakeDrumTrackResponse MakeDrumTrack(MakeDrumTrackCommand command, string outputFilePath)
-        {
-            var response = new MakeDrumTrackResponse();
-            var drumTrackChunks = MakeDrumTrackChunks(command);
-
-            var midiFile = new MidiFile();
-            foreach (var trackChunk in drumTrackChunks) midiFile.Chunks.Add(trackChunk);
-            midiFile.Write(outputFilePath + Path.DirectorySeparatorChar + command.FileName, true);
-
-            return response;
         }
 
 

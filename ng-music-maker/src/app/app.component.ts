@@ -20,4 +20,8 @@ export class AppComponent {
   openProgressionEditor(){
     this.router.navigate(["/edit-progression"])
   }
+
+  openArpeggioEditor(){
+    this.router.navigate(["/arp-editor"])
+  }
 }

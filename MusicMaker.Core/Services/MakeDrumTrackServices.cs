@@ -1,15 +1,12 @@
 using System;
-using System.Collections.Generic;
 using MusicMaker.Core.Interfaces;
 using MusicMaker.Core.Requests;
+using MusicMaker.Core.Responses;
 
 namespace MusicMaker.Core.Services
 {
-    public class MakeDrumTrackResponse
+    public class MakeDrumTrackResponse : CommonResponse
     {
-        public int Code = 200;
-        public List<string> Errors = new();
-        public string Message = "";
     }
 
     public class MakeDrumTrackService
