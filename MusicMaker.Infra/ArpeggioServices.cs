@@ -17,14 +17,6 @@ namespace MusicMaker.Infra
 
             var track = new ChordPlayerTrack(instrument, channel, tempo);
 
-            var makeArpCommand = new MakeArpeggioPatternCommand
-            {
-                Pattern = command.Pattern,
-                BeatsPerMinute = command.BeatsPerMinute,
-                Channel = command.Channel,
-                UserId = command.UserId
-            };
-
             var player = new ArpeggioPlayer(track, command);
             var chordChanges = command.ChordChanges;
 

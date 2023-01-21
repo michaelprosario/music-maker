@@ -76,8 +76,7 @@ namespace MusicMaker.Tests
                         new() { Type = ArpeggioPatternRowType.Fifth, Octave = 1, Pattern = "--s-|--s-|--s-|s--s|" },
                         new() { Type = ArpeggioPatternRowType.Third, Octave = 1, Pattern = "--s-|--s-|--s-|s--s|" },
                         new() { Type = ArpeggioPatternRowType.Root, Octave = 1, Pattern = "--s-|--s-|--s-|s--s|" }
-                    },
-                    InstrumentNumber = Instruments.Banjo
+                    }
                 },
                 UserId = "mrosario",
                 BeatsPerMinute = 80,
