@@ -15,6 +15,26 @@ namespace MusicMaker.Core.Services
             _midiServices = midiServices ?? throw new ArgumentNullException(nameof(midiServices));
         }
 
+        public List<ChordChange> ParseChordProgression(string chordProgressionString)
+        {
+            if (string.IsNullOrEmpty(chordProgressionString))
+            {
+                return new List<ChordChange>();
+            }
+            
+            var response = new List<ChordChange>();
+            string[] symbols = chordProgressionString.Split(" ");
+            
+            foreach (string symbol in symbols)
+            {
+                
+                ChordChange chordChange = _midiServices.ParseChordSymbol(symbol);
+                response.Add(chordChange);
+            }
+            
+            return response;
+        }
+
         public ChordNotes MakeChordNotes(string root, ChordType type)
         {
             var intRoot = _midiServices.GetNoteNumber(root);

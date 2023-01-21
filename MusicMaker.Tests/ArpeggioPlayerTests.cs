@@ -3,6 +3,7 @@ using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
 using Melanchall.DryWetMidi.Standards;
 using MusicMaker.Core.Enums;
+using MusicMaker.Core.Services;
 using MusicMaker.Core.ValueObjects;
 using MusicMaker.Infra;
 using NUnit.Framework;
@@ -53,6 +54,27 @@ namespace MusicMaker.Tests
             midiFile.Chunks.Add(track.MakeTrackChunk());
             midiFile.Write("arp3.mid", true);
         }
+        
+        [Test]
+        public void ArpeggioPlayer__Arp4Test()
+        {
+            var chordServices = new ChordServices(new MidiServices());
+            
+            var tempo = 90;
+            var instrument = (byte)Instruments.AcousticGrandPiano;
+            var channel = 1;
+
+            var track = new ChordPlayerTrack(instrument, channel);
+
+            var player = new ArpeggioPlayer(track, ArpeggioPatternCommandFactory.MakeArpeggioPatternCommand1());
+            var chordChanges = chordServices.ParseChordProgression("G G C D G G C D Am G C D Em C D D");
+
+            player.PlayFromChordChanges(chordChanges);
+
+            var midiFile = new MidiFile();
+            midiFile.Chunks.Add(track.MakeTrackChunk());
+            midiFile.Write("arp4.mid", true);
+        }        
 
         private static List<ChordChange> GetChords1()
         {

@@ -1,12 +1,17 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Melanchall.DryWetMidi.Common;
 using Melanchall.DryWetMidi.Composing;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
+using Melanchall.DryWetMidi.MusicTheory;
+using MusicMaker.Core.Enums;
 using MusicMaker.Core.Interfaces;
 using MusicMaker.Core.Requests;
 using MusicMaker.Core.Services;
+using MusicMaker.Core.ValueObjects;
+using Chord = MusicMaker.Core.ValueObjects.Chord;
 using Note = Melanchall.DryWetMidi.MusicTheory.Note;
 
 namespace MusicMaker.Infra
@@ -16,6 +21,24 @@ namespace MusicMaker.Infra
         public int GetNoteNumber(string noteName)
         {
             return Note.Parse(noteName).NoteNumber;
+        }
+
+        public ChordChange ParseChordSymbol(string symbol)
+        {
+            var chord = Melanchall.DryWetMidi.MusicTheory.Chord.Parse(symbol);
+            var rootName = chord.RootNoteName;
+            var intervals = chord.GetIntervalsBetweenNotes().ToArray();
+            
+            int middleC = 60;
+            int root = (int)rootName + middleC;
+            ChordType chordType = ChordType.Major;
+            if (intervals[0].HalfSteps == 3)
+            {
+                chordType = ChordType.Minor;
+            }
+            
+            var chordChange = new ChordChange(root, chordType, 4);
+            return chordChange;
         }
 
         public MakeDrumTrackResponse MakeDrumTrack(MakeDrumTrackCommand command, string outputFilePath)
