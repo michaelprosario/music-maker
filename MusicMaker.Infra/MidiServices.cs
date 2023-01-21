@@ -24,6 +24,10 @@ namespace MusicMaker.Infra
             var drumTrackChunks = MakeDrumTrackChunks(command);
 
             var midiFile = new MidiFile();
+
+            TempoMap tempoMap = TempoMap.Create(Tempo.FromBeatsPerMinute(command.BeatsPerMinute));
+            midiFile.ReplaceTempoMap(tempoMap);
+
             foreach (var trackChunk in drumTrackChunks) midiFile.Chunks.Add(trackChunk);
             midiFile.Write(outputFilePath + Path.DirectorySeparatorChar + command.FileName, true);
 
@@ -32,8 +36,6 @@ namespace MusicMaker.Infra
 
         public List<TrackChunk> MakeDrumTrackChunks(MakeDrumTrackCommand command)
         {
-            TempoMap tempoMap = TempoMap.Create(Tempo.FromBeatsPerMinute(command.BeatsPerMinute));
-
             // https://melanchall.github.io/drywetmidi/articles/composing/Pattern.html
             var defaultNoteLength = MusicalTimeSpan.Sixteenth;
             var defaultVelocity = (SevenBitNumber)90;
@@ -46,13 +48,9 @@ namespace MusicMaker.Infra
                     .SetNoteLength(defaultNoteLength)
                     .SetVelocity(defaultVelocity);
 
-                var trackChunk = MakePattern(channel, track, pattern, tempoMap);
+                var trackChunk = MakePattern(channel, track, pattern, TempoMap.Default);
                 tracks.Add(trackChunk);
             }
-
-            //var midiFile = new MidiFile();
-            //foreach (var trackChunk in tracks) midiFile.Chunks.Add(trackChunk);
-            //midiFile.Write(command.FileName);
 
             return tracks;
         }
