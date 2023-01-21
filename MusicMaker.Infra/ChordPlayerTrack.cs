@@ -11,10 +11,9 @@ namespace MusicMaker.Infra
     public class ChordPlayerTrack : IChordPlayerTrack
     {
         private readonly int _channel;
-        private readonly int _tempo;
         public PatternBuilder PatternBuilder;
 
-        public ChordPlayerTrack(byte instrument, int channel, int tempo)
+        public ChordPlayerTrack(byte instrument, int channel)
         {
             if (channel < 0)
                 throw new ArgumentException("Channel should not be negative");
@@ -25,13 +24,11 @@ namespace MusicMaker.Infra
             var generalMidiProgram = (GeneralMidiProgram)instrument;
             PatternBuilder.ProgramChange(generalMidiProgram);
             _channel = channel;
-            _tempo = tempo;
         }
 
         public TrackChunk MakeTrackChunk()
         {
-            TempoMap tempoMap = TempoMap.Create(Tempo.FromBeatsPerMinute(_tempo));
-            return PatternBuilder.Build().ToTrackChunk(tempoMap, new FourBitNumber((byte)_channel));
+            return PatternBuilder.Build().ToTrackChunk(TempoMap.Default, new FourBitNumber((byte)_channel));
         }
     }
 }

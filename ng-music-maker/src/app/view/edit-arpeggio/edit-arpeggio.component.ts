@@ -18,7 +18,7 @@ export class EditArpeggioComponent implements OnInit {
   tracks: ArpTrackViewModel[];
   midiUrl: string;
   currentFile: string = '';
-  instrument: number = 1;
+  instrument: number = 11;
 
   constructor(private musicMakerService: MusicMakerService) {
     this.tracks = [];
@@ -102,7 +102,7 @@ export class EditArpeggioComponent implements OnInit {
 
     command.id = this.currentFile;
     command.chordChanges = [];
-    this.setupChordProgression2(command);
+    this.setupChordProgression1(command);
 
     console.log(command);
     return command;

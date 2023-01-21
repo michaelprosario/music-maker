@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using Melanchall.DryWetMidi.Core;
-using Melanchall.DryWetMidi.MusicTheory;
+using Melanchall.DryWetMidi.Interaction;
 using Melanchall.DryWetMidi.Standards;
 using MusicMaker.Core.Enums;
 using MusicMaker.Core.ValueObjects;
 using MusicMaker.Infra;
 using NUnit.Framework;
+using Note = Melanchall.DryWetMidi.MusicTheory.Note;
 
 namespace MusicMaker.Tests
 {
@@ -15,11 +16,11 @@ namespace MusicMaker.Tests
         [Test]
         public void ArpeggioPlayer__Arp1Test()
         {
-            var tempo = 180;
-            var instrument = (byte)Instruments.Banjo;
+            var tempo = 80;
+            var instrument = (byte)Instruments.Marimba;
             var channel = 1;
 
-            var track = new ChordPlayerTrack(instrument, channel, tempo);
+            var track = new ChordPlayerTrack(instrument, channel);
 
             var player = new ArpeggioPlayer(track, ArpeggioPatternCommandFactory.MakeArpeggioPatternCommand1());
             var chordChanges = GetChords2();
@@ -27,6 +28,9 @@ namespace MusicMaker.Tests
             player.PlayFromChordChanges(chordChanges);
 
             var midiFile = new MidiFile();
+            TempoMap tempoMap = TempoMap.Create(Tempo.FromBeatsPerMinute(tempo));
+            midiFile.ReplaceTempoMap(tempoMap);
+            
             midiFile.Chunks.Add(track.MakeTrackChunk());
             midiFile.Write(@"c:\dev\data\arp1.mid", true);
         }
@@ -38,7 +42,7 @@ namespace MusicMaker.Tests
             var instrument = (byte)Instruments.AcousticGrandPiano;
             var channel = 1;
 
-            var track = new ChordPlayerTrack(instrument, channel, tempo);
+            var track = new ChordPlayerTrack(instrument, channel);
 
             var player = new ArpeggioPlayer(track, ArpeggioPatternCommandFactory.MakeArpeggioPatternCommand4());
             var chordChanges = GetChords1();
@@ -79,9 +83,9 @@ namespace MusicMaker.Tests
         {
             var tempo = 180;
 
-            var track = new ChordPlayerTrack((byte)GeneralMidiProgram.Marimba, 1, tempo);
-            var track2 = new ChordPlayerTrack((byte)GeneralMidiProgram.Vibraphone, 2, tempo);
-            var track3 = new ChordPlayerTrack((byte)GeneralMidiProgram.ElectricBass1, 3, tempo);
+            var track = new ChordPlayerTrack((byte)GeneralMidiProgram.Marimba, 1);
+            var track2 = new ChordPlayerTrack((byte)GeneralMidiProgram.Vibraphone, 2);
+            var track3 = new ChordPlayerTrack((byte)GeneralMidiProgram.ElectricBass1, 3);
 
             var player = new ArpeggioPlayer(track, ArpeggioPatternCommandFactory.MakeArpeggioPatternCommand2());
             var player2 = new ArpeggioPlayer(track2, ArpeggioPatternCommandFactory.MakeArpeggioPatternCommand1());
