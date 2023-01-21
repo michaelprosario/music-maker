@@ -3285,7 +3285,6 @@ export enum ChordType {
 
 export class ArpeggioPattern implements IArpeggioPattern {
     rows!: ArpeggioPatternRow[];
-    instrumentNumber!: number;
 
     constructor(data?: IArpeggioPattern) {
         if (data) {
@@ -3306,7 +3305,6 @@ export class ArpeggioPattern implements IArpeggioPattern {
                 for (let item of _data["rows"])
                     this.rows!.push(ArpeggioPatternRow.fromJS(item));
             }
-            this.instrumentNumber = _data["instrumentNumber"];
         }
     }
 
@@ -3324,14 +3322,12 @@ export class ArpeggioPattern implements IArpeggioPattern {
             for (let item of this.rows)
                 data["rows"].push(item.toJSON());
         }
-        data["instrumentNumber"] = this.instrumentNumber;
         return data;
     }
 }
 
 export interface IArpeggioPattern {
     rows: ArpeggioPatternRow[];
-    instrumentNumber: number;
 }
 
 export class ArpeggioPatternRow implements IArpeggioPatternRow {

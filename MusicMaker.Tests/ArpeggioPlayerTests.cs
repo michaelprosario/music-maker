@@ -16,19 +16,19 @@ namespace MusicMaker.Tests
         public void ArpeggioPlayer__Arp1Test()
         {
             var tempo = 180;
-            var instrument = (byte)Instruments.AcousticGrandPiano;
+            var instrument = (byte)Instruments.Banjo;
             var channel = 1;
 
             var track = new ChordPlayerTrack(instrument, channel, tempo);
 
             var player = new ArpeggioPlayer(track, ArpeggioPatternCommandFactory.MakeArpeggioPatternCommand1());
-            var chordChanges = GetChords1();
+            var chordChanges = GetChords2();
 
             player.PlayFromChordChanges(chordChanges);
 
             var midiFile = new MidiFile();
             midiFile.Chunks.Add(track.MakeTrackChunk());
-            midiFile.Write("arp1.mid", true);
+            midiFile.Write(@"c:\dev\data\arp1.mid", true);
         }
 
         [Test]

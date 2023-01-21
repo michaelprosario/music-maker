@@ -15,6 +15,10 @@
                     <div>Beats per measure</div>
                     <div><input [(ngModel)]="beatsPerMeasure"></div>
                 </div>
+                <div>
+                    <div>Instrument</div>
+                    <div><input [(ngModel)]="instrument"></div>
+                </div>                
             </td>
             <td>
                 <midi-player [src]="midiUrl" sound-font id="midiPlayer">

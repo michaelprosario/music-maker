@@ -18,6 +18,7 @@ export class EditArpeggioComponent implements OnInit {
   tracks: ArpTrackViewModel[];
   midiUrl: string;
   currentFile: string = '';
+  instrument: number = 1;
 
   constructor(private musicMakerService: MusicMakerService) {
     this.tracks = [];
@@ -47,13 +48,14 @@ export class EditArpeggioComponent implements OnInit {
   private setupOctave(octave: number) {
     let aTrack: ArpTrackViewModel;
 
+    aTrack = new ArpTrackViewModel("II",ArpeggioPatternRowType.Second, octave, this.numberOfMeasures, this.beatsPerMeasure);
+    this.tracks.push(aTrack);    
     aTrack = new ArpTrackViewModel("V",ArpeggioPatternRowType.Fifth,octave, this.numberOfMeasures, this.beatsPerMeasure);
     this.tracks.push(aTrack);
     
     aTrack = new ArpTrackViewModel("III",ArpeggioPatternRowType.Third, octave, this.numberOfMeasures, this.beatsPerMeasure);
     this.tracks.push(aTrack);
-    aTrack = new ArpTrackViewModel("II",ArpeggioPatternRowType.Second, octave, this.numberOfMeasures, this.beatsPerMeasure);
-    this.tracks.push(aTrack);
+    
     aTrack = new ArpTrackViewModel("Root",ArpeggioPatternRowType.Root,octave, this.numberOfMeasures, this.beatsPerMeasure);
     this.tracks.push(aTrack);
     return aTrack;
@@ -95,7 +97,8 @@ export class EditArpeggioComponent implements OnInit {
     
     command.pattern = new ArpeggioPattern();
     command.pattern.rows = this.getTracks();
-    command.pattern.instrumentNumber = 1;
+    command.instrument = this.instrument;
+
 
     command.id = this.currentFile;
     command.chordChanges = [];

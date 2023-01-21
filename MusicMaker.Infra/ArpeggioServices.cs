@@ -12,7 +12,7 @@ namespace MusicMaker.Infra
         {
             CommonResponse response = new();
             var tempo = command.BeatsPerMinute;
-            var instrument = command.Instrument;
+            var instrument = (byte)command.Instrument;
             var channel = command.Channel;
 
             var track = new ChordPlayerTrack(instrument, channel, tempo);
