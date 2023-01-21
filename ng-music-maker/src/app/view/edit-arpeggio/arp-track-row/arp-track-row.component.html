@@ -1,0 +1,16 @@
+<div>
+  <div class="divTrackName">
+    {{track.rowName}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    <button (click)="onPattern4()">Random</button> <button (click)="onClear()">Clear</button>
+  </div>
+
+  <div class="divTrackCells">
+    <app-arp-track-cell
+      *ngFor="let cell of track.trackData; let j = index "
+      (click)="onCellClick(track, j)"
+      [trackCellValue]="track.trackData[j]"
+      >
+    </app-arp-track-cell>
+  </div><!-- END divTrackCells -->
+</div>
+<br>

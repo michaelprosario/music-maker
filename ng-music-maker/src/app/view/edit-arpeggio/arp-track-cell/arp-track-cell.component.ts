@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-arp-track-cell',
@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArpTrackCellComponent implements OnInit {
 
+  @Input()
+  trackCellValue: number = 0;
   constructor() { }
 
   ngOnInit(): void {

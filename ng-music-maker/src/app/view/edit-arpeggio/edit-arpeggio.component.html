@@ -11,15 +11,10 @@
                     <div>Tempo</div>
                     <div><input [(ngModel)]="tempo"></div>
                 </div>
-                <div>
+                <div>                                                                                                                                  
                     <div>Beats per measure</div>
                     <div><input [(ngModel)]="beatsPerMeasure"></div>
                 </div>
-                <div>
-                    <div>Number of measures</div>
-                    <div><input [(ngModel)]="numberOfMeasures"></div>
-                </div>
-
             </td>
             <td>
                 <midi-player [src]="midiUrl" sound-font id="midiPlayer">
@@ -30,7 +25,7 @@
     <div class="divTracks">
 
         <div *ngFor="let track of tracks; let i = index">
-            <app-arp-track-row></app-arp-track-row>            
+            <app-arp-track-row [track]="track"></app-arp-track-row>            
         </div>
 
     </div>

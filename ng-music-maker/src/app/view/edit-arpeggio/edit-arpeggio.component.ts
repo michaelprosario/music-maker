@@ -1,25 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MusicMakerService } from 'src/app/core/services/music-maker-service';
-import { DrumTrackRow, MakeDrumTrackCommand, MakeMidiFromArpeggioCommand } from 'src/app/core/services/server-client';
-import { DrumTrackViewModel } from '../edit-drum-track/drum-track-view-model';
+import { ArpeggioPattern, ArpeggioPatternRow, ChordChange, MakeMidiFromArpeggioCommand } from 'src/app/core/services/server-client';
 import { environment } from 'src/environments/environment';
+import { ArpTrackViewModel } from './arp-track-view-model';
 
-/*
-next steps
---- create command to test arp
---- create row component
---- create cell component
-
-
-data required to play an arpeggio
-- chord progression 
-- instrument x
-- channel x
-- tempo x
-- ArpeggioPattern x
-- File x
-
-*/
 @Component({
   selector: 'app-edit-arpeggio',
   templateUrl: './edit-arpeggio.component.html',
@@ -29,15 +13,15 @@ export class EditArpeggioComponent implements OnInit {
 
   tempo: number = 120;
   beatsPerMeasure: number = 4;
-  numberOfMeasures: number = 4;
-  tracks: DrumTrackViewModel[];
+  numberOfMeasures: number = 1;
+  tracks: ArpTrackViewModel[];
   midiUrl: string;
   currentFile: string = '';
 
   constructor(private musicMakerService: MusicMakerService) {
     this.tracks = [];
-    this.currentFile = "fc166a5b-22dd-41b0-86b5-d9c0144edd18.mid";
-    this.midiUrl = `${environment.apiUrl}/api/MediaFiles/v1/File/${this.currentFile}`;
+    this.currentFile = "fc166a5b-22dd-41b0-86b5-d9c0144edd18";
+    this.midiUrl = `${environment.apiUrl}/api/MediaFiles/v1/File/${this.currentFile}.mid`;
   }
 
   onDownload(){
@@ -49,76 +33,33 @@ export class EditArpeggioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.setupDrumStuff();
+    this.setupTrackRows();
   }
 
-  private setupDrumStuff() {
-    this.tracks = [];
-    this.setupBasicDrumKit();
-    this.addCongaDrums();
-    this.addToms();
-
-    // Needs more cow bell
-    let aTrack = new DrumTrackViewModel("Cow bell", 56, this.numberOfMeasures, this.beatsPerMeasure);
-    this.tracks.push(aTrack);
-
-    aTrack = new DrumTrackViewModel("Shaker", 70, this.numberOfMeasures, this.beatsPerMeasure);
-    this.tracks.push(aTrack);
+  private setupTrackRows() {
+    this.tracks = [];    
+    this.setupOctave(1);
+    this.setupOctave(0);    
   }
 
-  private addToms() {
-    let aTrack = new DrumTrackViewModel("Low Tom", 45, this.numberOfMeasures, this.beatsPerMeasure);
+  private setupOctave(octave: number) {
+    let aTrack: ArpTrackViewModel;
+        
+    aTrack = new ArpTrackViewModel("V | " + octave,3,octave, this.numberOfMeasures, this.beatsPerMeasure);
     this.tracks.push(aTrack);
-    aTrack = new DrumTrackViewModel("Medium Tom", 47, this.numberOfMeasures, this.beatsPerMeasure);
+    aTrack = new ArpTrackViewModel("III | " + octave,octave,1, this.numberOfMeasures, this.beatsPerMeasure);
     this.tracks.push(aTrack);
-    aTrack = new DrumTrackViewModel("High Tom", 50, this.numberOfMeasures, this.beatsPerMeasure);
-    this.tracks.push(aTrack);
-    return aTrack;
-  }
 
-  private addCongaDrums() {
-    let aTrack = new DrumTrackViewModel("Conga 1", 60, this.numberOfMeasures, this.beatsPerMeasure);
-    this.tracks.push(aTrack);
-    aTrack = new DrumTrackViewModel("Conga 2", 61, this.numberOfMeasures, this.beatsPerMeasure);
-    this.tracks.push(aTrack);
-    aTrack = new DrumTrackViewModel("Conga 3", 62, this.numberOfMeasures, this.beatsPerMeasure);
-    this.tracks.push(aTrack);
-    aTrack = new DrumTrackViewModel("Conga 4", 63, this.numberOfMeasures, this.beatsPerMeasure);
-    this.tracks.push(aTrack);
-    aTrack = new DrumTrackViewModel("Conga 5", 64, this.numberOfMeasures, this.beatsPerMeasure);
-    this.tracks.push(aTrack);
-    return aTrack;
-  }
-
-  private setupBasicDrumKit() {
-    let aTrack = new DrumTrackViewModel("Base Drum", 36, this.numberOfMeasures, this.beatsPerMeasure);
-    this.tracks.push(aTrack);
-    aTrack = new DrumTrackViewModel("Snare Drum", 38, this.numberOfMeasures, this.beatsPerMeasure);
-    this.tracks.push(aTrack);
-    aTrack = new DrumTrackViewModel("Closed High hat", 42, this.numberOfMeasures, this.beatsPerMeasure);
+    aTrack = new ArpTrackViewModel("Root | " + octave,0,octave, this.numberOfMeasures, this.beatsPerMeasure);
     this.tracks.push(aTrack);
     return aTrack;
   }
 
   onClearTracks(){
-    this.setupDrumStuff();
+    this.setupTrackRows();
     for (let track of this.tracks) {
       for (let j = 0; j < track.trackData.length; j++) {
           track.trackData[j] = 0;
-      }
-    }
-  }
-
-  onRandomTracks() {
-    for (let track of this.tracks) {
-      for (let j = 0; j < track.trackData.length; j++) {
-
-        let k = Math.random();
-        if (k < 0.25) {
-          track.trackData[j] = 120;
-        } else {
-          track.trackData[j] = 0;
-        }
       }
     }
   }
@@ -128,7 +69,6 @@ export class EditArpeggioComponent implements OnInit {
     let command = this.buildCommand();
 
     let response = await this.musicMakerService.makeMidiFromArpeggio(command).toPromise();
-    console.log("response from make drum track .........")
     console.log(response);
 
     this.playCurrentFile();
@@ -143,96 +83,66 @@ export class EditArpeggioComponent implements OnInit {
   }
 
   private buildCommand() : MakeMidiFromArpeggioCommand {
-    let command = {
-      "instrument": 3,
-      "id": "fc166a5b-22dd-41b0-86b5-d9c0144edd18",
-      "chordChanges": [
-        {
-          "beatCount": 4,
-          "chordRoot": 69,
-          "chordType": 1
-        },
-        {
-          "beatCount": 4,
-          "chordRoot": 67,
-          "chordType": 0
-        },
-        {
-          "beatCount": 4,
-          "chordRoot": 65,
-          "chordType": 0
-        },
-        {
-          "beatCount": 4,
-          "chordRoot": 64,
-          "chordType": 0
-        }
-      ],
-      "pattern": {
-        "rows": [
-          {
-            "octave": 2,
-            "type": 3,
-            "pattern": "----|----|----|----|"
-          },
-          {
-            "octave": 2,
-            "type": 2,
-            "pattern": "----|----|----|----|"
-          },
-          {
-            "octave": 2,
-            "type": 0,
-            "pattern": "----|----|----|----|"
-          },
-          {
-            "octave": 1,
-            "type": 3,
-            "pattern": "--s-|--s-|--s-|s--s|"
-          },
-          {
-            "octave": 1,
-            "type": 2,
-            "pattern": "--s-|--s-|--s-|s--s|"
-          },
-          {
-            "octave": 1,
-            "type": 0,
-            "pattern": "--s-|--s-|--s-|s--s|"
-          }
-        ],
-        "instrumentNumber": 105
-      },
-      "beatsPerMinute": 80,
-      "channel": 1,
-      "userId": "mrosario"
-    } as MakeMidiFromArpeggioCommand;
+    //debugger;
+    let command = new MakeMidiFromArpeggioCommand();
+    command.beatsPerMinute = this.tempo;
+    command.userId = "user1";
+    command.channel = 1;
+    
+    command.pattern = new ArpeggioPattern();
+    command.pattern.rows = this.getTracks();
+    command.pattern.instrumentNumber = 1;
 
+    command.id = this.currentFile;
+    command.chordChanges = [];
+    command.chordChanges.push(new ChordChange({
+      "beatCount": 4,
+     "chordRoot": 69,
+     "chordType": 1
+    }));
+    command.chordChanges.push(new ChordChange({
+      "beatCount": 4,
+      "chordRoot": 67,
+      "chordType": 0
+    }));
+    command.chordChanges.push(new ChordChange({
+      "beatCount": 4,
+      "chordRoot": 65,
+      "chordType": 0
+    }));
+    command.chordChanges.push(new ChordChange({
+      "beatCount": 4,
+      "chordRoot": 64,
+      "chordType": 0
+    }));
+
+    console.log(command);
     return command;
   }
 
-  getTracks(): DrumTrackRow[] {
-    let drumTracks = [];
+  getTracks(): ArpeggioPatternRow[] {
+    let arpTracks = [];
     for(let track of this.tracks)
     {
-      let drumTrackRow = new DrumTrackRow();
-      drumTrackRow.instrumentNumber = track.instrumentNumber;
-      let drumString = "";
+      let arpTrackRow = new ArpeggioPatternRow();
+      arpTrackRow.type = track.rowType;
+      arpTrackRow.octave = track.octave;
+      let arpPatternString = "";
       for(let i=0; i< track.trackData.length; i++)
       {
         let currentValue = track.trackData[i];
         if(currentValue > 0)
         {
-          drumString += "x"
+          arpPatternString += "s"
         }else{
-          drumString += "-"
+          arpPatternString += "-"
         }
       }
-      drumTrackRow.pattern = drumString;
+      arpTrackRow.pattern = arpPatternString;
 
-      drumTracks.push(drumTrackRow);
+      arpTracks.push(arpTrackRow);
     }
 
-    return drumTracks;
+    return arpTracks;
   }
 }
