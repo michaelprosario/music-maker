@@ -1,7 +1,7 @@
-<div>
   <div class="divTrackName">
-    {{track.rowName}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-    <button (click)="onPattern4()">Random</button> <button (click)="onClear()">Clear</button>
+    <button (click)="onPattern4()">Random</button> 
+    <button (click)="onClear()">Clear</button>    
+    {{track.rowName}}     
   </div>
 
   <div class="divTrackCells">
@@ -11,6 +11,5 @@
       [trackCellValue]="track.trackData[j]"
       >
     </app-arp-track-cell>
-  </div><!-- END divTrackCells -->
-</div>
-<br>
+  </div>
+

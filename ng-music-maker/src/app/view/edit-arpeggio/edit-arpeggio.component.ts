@@ -38,6 +38,7 @@ export class EditArpeggioComponent implements OnInit {
 
   private setupTrackRows() {
     this.tracks = [];    
+    this.setupOctave(2);
     this.setupOctave(1);
     this.setupOctave(0);    
   }
@@ -95,10 +96,17 @@ export class EditArpeggioComponent implements OnInit {
 
     command.id = this.currentFile;
     command.chordChanges = [];
+    this.setupChordProgression2(command);
+
+    console.log(command);
+    return command;
+  }
+
+  private setupChordProgression1(command: MakeMidiFromArpeggioCommand) {
     command.chordChanges.push(new ChordChange({
       "beatCount": 4,
-     "chordRoot": 69,
-     "chordType": 1
+      "chordRoot": 69,
+      "chordType": 1
     }));
     command.chordChanges.push(new ChordChange({
       "beatCount": 4,
@@ -115,10 +123,31 @@ export class EditArpeggioComponent implements OnInit {
       "chordRoot": 64,
       "chordType": 0
     }));
-
-    console.log(command);
-    return command;
   }
+
+  private setupChordProgression2(command: MakeMidiFromArpeggioCommand) {
+    command.chordChanges.push(new ChordChange({
+      "beatCount": 4,
+      "chordRoot": 48,
+      "chordType": 0
+    }));
+    command.chordChanges.push(new ChordChange({
+      "beatCount": 4,
+      "chordRoot": 57,
+      "chordType": 1
+    }));
+    command.chordChanges.push(new ChordChange({
+      "beatCount": 4,
+      "chordRoot": 53,
+      "chordType": 0
+    }));
+    command.chordChanges.push(new ChordChange({
+      "beatCount": 4,
+      "chordRoot": 55,
+      "chordType": 0
+    }));
+  }
+
 
   getTracks(): ArpeggioPatternRow[] {
     let arpTracks = [];
