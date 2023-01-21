@@ -13,6 +13,7 @@ import { EditProgressionPlayerComponent } from './view/edit-progression-player/e
 import { EditArpeggioComponent } from './view/edit-arpeggio/edit-arpeggio.component';
 import { ArpTrackCellComponent } from './view/edit-arpeggio/arp-track-cell/arp-track-cell.component';
 import { ArpTrackRowComponent } from './view/edit-arpeggio/arp-track-row/arp-track-row.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
@@ -32,7 +33,8 @@ import { ArpTrackRowComponent } from './view/edit-arpeggio/arp-track-row/arp-tra
     BrowserAnimationsModule,
     FormsModule,
     PanelModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

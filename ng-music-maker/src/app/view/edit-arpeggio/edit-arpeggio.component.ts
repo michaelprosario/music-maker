@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ArpeggioPatternRowType } from 'src/app/core/enums/arp-pattern-row-type';
 import { MusicMakerService } from 'src/app/core/services/music-maker-service';
 import { ArpeggioPattern, ArpeggioPatternRow, ChordChange, MakeMidiFromArpeggioCommand } from 'src/app/core/services/server-client';
 import { environment } from 'src/environments/environment';
@@ -45,13 +46,15 @@ export class EditArpeggioComponent implements OnInit {
 
   private setupOctave(octave: number) {
     let aTrack: ArpTrackViewModel;
-        
-    aTrack = new ArpTrackViewModel("V | " + octave,3,octave, this.numberOfMeasures, this.beatsPerMeasure);
-    this.tracks.push(aTrack);
-    aTrack = new ArpTrackViewModel("III | " + octave,octave,1, this.numberOfMeasures, this.beatsPerMeasure);
-    this.tracks.push(aTrack);
 
-    aTrack = new ArpTrackViewModel("Root | " + octave,0,octave, this.numberOfMeasures, this.beatsPerMeasure);
+    aTrack = new ArpTrackViewModel("V",ArpeggioPatternRowType.Fifth,octave, this.numberOfMeasures, this.beatsPerMeasure);
+    this.tracks.push(aTrack);
+    
+    aTrack = new ArpTrackViewModel("III",ArpeggioPatternRowType.Third, octave, this.numberOfMeasures, this.beatsPerMeasure);
+    this.tracks.push(aTrack);
+    aTrack = new ArpTrackViewModel("II",ArpeggioPatternRowType.Second, octave, this.numberOfMeasures, this.beatsPerMeasure);
+    this.tracks.push(aTrack);
+    aTrack = new ArpTrackViewModel("Root",ArpeggioPatternRowType.Root,octave, this.numberOfMeasures, this.beatsPerMeasure);
     this.tracks.push(aTrack);
     return aTrack;
   }

@@ -11,7 +11,7 @@
                     <div>Tempo</div>
                     <div><input [(ngModel)]="tempo"></div>
                 </div>
-                <div>                                                                                                                                  
+                <div>
                     <div>Beats per measure</div>
                     <div><input [(ngModel)]="beatsPerMeasure"></div>
                 </div>
@@ -22,11 +22,14 @@
             </td>
         </tr>
     </table>
+
     <div class="divTracks">
-
-        <div *ngFor="let track of tracks; let i = index">
-            <app-arp-track-row [track]="track"></app-arp-track-row>            
-        </div>
-
+        
+            <div *ngFor="let track of tracks; let i = index">
+                <app-arp-track-row [track]="track"></app-arp-track-row>
+            </div>
+        
     </div>
+
+
 </p-panel>
