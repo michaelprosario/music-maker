@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicMaker.Infra", "MusicMa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicMaker.Tests", "MusicMaker.Tests\MusicMaker.Tests.csproj", "{99DA8A4D-3401-4BAA-A77B-92446E834DFF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicMakerMvc", "MusicMakerMvc\MusicMakerMvc.csproj", "{78CD54DF-9D57-4B7B-8069-B974FB0F4134}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

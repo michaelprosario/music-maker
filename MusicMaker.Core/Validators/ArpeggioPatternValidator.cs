@@ -7,7 +7,6 @@ namespace MusicMaker.Core.Services
     {
         public ArpeggioPatternValidator()
         {
-            RuleFor(x => x.InstrumentNumber).GreaterThan(0).LessThan(255); // does this break DRY???
             RuleForEach(x => x.Rows).SetValidator(new ArpeggioPatternRowValidator());
         }
     }

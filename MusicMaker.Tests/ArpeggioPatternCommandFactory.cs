@@ -20,8 +20,7 @@ namespace MusicMaker.Tests
                         new() { Type = ArpeggioPatternRowType.Fifth, Octave = 1, Pattern = "----|----|----|---s|" },
                         new() { Type = ArpeggioPatternRowType.Third, Octave = 1, Pattern = "----|----|----|----|" },
                         new() { Type = ArpeggioPatternRowType.Root, Octave = 1, Pattern = "s-s-|s-s-|s-s-|s-s-|" }
-                    },
-                    InstrumentNumber = Instruments.Banjo
+                    }
                 },
                 UserId = "mrosario",
                 BeatsPerMinute = 120,
@@ -46,8 +45,7 @@ namespace MusicMaker.Tests
                         new() { Type = ArpeggioPatternRowType.Fifth, Octave = 1, Pattern = "----|----|q~~~|e~--|" },
                         new() { Type = ArpeggioPatternRowType.Third, Octave = 1, Pattern = "----|----|----|--e~|" },
                         new() { Type = ArpeggioPatternRowType.Root, Octave = 1, Pattern = "h~~~|~~~~|----|----|" }
-                    },
-                    InstrumentNumber = Instruments.Banjo
+                    }
                 },
                 UserId = "mrosario",
                 BeatsPerMinute = 120,
@@ -71,8 +69,7 @@ namespace MusicMaker.Tests
                         new() { Type = ArpeggioPatternRowType.Fifth, Octave = 1, Pattern = "--s-|--s-|--s-|s--s|" },
                         new() { Type = ArpeggioPatternRowType.Third, Octave = 1, Pattern = "--s-|--s-|--s-|s--s|" },
                         new() { Type = ArpeggioPatternRowType.Root, Octave = 1, Pattern = "--s-|--s-|--s-|s--s|" }
-                    },
-                    InstrumentNumber = Instruments.Banjo
+                    }
                 },
                 UserId = "mrosario",
                 BeatsPerMinute = 120,
@@ -95,8 +92,7 @@ namespace MusicMaker.Tests
                         new() { Type = ArpeggioPatternRowType.Fifth, Octave = 1, Pattern = "--s-|s---|--s-|--s-|" },
                         new() { Type = ArpeggioPatternRowType.Third, Octave = 1, Pattern = "-s--|----|-s--|----|" },
                         new() { Type = ArpeggioPatternRowType.Root, Octave = 1, Pattern = "s---|----|s---|----|" }
-                    },
-                    InstrumentNumber = Instruments.Banjo
+                    }
                 },
                 UserId = "mrosario",
                 BeatsPerMinute = 120,

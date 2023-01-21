@@ -27,6 +27,5 @@ namespace MusicMaker.Core.ValueObjects
     public class ArpeggioPattern
     {
         [DataMember] public List<ArpeggioPatternRow> Rows { get; set; } = new();
-        [DataMember] public int InstrumentNumber { get; set; }
     }
 }
