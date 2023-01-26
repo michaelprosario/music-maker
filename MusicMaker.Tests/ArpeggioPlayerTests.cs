@@ -37,6 +37,35 @@ namespace MusicMaker.Tests
         }
 
         [Test]
+        public void ArpeggioPlayer__TestTwoBarChordChanges()
+        {
+            var tempo = 80;
+            var instrument = (byte)Instruments.Marimba;
+            var channel = 1;
+
+            var track = new ChordPlayerTrack(instrument, channel);
+
+            var player = new ArpeggioPlayer(track, ArpeggioPatternCommandFactory.MakeArpeggioPatternCommand1());
+            int k = 2;
+            var chordChanges = new List<ChordChange>
+            {
+                new(Note.Parse("C4").NoteNumber, ChordType.Major, k),
+                new(Note.Parse("E4").NoteNumber, ChordType.Minor, k),
+                new(Note.Parse("F4").NoteNumber, ChordType.Major, k),
+                new(Note.Parse("G4").NoteNumber, ChordType.Major, k)
+            };
+
+            player.PlayFromChordChanges(chordChanges);
+
+            var midiFile = new MidiFile();
+            TempoMap tempoMap = TempoMap.Create(Tempo.FromBeatsPerMinute(tempo));
+            midiFile.ReplaceTempoMap(tempoMap);
+
+            midiFile.Chunks.Add(track.MakeTrackChunk());
+            midiFile.Write(@"arp1.mid", true);
+        }        
+
+        [Test]
         public void ArpeggioPlayer__Arp3Test()
         {
             var tempo = 180;
@@ -75,7 +104,39 @@ namespace MusicMaker.Tests
             midiFile.Chunks.Add(track.MakeTrackChunk());
             midiFile.Write("arp4.mid", true);
         }
-
+        
+        [Test]
+        public void ArpeggioPattern__ClonePattern()
+        {
+            var command = ArpeggioPatternCommandFactory.MakeArpeggioPatternCommand1();
+            ArpeggioPattern clone = command.Pattern.Clone();
+            Assert.NotNull(clone);
+        }        
+        
+        [Test]
+        public void ArpeggioPattern__MakeTwoBarPattern()
+        {
+            var command = ArpeggioPatternCommandFactory.MakeArpeggioPatternCommand1();
+            ArpeggioPattern clone = command.Pattern.CopyFirstMeasures(2);
+            Assert.NotNull(clone);
+            foreach(var row in clone.Rows)
+            {
+                Assert.True(row.Pattern.Length == 8);
+            }
+        }        
+        
+        [Test]
+        public void ArpeggioPattern__MakeThreeBarPattern()
+        {
+            var command = ArpeggioPatternCommandFactory.MakeArpeggioPatternCommand1();
+            ArpeggioPattern clone = command.Pattern.CopyFirstMeasures(3);
+            Assert.NotNull(clone);
+            foreach(var row in clone.Rows)
+            {
+                Assert.True(row.Pattern.Length == 12);
+            }
+        }        
+        
         private static List<ChordChange> GetChords1()
         {
             var chordChanges = new List<ChordChange>

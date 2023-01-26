@@ -1,9 +1,12 @@
-﻿namespace MusicMaker.Demos;
+﻿using MusicMaker.Demos;
 
-public class Hello
+namespace MusicMakerDemos
 {
-    private static void Main(string[] args)
+    public class Program
     {
-        new Demos().PlayArp1();
+        private static void Main(string[] args)
+        {
+            new Demos().PlayArp1();
+        }
     }
 }
