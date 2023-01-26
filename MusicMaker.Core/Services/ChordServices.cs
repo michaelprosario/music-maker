@@ -6,13 +6,35 @@ using MusicMaker.Core.ValueObjects;
 
 namespace MusicMaker.Core.Services
 {
-    public class ChordServices
+    public interface IChordServices
+    {
+        ChordNotes MakeChordNotes(string root, ChordType type);
+        List<ChordChange> ParseChordProgression(string chordProgressionString);
+    }
+
+    public class ChordServices : IChordServices
     {
         private readonly IMidiServices _midiServices;
 
         public ChordServices(IMidiServices midiServices)
         {
             _midiServices = midiServices ?? throw new ArgumentNullException(nameof(midiServices));
+        }
+
+        public List<ChordChange> ParseChordProgression(string chordProgressionString)
+        {
+            if (string.IsNullOrEmpty(chordProgressionString)) return new List<ChordChange>();
+
+            var response = new List<ChordChange>();
+            string[] symbols = chordProgressionString.Split(" ");
+
+            foreach (string symbol in symbols)
+            {
+                ChordChange chordChange = _midiServices.ParseChordSymbol(symbol);
+                response.Add(chordChange);
+            }
+
+            return response;
         }
 
         public ChordNotes MakeChordNotes(string root, ChordType type)

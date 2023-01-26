@@ -1,27 +1,29 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DrumTrackViewModel } from "../edit-drum-track/drum-track-view-model";
+import { ArpTrackViewModel } from '../arp-track-view-model';
 
 @Component({
-  selector: 'app-drum-track-row',
-  templateUrl: './drum-track-row.component.html',
-  styleUrls: ['./drum-track-row.component.scss']
+  selector: 'app-arp-track-row',
+  templateUrl: './arp-track-row.component.html',
+  styleUrls: ['./arp-track-row.component.scss']
 })
-export class DrumTrackRowComponent implements OnInit {
+export class ArpTrackRowComponent implements OnInit {
+
 
   @Input()
-  track: DrumTrackViewModel
-  constructor() {
-    this.track = new DrumTrackViewModel("", 0, 0,0);
+  track: ArpTrackViewModel
+  constructor() 
+  {
+    this.track = new ArpTrackViewModel("",0, 0, 0,0);
   }
 
   ngOnInit(): void {
   }
 
-  onCellClick(track: DrumTrackViewModel, index: number): void {
+  onCellClick(track: ArpTrackViewModel, index: number): void {
 
     let cellValue = track.trackData[index];
     if(cellValue === 0){
-      track.trackData[index] = 120;
+      track.trackData[index] = 16;
     }else{
       track.trackData[index] = 0;
     }
@@ -29,7 +31,7 @@ export class DrumTrackRowComponent implements OnInit {
   }
 
   onPattern1(){
-    let trackCopy = { ...this.track } as DrumTrackViewModel;
+    let trackCopy = { ...this.track } as ArpTrackViewModel;
     for(let i=0; i<trackCopy.trackData.length; i++){
       if(i % 4 === 0){
         trackCopy.trackData[i] = 120;
@@ -42,7 +44,7 @@ export class DrumTrackRowComponent implements OnInit {
   }
 
   onPattern2(){
-    let trackCopy = { ...this.track } as DrumTrackViewModel;
+    let trackCopy = { ...this.track } as ArpTrackViewModel;
     for(let i=0; i<trackCopy.trackData.length; i++){
       if(i % 2 === 0){
         trackCopy.trackData[i] = 120;
@@ -55,7 +57,7 @@ export class DrumTrackRowComponent implements OnInit {
   }
 
   onPattern3(){
-    let trackCopy = { ...this.track } as DrumTrackViewModel;
+    let trackCopy = { ...this.track } as ArpTrackViewModel;
     for(let i=0; i<trackCopy.trackData.length; i++){
       if(i % 8 === 4){
         trackCopy.trackData[i] = 120;
@@ -68,7 +70,7 @@ export class DrumTrackRowComponent implements OnInit {
   }
 
   onPattern4(){
-    let trackCopy = { ...this.track } as DrumTrackViewModel;
+    let trackCopy = { ...this.track } as ArpTrackViewModel;
     for(let i=0; i<trackCopy.trackData.length; i++){
       let k = Math.random();
       if(k < 0.2){
@@ -83,7 +85,7 @@ export class DrumTrackRowComponent implements OnInit {
   }
 
   onClear(){
-    let trackCopy = { ...this.track } as DrumTrackViewModel;
+    let trackCopy = { ...this.track } as ArpTrackViewModel;
     for(let i=0; i<trackCopy.trackData.length; i++){
       trackCopy.trackData[i] = 0;
     }

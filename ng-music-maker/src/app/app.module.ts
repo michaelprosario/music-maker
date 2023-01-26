@@ -6,13 +6,14 @@ import { AppComponent } from './app.component';
 import { EditDrumTrackComponent } from './view/edit-drum-track/edit-drum-track.component';
 import { FormsModule } from '@angular/forms';
 import {PanelModule} from 'primeng/panel';
-import { DrumTrackRowComponent } from './view/drum-track-row/drum-track-row.component';
-import { DrumTrackCellComponent } from './view/drum-track-cell/drum-track-cell.component';
+import { DrumTrackRowComponent } from './view/edit-drum-track/drum-track-row/drum-track-row.component';
+import { DrumTrackCellComponent } from './view/edit-drum-track/drum-track-cell/drum-track-cell.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EditProgressionPlayerComponent } from './view/edit-progression-player/edit-progression-player.component';
 import { EditArpeggioComponent } from './view/edit-arpeggio/edit-arpeggio.component';
-import { ArpTrackCellComponent } from './view/arp-track-cell/arp-track-cell.component';
-import { ArpTrackRowComponent } from './view/arp-track-row/arp-track-row.component';
+import { ArpTrackCellComponent } from './view/edit-arpeggio/arp-track-cell/arp-track-cell.component';
+import { ArpTrackRowComponent } from './view/edit-arpeggio/arp-track-row/arp-track-row.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
@@ -32,7 +33,8 @@ import { ArpTrackRowComponent } from './view/arp-track-row/arp-track-row.compone
     BrowserAnimationsModule,
     FormsModule,
     PanelModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

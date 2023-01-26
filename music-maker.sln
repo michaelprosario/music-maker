@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicMaker.Infra", "MusicMa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicMaker.Tests", "MusicMaker.Tests\MusicMaker.Tests.csproj", "{99DA8A4D-3401-4BAA-A77B-92446E834DFF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicMakerMvc", "MusicMakerMvc\MusicMakerMvc.csproj", "{78CD54DF-9D57-4B7B-8069-B974FB0F4134}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicMakerDemos", "MusicMakerDemos\MusicMakerDemos.csproj", "{5227BA22-AA3D-4DBF-B1F8-53A820E2D52C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +33,10 @@ Global
 		{78CD54DF-9D57-4B7B-8069-B974FB0F4134}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78CD54DF-9D57-4B7B-8069-B974FB0F4134}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78CD54DF-9D57-4B7B-8069-B974FB0F4134}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5227BA22-AA3D-4DBF-B1F8-53A820E2D52C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5227BA22-AA3D-4DBF-B1F8-53A820E2D52C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5227BA22-AA3D-4DBF-B1F8-53A820E2D52C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5227BA22-AA3D-4DBF-B1F8-53A820E2D52C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

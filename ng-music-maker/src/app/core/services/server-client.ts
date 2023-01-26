@@ -3180,6 +3180,7 @@ export interface IMakeArpeggioPatternCommand {
 }
 
 export class MakeMidiFromArpeggioCommand extends MakeArpeggioPatternCommand implements IMakeMidiFromArpeggioCommand {
+    chordChangesAsString!: string;
     instrument!: number;
     id!: string;
     chordChanges!: ChordChange[];
@@ -3194,6 +3195,7 @@ export class MakeMidiFromArpeggioCommand extends MakeArpeggioPatternCommand impl
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
+            this.chordChangesAsString = _data["chordChangesAsString"];
             this.instrument = _data["instrument"];
             this.id = _data["id"];
             if (Array.isArray(_data["chordChanges"])) {
@@ -3213,6 +3215,7 @@ export class MakeMidiFromArpeggioCommand extends MakeArpeggioPatternCommand impl
 
     override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["chordChangesAsString"] = this.chordChangesAsString;
         data["instrument"] = this.instrument;
         data["id"] = this.id;
         if (Array.isArray(this.chordChanges)) {
@@ -3226,6 +3229,7 @@ export class MakeMidiFromArpeggioCommand extends MakeArpeggioPatternCommand impl
 }
 
 export interface IMakeMidiFromArpeggioCommand extends IMakeArpeggioPatternCommand {
+    chordChangesAsString: string;
     instrument: number;
     id: string;
     chordChanges: ChordChange[];
@@ -3285,7 +3289,6 @@ export enum ChordType {
 
 export class ArpeggioPattern implements IArpeggioPattern {
     rows!: ArpeggioPatternRow[];
-    instrumentNumber!: number;
 
     constructor(data?: IArpeggioPattern) {
         if (data) {
@@ -3306,7 +3309,6 @@ export class ArpeggioPattern implements IArpeggioPattern {
                 for (let item of _data["rows"])
                     this.rows!.push(ArpeggioPatternRow.fromJS(item));
             }
-            this.instrumentNumber = _data["instrumentNumber"];
         }
     }
 
@@ -3324,14 +3326,12 @@ export class ArpeggioPattern implements IArpeggioPattern {
             for (let item of this.rows)
                 data["rows"].push(item.toJSON());
         }
-        data["instrumentNumber"] = this.instrumentNumber;
         return data;
     }
 }
 
 export interface IArpeggioPattern {
     rows: ArpeggioPatternRow[];
-    instrumentNumber: number;
 }
 
 export class ArpeggioPatternRow implements IArpeggioPatternRow {

@@ -2,7 +2,7 @@
 using MusicMaker.Core.Requests;
 using MusicMaker.Core.ValueObjects;
 
-namespace MusicMaker.Tests
+namespace MusicMaker.Demos
 {
     public class ArpeggioPatternCommandFactory
     {
@@ -16,10 +16,10 @@ namespace MusicMaker.Tests
                     {
                         new() { Type = ArpeggioPatternRowType.Fifth, Octave = 2, Pattern = "----|----|----|----|" },
                         new() { Type = ArpeggioPatternRowType.Third, Octave = 2, Pattern = "----|----|----|----|" },
-                        new() { Type = ArpeggioPatternRowType.Root, Octave = 2, Pattern =  "----|----|----|----|" },
+                        new() { Type = ArpeggioPatternRowType.Root, Octave = 2, Pattern = "----|----|----|----|" },
                         new() { Type = ArpeggioPatternRowType.Fifth, Octave = 1, Pattern = "----|----|----|---s|" },
                         new() { Type = ArpeggioPatternRowType.Third, Octave = 1, Pattern = "----|----|----|----|" },
-                        new() { Type = ArpeggioPatternRowType.Root, Octave = 1, Pattern =  "s-s-|s-s-|s-s-|s-s-|" }
+                        new() { Type = ArpeggioPatternRowType.Root, Octave = 1, Pattern = "s-s-|s-s-|s-s-|s-s-|" }
                     }
                 },
                 UserId = "mrosario",
@@ -41,7 +41,7 @@ namespace MusicMaker.Tests
                     {
                         new() { Type = ArpeggioPatternRowType.Fifth, Octave = 2, Pattern = "----|----|----|----|" },
                         new() { Type = ArpeggioPatternRowType.Third, Octave = 2, Pattern = "----|----|----|----|" },
-                        new() { Type = ArpeggioPatternRowType.Root, Octave = 2, Pattern =  "----|----|----|----|" },
+                        new() { Type = ArpeggioPatternRowType.Root, Octave = 2, Pattern = "----|----|----|----|" },
                         new() { Type = ArpeggioPatternRowType.Fifth, Octave = 1, Pattern = "----|----|q~~~|e~--|" },
                         new() { Type = ArpeggioPatternRowType.Third, Octave = 1, Pattern = "----|----|----|--e~|" },
                         new() { Type = ArpeggioPatternRowType.Root, Octave = 1, Pattern = "h~~~|~~~~|----|----|" }

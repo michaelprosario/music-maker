@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Melanchall.DryWetMidi.Core;
+using Melanchall.DryWetMidi.Interaction;
 using MusicMaker.Core.Requests;
 using MusicMaker.Core.Responses;
 using MusicMaker.Core.Services;
@@ -15,15 +16,7 @@ namespace MusicMaker.Infra
             var instrument = command.Instrument;
             var channel = command.Channel;
 
-            var track = new ChordPlayerTrack(instrument, channel, tempo);
-
-            var makeArpCommand = new MakeArpeggioPatternCommand
-            {
-                Pattern = command.Pattern,
-                BeatsPerMinute = command.BeatsPerMinute,
-                Channel = command.Channel,
-                UserId = command.UserId
-            };
+            var track = new ChordPlayerTrack(instrument, channel);
 
             var player = new ArpeggioPlayer(track, command);
             var chordChanges = command.ChordChanges;
@@ -31,6 +24,8 @@ namespace MusicMaker.Infra
             player.PlayFromChordChanges(chordChanges);
 
             var midiFile = new MidiFile();
+            TempoMap tempoMap = TempoMap.Create(Tempo.FromBeatsPerMinute(command.BeatsPerMinute));
+            midiFile.ReplaceTempoMap(tempoMap);
             midiFile.Chunks.Add(track.MakeTrackChunk());
             midiFile.Write(outputFilePath + Path.DirectorySeparatorChar + command.Id + ".mid", true);
 
