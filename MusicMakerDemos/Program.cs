@@ -1,4 +1,9 @@
-﻿using MusicMaker.Demos;
+﻿namespace MusicMaker.Demos;
 
-var demos = new Demos();
-demos.PlayArp1();
+public class Hello
+{
+    static void Main(string[] args)
+    {
+        new Demos().PlayArp1();
+    }
+}

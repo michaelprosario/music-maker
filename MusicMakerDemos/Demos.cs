@@ -65,17 +65,20 @@ public class Demos
         var chordServices = new ChordServices(new MidiServices());
         
         var tempo = 90;
-        var instrument = (byte)Instruments.AcousticGrandPiano;
+        var instrument = (byte)Instruments.Marimba;
         var channel = 1;
 
         var track = new ChordPlayerTrack(instrument, channel);
 
         var player = new ArpeggioPlayer(track, ArpeggioPatternCommandFactory.MakeArpeggioPatternCommand1());
-        var chordChanges = chordServices.ParseChordProgression("G G C D G G C D Am G C D Em C D D");
+        var chordChanges = chordServices.ParseChordProgression("Em C D Em Em C D E");
 
         player.PlayFromChordChanges(chordChanges);
 
         var midiFile = new MidiFile();
+        TempoMap tempoMap = TempoMap.Create(Tempo.FromBeatsPerMinute(tempo));
+        midiFile.ReplaceTempoMap(tempoMap);
+       
         midiFile.Chunks.Add(track.MakeTrackChunk());
         midiFile.Write("out.mid", true);
     }
