@@ -6,13 +6,6 @@ namespace MusicMaker.Core.ValueObjects
     [DataContract]
     public class ChordChange
     {
-        [DataMember]
-        public int BeatCount { get; set; }
-        [DataMember]
-        public int ChordRoot{ get; set; }
-        [DataMember]
-        public ChordType ChordType{ get; set; }
-
         public ChordChange(int root, ChordType chordType, int beats)
         {
             ChordRoot = root;
@@ -20,8 +13,14 @@ namespace MusicMaker.Core.ValueObjects
             BeatCount = beats;
         }
 
-        public ChordChange() {
-
+        public ChordChange()
+        {
         }
+
+        [DataMember] public int BeatCount { get; set; }
+
+        [DataMember] public int ChordRoot { get; set; }
+
+        [DataMember] public ChordType ChordType { get; set; }
     }
 }

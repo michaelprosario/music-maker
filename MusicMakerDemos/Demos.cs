@@ -1,17 +1,11 @@
-
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
-using Melanchall.DryWetMidi.Standards;
 using MusicMaker.Core.Enums;
 using MusicMaker.Core.Interfaces;
 using MusicMaker.Core.Requests;
 using MusicMaker.Core.Services;
-using MusicMaker.Core.Services;
 using MusicMaker.Core.ValueObjects;
 using MusicMaker.Infra;
-using Note = Melanchall.DryWetMidi.MusicTheory.Note;
-
-
 
 namespace MusicMaker.Demos;
 
@@ -31,28 +25,28 @@ public class Demos
             BeatsPerMinute = 50,
             FileName = fileName,
             Tracks = new List<DrumTrackRow>
+            {
+                new()
                 {
-                    new()
-                    {
-                        Pattern = "x-x-|x-x-|x-x-|x-x-|x-x-|x-x-|x-x-|x-x-|",
-                        InstrumentNumber = DrumConstants.HiHat
-                    },
-                    new()
-                    {
-                        Pattern = "x---|----|x---|----|x---|----|x---|----|",
-                        InstrumentNumber = DrumConstants.AcousticBassDrum
-                    },
-                    new()
-                    {
-                        Pattern = "----|x---|----|x--x|----|x---|----|x--x|",
-                        InstrumentNumber = DrumConstants.AcousticSnare
-                    },
-                    new()
-                    {
-                        Pattern = "-x-x|x-x-|-x-x|x--x|-xx-|xx--|-xx-|x--x|",
-                        InstrumentNumber = DrumConstants.HiBongo
-                    }
+                    Pattern = "x-x-|x-x-|x-x-|x-x-|x-x-|x-x-|x-x-|x-x-|",
+                    InstrumentNumber = DrumConstants.HiHat
                 },
+                new()
+                {
+                    Pattern = "x---|----|x---|----|x---|----|x---|----|",
+                    InstrumentNumber = DrumConstants.AcousticBassDrum
+                },
+                new()
+                {
+                    Pattern = "----|x---|----|x--x|----|x---|----|x--x|",
+                    InstrumentNumber = DrumConstants.AcousticSnare
+                },
+                new()
+                {
+                    Pattern = "-x-x|x-x-|-x-x|x--x|-xx-|xx--|-xx-|x--x|",
+                    InstrumentNumber = DrumConstants.HiBongo
+                }
+            },
             UserId = "system"
         };
 
@@ -63,7 +57,7 @@ public class Demos
     public void PlayArp1()
     {
         var chordServices = new ChordServices(new MidiServices());
-        
+
         var tempo = 90;
         var instrument = (byte)Instruments.Marimba;
         var channel = 1;
@@ -78,7 +72,7 @@ public class Demos
         var midiFile = new MidiFile();
         TempoMap tempoMap = TempoMap.Create(Tempo.FromBeatsPerMinute(tempo));
         midiFile.ReplaceTempoMap(tempoMap);
-       
+
         midiFile.Chunks.Add(track.MakeTrackChunk());
         midiFile.Write("out.mid", true);
     }

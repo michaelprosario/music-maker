@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-
 using Melanchall.DryWetMidi.MusicTheory;
 using MusicMaker.Core.Enums;
 using MusicMaker.Core.Requests;
@@ -31,10 +30,9 @@ namespace MusicMaker.Tests
             var command = GetMakeMidiFromArpeggioCommand();
             var validator = new MakeMidiFromArpeggioCommandValidator();
             var validationResult = validator.Validate(command);
-            
-            
-            
-            DefaultContractResolver contractResolver = new DefaultContractResolver
+
+
+            DefaultContractResolver contractResolver = new()
             {
                 NamingStrategy = new CamelCaseNamingStrategy()
             };
@@ -42,11 +40,11 @@ namespace MusicMaker.Tests
             {
                 ContractResolver = contractResolver,
                 Formatting = Formatting.Indented
-            };            
+            };
             string jsonString = JsonConvert.SerializeObject(command, jsonSettings);
-            
-            File.WriteAllText(@"C:\dev\music-maker\makeMidiFromArp.json",jsonString);
-            
+
+            File.WriteAllText(@"makeMidiFromArp.json", jsonString);
+
             Assert.IsTrue(validationResult is { IsValid: true });
         }
 

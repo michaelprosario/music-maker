@@ -10,6 +10,6 @@ namespace MusicMaker.Core.Requests
         [DataMember] public byte Instrument { get; set; } = 1;
         [DataMember] public Guid Id { get; set; }
         [DataMember] public List<ChordChange> ChordChanges { get; set; } = new();
-        [DataMember] public string ChordChangesAsString{ get; set; } = "";
+        [DataMember] public string ChordChangesAsString { get; set; } = "";
     }
 }

@@ -31,9 +31,9 @@ namespace MusicMaker.Tests
             var midiFile = new MidiFile();
             TempoMap tempoMap = TempoMap.Create(Tempo.FromBeatsPerMinute(tempo));
             midiFile.ReplaceTempoMap(tempoMap);
-            
+
             midiFile.Chunks.Add(track.MakeTrackChunk());
-            midiFile.Write(@"c:\dev\data\arp1.mid", true);
+            midiFile.Write(@"arp1.mid", true);
         }
 
         [Test]
@@ -54,12 +54,12 @@ namespace MusicMaker.Tests
             midiFile.Chunks.Add(track.MakeTrackChunk());
             midiFile.Write("arp3.mid", true);
         }
-        
+
         [Test]
         public void ArpeggioPlayer__Arp4Test()
         {
             var chordServices = new ChordServices(new MidiServices());
-            
+
             var tempo = 90;
             var instrument = (byte)Instruments.AcousticGrandPiano;
             var channel = 1;
@@ -74,7 +74,7 @@ namespace MusicMaker.Tests
             var midiFile = new MidiFile();
             midiFile.Chunks.Add(track.MakeTrackChunk());
             midiFile.Write("arp4.mid", true);
-        }        
+        }
 
         private static List<ChordChange> GetChords1()
         {

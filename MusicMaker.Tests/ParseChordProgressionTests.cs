@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using Melanchall.DryWetMidi.Core;
-using Melanchall.DryWetMidi.MusicTheory;
 using MusicMaker.Core.Enums;
 using MusicMaker.Core.Interfaces;
 using MusicMaker.Core.Services;
@@ -26,14 +24,10 @@ namespace MusicMaker.Tests
 
             // assert
             Assert.True(chordChanges.Count == 4);
-            foreach (var chordChange in chordChanges)
-            {
-                Assert.True(chordChange.BeatCount == 4);
-            }
+            foreach (var chordChange in chordChanges) Assert.True(chordChange.BeatCount == 4);
             Assert.True(chordChanges[0].ChordType == ChordType.Major);
             Assert.True(chordChanges[1].ChordType == ChordType.Minor);
             Assert.True(chordChanges[2].ChordType == ChordType.Major);
         }
-
     }
 }

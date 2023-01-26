@@ -11,7 +11,7 @@ using MusicMaker.Core.Interfaces;
 using MusicMaker.Core.Requests;
 using MusicMaker.Core.Services;
 using MusicMaker.Core.ValueObjects;
-using Chord = MusicMaker.Core.ValueObjects.Chord;
+using Chord = Melanchall.DryWetMidi.MusicTheory.Chord;
 using Note = Melanchall.DryWetMidi.MusicTheory.Note;
 
 namespace MusicMaker.Infra
@@ -25,18 +25,15 @@ namespace MusicMaker.Infra
 
         public ChordChange ParseChordSymbol(string symbol)
         {
-            var chord = Melanchall.DryWetMidi.MusicTheory.Chord.Parse(symbol);
+            var chord = Chord.Parse(symbol);
             var rootName = chord.RootNoteName;
             var intervals = chord.GetIntervalsBetweenNotes().ToArray();
-            
-            int middleC = 60;
-            int root = (int)rootName + middleC;
-            ChordType chordType = ChordType.Major;
-            if (intervals[0].HalfSteps == 3)
-            {
-                chordType = ChordType.Minor;
-            }
-            
+
+            var middleC = 60;
+            var root = (int)rootName + middleC;
+            var chordType = ChordType.Major;
+            if (intervals[0].HalfSteps == 3) chordType = ChordType.Minor;
+
             var chordChange = new ChordChange(root, chordType, 4);
             return chordChange;
         }
