@@ -1,6 +1,6 @@
 {
     "/api/*": {
-      "target": "https://8000-michaelpros-ngmusicmake-ljdtipk3jk7.ws-us54.gitpod.io/api",
+      "target": "https://127.0.0.1:80/api",
       "secure": false,
       "changeOrigin": true,
       "pathRewrite": {
