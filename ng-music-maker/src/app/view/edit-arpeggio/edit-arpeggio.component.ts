@@ -53,15 +53,13 @@ export class EditArpeggioComponent implements OnInit {
 
   private setupOctave(octave: number) {
     let aTrack: ArpTrackViewModel;
-
-    aTrack = new ArpTrackViewModel("II",ArpeggioPatternRowType.Second, octave, this.numberOfMeasures, this.beatsPerMeasure);
-    this.tracks.push(aTrack);    
+ 
     aTrack = new ArpTrackViewModel("V",ArpeggioPatternRowType.Fifth,octave, this.numberOfMeasures, this.beatsPerMeasure);
-    this.tracks.push(aTrack);
-    
+    this.tracks.push(aTrack);    
     aTrack = new ArpTrackViewModel("III",ArpeggioPatternRowType.Third, octave, this.numberOfMeasures, this.beatsPerMeasure);
     this.tracks.push(aTrack);
-    
+    aTrack = new ArpTrackViewModel("II",ArpeggioPatternRowType.Second, octave, this.numberOfMeasures, this.beatsPerMeasure);
+    this.tracks.push(aTrack);  
     aTrack = new ArpTrackViewModel("Root",ArpeggioPatternRowType.Root,octave, this.numberOfMeasures, this.beatsPerMeasure);
     this.tracks.push(aTrack);
     return aTrack;
@@ -111,53 +109,6 @@ export class EditArpeggioComponent implements OnInit {
     console.log(command);
     return command;
   }
-
-  private setupChordProgression1(command: MakeMidiFromArpeggioCommand) {
-    command.chordChanges.push(new ChordChange({
-      "beatCount": 4,
-      "chordRoot": 69,
-      "chordType": 1
-    }));
-    command.chordChanges.push(new ChordChange({
-      "beatCount": 4,
-      "chordRoot": 67,
-      "chordType": 0
-    }));
-    command.chordChanges.push(new ChordChange({
-      "beatCount": 4,
-      "chordRoot": 65,
-      "chordType": 0
-    }));
-    command.chordChanges.push(new ChordChange({
-      "beatCount": 4,
-      "chordRoot": 64,
-      "chordType": 0
-    }));
-  }
-
-  private setupChordProgression2(command: MakeMidiFromArpeggioCommand) {
-    command.chordChanges.push(new ChordChange({
-      "beatCount": 4,
-      "chordRoot": 48,
-      "chordType": 0
-    }));
-    command.chordChanges.push(new ChordChange({
-      "beatCount": 4,
-      "chordRoot": 57,
-      "chordType": 1
-    }));
-    command.chordChanges.push(new ChordChange({
-      "beatCount": 4,
-      "chordRoot": 53,
-      "chordType": 0
-    }));
-    command.chordChanges.push(new ChordChange({
-      "beatCount": 4,
-      "chordRoot": 55,
-      "chordType": 0
-    }));
-  }
-
 
   getTracks(): ArpeggioPatternRow[] {
     let arpTracks = [];
