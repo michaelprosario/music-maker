@@ -2,19 +2,20 @@
   <div class="row">
 
 
-    <div class="divTrackName col-sm-1">
+    <div class="divTrackName col-sm-2">
       {{track.rowName}}
     </div>
 
-    <div class="divTrackCells col-sm-3">
+    <div class="divTrackCells col-5">
       <app-arp-track-cell *ngFor="let cell of track.trackData; let j = index " (click)="onCellClick(track, j)"
         [trackCellValue]="track.trackData[j]">
       </app-arp-track-cell>
     </div>
-    <div class="col-sm-8">
+    <div class="col-5">
       <button (click)="onPattern4()">Random</button>
       <button (click)="onPattern1()">1</button>
       <button (click)="onPattern3()">2</button>
+      <button (click)="onPattern2()">3</button>
       <button (click)="onClear()">Clear</button>
     </div>    
   </div>

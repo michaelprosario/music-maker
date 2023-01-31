@@ -5,37 +5,45 @@
 </midi-player>
 <p-panel header="NG Music Maker > Arpeggio Editor" [toggleable]="false">
 
-    <div class="divTracks">
+    <div class="container">
+        <div class="row">
+            <div class="col-10">
+                <div class="divTracks">
+                    <div *ngFor="let track of tracks; let i = index">
+                        <app-arp-track-row [track]="track"></app-arp-track-row>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <table>
+                    <tr>
+                        <td>
+                            <div>
+                                <div>Tempo</div>
+                                <div><input [(ngModel)]="tempo"></div>
+                            </div>
+                            <div>
+                                <div>Beats per measure</div>
+                                <div><input [(ngModel)]="beatsPerMeasure"></div>
+                            </div>
+                            <div>
+                                <div>Instrument</div>
+                                <div><input [(ngModel)]="instrument"></div>
+                            </div>
+                            <div>
+                                <div>Chord Progression</div>
+                                <div><input [(ngModel)]="chordProgressionString"></div>
+                            </div>
 
-        <div *ngFor="let track of tracks; let i = index">
-            <app-arp-track-row [track]="track"></app-arp-track-row>
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
         </div>
-
-        <table>
-            <tr>
-                <td>
-                    <div>
-                        <div>Tempo</div>
-                        <div><input [(ngModel)]="tempo"></div>
-                    </div>
-                    <div>
-                        <div>Beats per measure</div>
-                        <div><input [(ngModel)]="beatsPerMeasure"></div>
-                    </div>
-                    <div>
-                        <div>Instrument</div>
-                        <div><input [(ngModel)]="instrument"></div>
-                    </div>
-                    <div>
-                        <div>Chord Progression</div>
-                        <div><input [(ngModel)]="chordProgressionString"></div>
-                    </div>
-
-                </td>
-
-            </tr>
-        </table>
-
     </div>
+
+
+
 
 </p-panel>
