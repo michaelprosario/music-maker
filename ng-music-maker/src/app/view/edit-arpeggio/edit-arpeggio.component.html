@@ -30,9 +30,21 @@
                                 <div>Instrument</div>
                                 <div><input [(ngModel)]="instrument"></div>
                             </div>
+
                             <div>
                                 <div>Chord Progression</div>
-                                <div><input [(ngModel)]="chordProgressionString"></div>
+                                <div><textarea [(ngModel)]="chordProgressionString" rows="3"></textarea></div>
+                                <select (change)="onProgressionChange($event)">
+                                    <option value="">Select progression</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                </select>                                
                             </div>
 
                         </td>

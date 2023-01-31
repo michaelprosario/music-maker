@@ -19,7 +19,7 @@ export class EditArpeggioComponent implements OnInit {
   tracks: ArpTrackViewModel[];
   midiUrl: string;
   currentId: string = '';
-  instrument: number = 11;
+  instrument: number = 13;
   chordProgressionString: string = 'Am G F E';
 
   constructor(private musicMakerService: MusicMakerService) {
@@ -33,7 +33,7 @@ export class EditArpeggioComponent implements OnInit {
   }  
 
   onDownload(){
-    window.location.href=this.midiUrl;
+    window.open(this.midiUrl);
   }
 
   onGetTracks(){
@@ -106,7 +106,7 @@ export class EditArpeggioComponent implements OnInit {
     command.instrument = this.instrument;
 
     command.id = this.currentId;    
-    command.chordChangesAsString = this.chordProgressionString;    
+    command.chordChangesAsString = this.chordProgressionString.trim();    
 
     console.log(command);
     return command;
@@ -184,4 +184,43 @@ export class EditArpeggioComponent implements OnInit {
 
     return arpTracks;
   }
+
+  onProgressionChange(event: any) {
+    const selectedValue = event.target.value;
+    if(selectedValue.length === 0)
+      return;
+      
+    if(selectedValue === "1"){
+      this.chordProgressionString = "C G Am F";
+    }
+    else if(selectedValue === "2")
+    {
+      this.chordProgressionString = "C F G F";
+    }
+    else if(selectedValue === "3")
+    {
+      this.chordProgressionString = "Dm G C C";
+    }
+    else if(selectedValue === "4")
+    {
+      this.chordProgressionString = "C Am F G";
+    }
+    else if(selectedValue === "5")
+    {
+      this.chordProgressionString = "C G Am Em F C F G";
+    }
+    else if(selectedValue === "6")
+    {
+      this.chordProgressionString = "G Am F C";
+    }
+    else if(selectedValue === "7")
+    {
+      this.chordProgressionString = "Am F C G";
+    }
+    else if(selectedValue === "8")
+    {
+      this.chordProgressionString = "F C G Am";
+    }
+
+  }  
 }
