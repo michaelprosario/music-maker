@@ -3,18 +3,8 @@ import { MusicMakerService } from 'src/app/core/services/music-maker-service';
 import { DrumTrackRow, MakeDrumTrackCommand } from 'src/app/core/services/server-client';
 import { environment } from 'src/environments/environment';
 import { DrumTrackViewModel } from './drum-track-view-model';
+import { v4 as uuidv4 } from 'uuid';
 
-/*
-- create setup panel
-  - what are parameters?
-    - tempo
-      - default to 80
-    - beats per measure
-    - number of measures
-      - range
-        - 1 to n
-
-*/
 @Component({
   selector: 'app-edit-drum-track',
   templateUrl: './edit-drum-track.component.html',
@@ -22,24 +12,28 @@ import { DrumTrackViewModel } from './drum-track-view-model';
 })
 export class EditDrumTrackComponent implements OnInit {
 
-  tempo: number = 120;
+  tempo: number = 90;
   beatsPerMeasure: number = 4;
   numberOfMeasures: number = 4;
   tracks: DrumTrackViewModel[];
   midiUrl: string;
-                                    currentFile: string = '';
+  currentFile: string = '';
 
   constructor(private musicMakerService: MusicMakerService) {
     this.tracks = [];
-    this.currentFile = "drumTest1.mid";
+    this.setCurrentFile();
     this.midiUrl = `${environment.apiUrl}/api/MediaFiles/v1/File/${this.currentFile}`;
   }
 
-  onDownload(){
-    window.location.href=this.midiUrl;
+  private setCurrentFile() {
+    this.currentFile = uuidv4() + ".mid";
   }
 
-  onGetTracks(){
+  onDownload() {
+    window.location.href = this.midiUrl;
+  }
+
+  onGetTracks() {
     console.log(this.tracks)
   }
 
@@ -95,11 +89,11 @@ export class EditDrumTrackComponent implements OnInit {
     return aTrack;
   }
 
-  onClearTracks(){
+  onClearTracks() {
     this.setupDrumStuff();
     for (let track of this.tracks) {
       for (let j = 0; j < track.trackData.length; j++) {
-          track.trackData[j] = 0;
+        track.trackData[j] = 0;
       }
     }
   }
@@ -118,8 +112,7 @@ export class EditDrumTrackComponent implements OnInit {
     }
   }
 
-  async onPlayTracks()
-  {
+  async onPlayTracks() {
     let command = this.buildCommand();
 
     let response = await this.musicMakerService.makeDrumTrack(command).toPromise();
@@ -142,6 +135,7 @@ export class EditDrumTrackComponent implements OnInit {
     command.beatsPerMinute = this.tempo;
     command.userId = "user1";
     command.tracks = this.getTracks();
+    //this.setCurrentFile();
     command.fileName = this.currentFile;
     console.log(command);
     return command;
@@ -149,18 +143,15 @@ export class EditDrumTrackComponent implements OnInit {
 
   getTracks(): DrumTrackRow[] {
     let drumTracks = [];
-    for(let track of this.tracks)
-    {
+    for (let track of this.tracks) {
       let drumTrackRow = new DrumTrackRow();
       drumTrackRow.instrumentNumber = track.instrumentNumber;
       let drumString = "";
-      for(let i=0; i< track.trackData.length; i++)
-      {
+      for (let i = 0; i < track.trackData.length; i++) {
         let currentValue = track.trackData[i];
-        if(currentValue > 0)
-        {
+        if (currentValue > 0) {
           drumString += "x"
-        }else{
+        } else {
           drumString += "-"
         }
       }

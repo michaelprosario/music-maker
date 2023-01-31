@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl:"http://music-maker.v6.rocks"
+  apiUrl:"https://music-maker.v6.rocks"
 };
 
 /*

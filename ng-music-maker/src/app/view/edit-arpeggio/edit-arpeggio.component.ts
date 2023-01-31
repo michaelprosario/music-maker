@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ArpeggioPatternRowType } from 'src/app/core/enums/arp-pattern-row-type';
-import { MusicMakerService } from 'src/app/core/services/music-maker-service';
 import { ArpeggioPattern, ArpeggioPatternRow, ChordChange, MakeMidiFromArpeggioCommand } from 'src/app/core/services/server-client';
-import { environment } from 'src/environments/environment';
+import { ArpeggioPatternRowType } from 'src/app/core/enums/arp-pattern-row-type';
 import { ArpTrackViewModel } from './arp-track-view-model';
+import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { MusicMakerService } from 'src/app/core/services/music-maker-service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-edit-arpeggio',
@@ -12,20 +13,24 @@ import { ArpTrackViewModel } from './arp-track-view-model';
 })
 export class EditArpeggioComponent implements OnInit {
 
-  tempo: number = 120;
+  tempo: number = 90;
   beatsPerMeasure: number = 4;
   numberOfMeasures: number = 1;
   tracks: ArpTrackViewModel[];
   midiUrl: string;
-  currentFile: string = '';
+  currentId: string = '';
   instrument: number = 11;
   chordProgressionString: string = 'Am G F E';
 
   constructor(private musicMakerService: MusicMakerService) {
     this.tracks = [];
-    this.currentFile = "fc166a5b-22dd-41b0-86b5-d9c0144edd18";
-    this.midiUrl = `${environment.apiUrl}/api/MediaFiles/v1/File/${this.currentFile}.mid`;
+    this.setCurrentFile();
+    this.midiUrl = `${environment.apiUrl}/api/MediaFiles/v1/File/${this.currentId}.mid`;
   }
+
+  private setCurrentFile() {
+    this.currentId = uuidv4();
+  }  
 
   onDownload(){
     window.location.href=this.midiUrl;
@@ -100,7 +105,7 @@ export class EditArpeggioComponent implements OnInit {
     command.pattern.rows = this.getTracks();
     command.instrument = this.instrument;
 
-    command.id = this.currentFile;    
+    command.id = this.currentId;    
     command.chordChangesAsString = this.chordProgressionString;    
 
     console.log(command);
