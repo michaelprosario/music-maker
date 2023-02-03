@@ -29,10 +29,10 @@ export class EditDrumTrackComponent implements OnInit {
     this.currentFile = uuidv4() + ".mid";
   }
 
-  onDownload() {
-    window.location.href = this.midiUrl;
+  onDownload(){
+    window.open(this.midiUrl);
   }
-
+  
   onGetTracks() {
     console.log(this.tracks)
   }
