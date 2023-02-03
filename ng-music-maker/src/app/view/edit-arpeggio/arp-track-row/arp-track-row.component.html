@@ -2,11 +2,11 @@
   <div class="row">
 
 
-    <div class="divTrackName col-sm-2">
+    <div class="divTrackName col-sm-1">
       {{track.rowName}}
     </div>
 
-    <div class="divTrackCells col-5">
+    <div class="divTrackCells col-6">
       <app-arp-track-cell *ngFor="let cell of track.trackData; let j = index " (click)="onCellClick(track, j)"
         [trackCellValue]="track.trackData[j]">
       </app-arp-track-cell>
