@@ -1,4 +1,4 @@
-<button (click)="onPlayTracks()">Play</button>
+<button (click)="onPlayTracks()" [disabled]="!playButtonEnabled">Play</button>
 <button (click)="onClearTracks()">Reset</button>
 <button (click)="onDownload()">Save MIDI File</button>
 <midi-player [src]="midiUrl" sound-font id="midiPlayer">

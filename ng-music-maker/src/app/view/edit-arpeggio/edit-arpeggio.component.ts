@@ -21,6 +21,7 @@ export class EditArpeggioComponent implements OnInit {
   currentId: string = '';
   instrument: number = 13;
   chordProgressionString: string = 'Am G F E';
+  playButtonEnabled: boolean = true;
 
   constructor(private musicMakerService: MusicMakerService) {
     this.tracks = [];
@@ -76,6 +77,7 @@ export class EditArpeggioComponent implements OnInit {
 
   async onPlayTracks()
   {
+    this.playButtonEnabled = false;
     let command = this.buildCommand();
 
     let response = await this.musicMakerService.makeMidiFromArpeggio(command).toPromise();
@@ -89,7 +91,7 @@ export class EditArpeggioComponent implements OnInit {
     // @ts-ignore
     midiPlayer.reload();
     // @ts-ignore
-    setTimeout(() => { midiPlayer.start(); }, 5000);
+    setTimeout(() => { midiPlayer.start(); this.playButtonEnabled = true; }, 5000);
   }
 
   private buildCommand() : MakeMidiFromArpeggioCommand {
