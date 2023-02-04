@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl:"https://music-maker.v6.rocks"
+  apiUrl:"http://localhost:5000",
+  midiBlobStorage: "https://rosarioappdata.blob.core.windows.net/midi-files"
 };
 
 /*
