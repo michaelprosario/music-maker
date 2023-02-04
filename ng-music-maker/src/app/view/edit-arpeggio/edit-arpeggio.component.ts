@@ -89,7 +89,7 @@ export class EditArpeggioComponent implements OnInit {
     // @ts-ignore
     midiPlayer.reload();
     // @ts-ignore
-    setTimeout(() => { midiPlayer.start(); }, 3000);
+    setTimeout(() => { midiPlayer.start(); }, 5000);
   }
 
   private buildCommand() : MakeMidiFromArpeggioCommand {

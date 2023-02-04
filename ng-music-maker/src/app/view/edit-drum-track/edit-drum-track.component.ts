@@ -22,7 +22,7 @@ export class EditDrumTrackComponent implements OnInit {
   constructor(private musicMakerService: MusicMakerService) {
     this.tracks = [];
     this.setCurrentFile();
-    this.midiUrl = `${environment.apiUrl}/api/MediaFiles/v1/File/${this.currentFile}`;
+    this.midiUrl = `${environment.midiBlobStorage}/${this.currentFile}`;
   }
 
   private setCurrentFile() {
@@ -127,7 +127,7 @@ export class EditDrumTrackComponent implements OnInit {
     // @ts-ignore
     midiPlayer.reload();
     // @ts-ignore
-    setTimeout(() => { midiPlayer.start(); }, 3000);
+    setTimeout(() => { midiPlayer.start(); }, 5000);
   }
 
   private buildCommand() {
