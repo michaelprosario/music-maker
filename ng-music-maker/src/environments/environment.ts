@@ -2,9 +2,11 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+// apiUrl:"http://localhost:5000",
 export const environment = {
   production: false,
-  apiUrl:"https://music-maker.v6.rocks"
+  apiUrl:"https://music-maker.v6.rocks",
+  midiBlobStorage: "https://rosarioappdata.blob.core.windows.net/midi-files"
 };
 
 /*

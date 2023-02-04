@@ -18,11 +18,12 @@ export class EditDrumTrackComponent implements OnInit {
   tracks: DrumTrackViewModel[];
   midiUrl: string;
   currentFile: string = '';
+  playButtonEnabled: boolean = true;
 
   constructor(private musicMakerService: MusicMakerService) {
     this.tracks = [];
     this.setCurrentFile();
-    this.midiUrl = `${environment.apiUrl}/api/MediaFiles/v1/File/${this.currentFile}`;
+    this.midiUrl = `${environment.midiBlobStorage}/${this.currentFile}`;
   }
 
   private setCurrentFile() {
@@ -113,6 +114,7 @@ export class EditDrumTrackComponent implements OnInit {
   }
 
   async onPlayTracks() {
+    this.playButtonEnabled = false;
     let command = this.buildCommand();
 
     let response = await this.musicMakerService.makeDrumTrack(command).toPromise();
@@ -127,7 +129,7 @@ export class EditDrumTrackComponent implements OnInit {
     // @ts-ignore
     midiPlayer.reload();
     // @ts-ignore
-    setTimeout(() => { midiPlayer.start(); }, 3000);
+    setTimeout(() => { midiPlayer.start(); this.playButtonEnabled = true; }, 5000);
   }
 
   private buildCommand() {

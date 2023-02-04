@@ -21,11 +21,12 @@ export class EditArpeggioComponent implements OnInit {
   currentId: string = '';
   instrument: number = 13;
   chordProgressionString: string = 'Am G F E';
+  playButtonEnabled: boolean = true;
 
   constructor(private musicMakerService: MusicMakerService) {
     this.tracks = [];
     this.setCurrentFile();
-    this.midiUrl = `${environment.apiUrl}/api/MediaFiles/v1/File/${this.currentId}.mid`;
+    this.midiUrl = `${environment.midiBlobStorage}/${this.currentId}.mid`;
   }
 
   private setCurrentFile() {
@@ -76,6 +77,7 @@ export class EditArpeggioComponent implements OnInit {
 
   async onPlayTracks()
   {
+    this.playButtonEnabled = false;
     let command = this.buildCommand();
 
     let response = await this.musicMakerService.makeMidiFromArpeggio(command).toPromise();
@@ -89,7 +91,7 @@ export class EditArpeggioComponent implements OnInit {
     // @ts-ignore
     midiPlayer.reload();
     // @ts-ignore
-    setTimeout(() => { midiPlayer.start(); }, 3000);
+    setTimeout(() => { midiPlayer.start(); this.playButtonEnabled = true; }, 5000);
   }
 
   private buildCommand() : MakeMidiFromArpeggioCommand {
@@ -141,36 +143,40 @@ export class EditArpeggioComponent implements OnInit {
     if(selectedValue.length === 0)
       return;
       
-    if(selectedValue === "1"){
+    if(selectedValue === "major-1"){
       this.chordProgressionString = "C G Am F";
     }
-    else if(selectedValue === "2")
+    else if(selectedValue === "major-2")
     {
       this.chordProgressionString = "C F G F";
     }
-    else if(selectedValue === "3")
-    {
-      this.chordProgressionString = "Dm G C C";
-    }
-    else if(selectedValue === "4")
+    else if(selectedValue === "major-3")
     {
       this.chordProgressionString = "C Am F G";
     }
-    else if(selectedValue === "5")
+    else if(selectedValue === "major-4")
     {
       this.chordProgressionString = "C G Am Em F C F G";
     }
-    else if(selectedValue === "6")
+    else if(selectedValue === "major-5")
     {
       this.chordProgressionString = "G Am F C";
     }
-    else if(selectedValue === "7")
-    {
-      this.chordProgressionString = "Am F C G";
-    }
-    else if(selectedValue === "8")
+    else if(selectedValue === "major-6")
     {
       this.chordProgressionString = "F C G Am";
+    }
+    else if(selectedValue === "minor-1")
+    {
+      this.chordProgressionString = "Dm G C C";
+    }    
+    else if(selectedValue === "minor-2")
+    {
+      this.chordProgressionString = "Am F C G";  
+    }
+    else if(selectedValue  === "minor-3")
+    {
+      this.chordProgressionString = "Am G F E";
     }
 
   }  

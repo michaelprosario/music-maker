@@ -1,4 +1,4 @@
-<button (click)="onPlayTracks()">Play</button>
+<button (click)="onPlayTracks()" [disabled]="!playButtonEnabled">Play</button>
 <button (click)="onClearTracks()">Reset</button>
 <button (click)="onDownload()">Save MIDI File</button>
 <midi-player [src]="midiUrl" sound-font id="midiPlayer">
@@ -36,14 +36,17 @@
                                 <div><textarea [(ngModel)]="chordProgressionString" rows="3"></textarea></div>
                                 <select (change)="onProgressionChange($event)">
                                     <option value="">Select progression</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
+                                    <option value="major-1">major-1</option>
+                                    <option value="major-2">major-2</option>
+                                    <option value="major-3">major-3</option>
+                                    <option value="major-4">major-4</option>
+                                    <option value="major-5">major-5</option>
+                                    <option value="major-6">major-6</option>
+
+                                    <option value="minor-1">minor-1</option>
+                                    <option value="minor-2">minor-2</option>
+                                    <option value="minor-3">minor-3</option>
+
                                 </select>                                
                             </div>
 
