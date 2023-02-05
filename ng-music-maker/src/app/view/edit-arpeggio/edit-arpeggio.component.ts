@@ -77,7 +77,7 @@ export class EditArpeggioComponent implements OnInit {
 
   async onPlayTracks()
   {
-    this.playButtonEnabled = false;
+    //this.playButtonEnabled = false;
     let command = this.buildCommand();
 
     let response = await this.musicMakerService.makeMidiFromArpeggio(command).toPromise();
