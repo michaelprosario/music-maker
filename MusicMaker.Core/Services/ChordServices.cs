@@ -30,8 +30,24 @@ namespace MusicMaker.Core.Services
 
             foreach (string symbol in symbols)
             {
-                ChordChange chordChange = _midiServices.ParseChordSymbol(symbol);
-                response.Add(chordChange);
+                Console.WriteLine(symbol);
+                if(symbol.Contains(":"))
+                {
+                    string[] parts = symbol.Split(':');
+                    Console.WriteLine(parts[0]);
+                    Console.WriteLine(parts[1]);
+
+                    string chordSymbol = parts[0];
+                    int count = int.Parse(parts[1]);
+                    ChordChange chordChange = _midiServices.ParseChordSymbol(chordSymbol);
+                    chordChange.BeatCount = count;
+                    response.Add(chordChange);
+                }
+                else
+                {
+                    ChordChange chordChange = _midiServices.ParseChordSymbol(symbol);
+                    response.Add(chordChange);
+                }
             }
 
             return response;

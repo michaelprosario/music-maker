@@ -67,7 +67,7 @@ namespace MusicMaker.Demos
             var track = new ChordPlayerTrack(instrument, channel);
 
             var player = new ArpeggioPlayer(track, ArpeggioPatternCommandFactory.MakeArpeggioPatternCommand1());
-            var chordChanges = chordServices.ParseChordProgression("Em C D Em Em C D E");
+            var chordChanges = chordServices.ParseChordProgression("Em:2 C:2 D G Em:2 C:2 D E");
 
             player.PlayFromChordChanges(chordChanges);
 
