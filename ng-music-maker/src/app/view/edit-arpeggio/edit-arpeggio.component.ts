@@ -178,6 +178,9 @@ export class EditArpeggioComponent implements OnInit {
     {
       this.chordProgressionString = "Am G F E";
     }
-
+    else if(selectedValue  === "minor-4")
+    {
+      this.chordProgressionString = "Dm A Dm C F C Dm A Dm A Dm C F C Dm:2 A:2 Dm";
+    }
   }  
 }

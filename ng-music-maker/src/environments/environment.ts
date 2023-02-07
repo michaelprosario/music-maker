@@ -5,7 +5,7 @@
 // apiUrl:"http://localhost:5000",
 export const environment = {
   production: false,
-  apiUrl:"http://localhost:5000",
+  apiUrl:"https://music-maker.v6.rocks",
   midiBlobStorage: "https://rosarioappdata.blob.core.windows.net/midi-files"
 };
 
