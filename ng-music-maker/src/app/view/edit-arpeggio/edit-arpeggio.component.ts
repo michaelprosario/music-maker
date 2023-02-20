@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { MusicMakerService } from 'src/app/core/services/music-maker-service';
 import { v4 as uuidv4 } from 'uuid';
+import { ArpMakerService } from './arp-maker-service';
 
 @Component({
   selector: 'app-edit-arpeggio',
@@ -23,7 +24,11 @@ export class EditArpeggioComponent implements OnInit {
   chordProgressionString: string = 'Am G F E';
   playButtonEnabled: boolean = true;
 
-  constructor(private musicMakerService: MusicMakerService) {
+  constructor(
+     private musicMakerService: MusicMakerService, 
+     private arpMakerService: ArpMakerService
+     ) 
+  {
     this.tracks = [];
     this.setCurrentFile();
     this.midiUrl = `${environment.midiBlobStorage}/${this.currentId}.mid`;
@@ -37,42 +42,13 @@ export class EditArpeggioComponent implements OnInit {
     window.open(this.midiUrl);
   }
 
-  onGetTracks(){
-    console.log(this.tracks)
-  }
-
-  ngOnInit(): void {
-    this.setupTrackRows();
-  }
-
-  private setupTrackRows() {
-    this.tracks = [];    
-    this.setupOctave(2);
-    this.setupOctave(1);
-    this.setupOctave(0);    
-  }
-
-  private setupOctave(octave: number) {
-    let aTrack: ArpTrackViewModel;
- 
-    aTrack = new ArpTrackViewModel("V",ArpeggioPatternRowType.Fifth,octave, this.numberOfMeasures, this.beatsPerMeasure);
-    this.tracks.push(aTrack);    
-    aTrack = new ArpTrackViewModel("III",ArpeggioPatternRowType.Third, octave, this.numberOfMeasures, this.beatsPerMeasure);
-    this.tracks.push(aTrack);
-    aTrack = new ArpTrackViewModel("II",ArpeggioPatternRowType.Second, octave, this.numberOfMeasures, this.beatsPerMeasure);
-    this.tracks.push(aTrack);  
-    aTrack = new ArpTrackViewModel("Root",ArpeggioPatternRowType.Root,octave, this.numberOfMeasures, this.beatsPerMeasure);
-    this.tracks.push(aTrack);
-    return aTrack;
+  ngOnInit(): void 
+  {
+    this.tracks = this.arpMakerService.setupTrackRows(this.numberOfMeasures, this.beatsPerMeasure);
   }
 
   onClearTracks(){
-    this.setupTrackRows();
-    for (let track of this.tracks) {
-      for (let j = 0; j < track.trackData.length; j++) {
-          track.trackData[j] = 0;
-      }
-    }
+    this.tracks = this.arpMakerService.setupTrackRows(this.numberOfMeasures, this.beatsPerMeasure);
   }
 
   async onPlayTracks()
@@ -81,7 +57,6 @@ export class EditArpeggioComponent implements OnInit {
     let command = this.buildCommand();
 
     let response = await this.musicMakerService.makeMidiFromArpeggio(command).toPromise();
-    console.log(response);
 
     this.playCurrentFile();
   }
@@ -95,7 +70,6 @@ export class EditArpeggioComponent implements OnInit {
   }
 
   private buildCommand() : MakeMidiFromArpeggioCommand {
-    //debugger;
     let command = new MakeMidiFromArpeggioCommand();
     command.beatsPerMinute = this.tempo;
     command.userId = "user1";
