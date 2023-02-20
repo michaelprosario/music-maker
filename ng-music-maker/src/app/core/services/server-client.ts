@@ -3378,14 +3378,16 @@ export interface IArpeggioPatternRow {
     pattern: string;
 }
 
+
 export enum ArpeggioPatternRowType {
-    Root = 0,
-    Second = 1,
-    Third = 2,
-    Fifth = 3,
-    Sixth = 4,
-    Seventh = 5,
-    MajorSeventh = 6,
+  Root = 0,
+  Second = 1,
+  Third = 2,
+  Fifth = 3,
+  Sixth = 4,
+  Seventh = 5,
+  MajorSeventh = 6,
+  Fourth = 7
 }
 
 export class AddDocumentCommandOfPage extends Request implements IAddDocumentCommandOfPage {

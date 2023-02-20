@@ -35,6 +35,8 @@ export class ArpMakerService {
 
         aTrack = new ArpTrackViewModel("V", ArpeggioPatternRowType.Fifth, octave, this.numberOfMeasures, this.beatsPerMeasure);
         tracks.push(aTrack);
+        aTrack = new ArpTrackViewModel("IV", ArpeggioPatternRowType.Fourth, octave, this.numberOfMeasures, this.beatsPerMeasure);
+        tracks.push(aTrack);
         aTrack = new ArpTrackViewModel("III", ArpeggioPatternRowType.Third, octave, this.numberOfMeasures, this.beatsPerMeasure);
         tracks.push(aTrack);
         aTrack = new ArpTrackViewModel("II", ArpeggioPatternRowType.Second, octave, this.numberOfMeasures, this.beatsPerMeasure);

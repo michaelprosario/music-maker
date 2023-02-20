@@ -1,12 +1,12 @@
 import { ArpeggioPattern, ArpeggioPatternRow, ChordChange, MakeMidiFromArpeggioCommand } from 'src/app/core/services/server-client';
+import { ArpMakerService } from './arp-maker-service';
 import { ArpTrackViewModel } from './arp-track-view-model';
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { EditArpeggioData } from './edt-arpeggio-data';
 import { environment } from 'src/environments/environment';
 import { MusicMakerService } from 'src/app/core/services/music-maker-service';
 import { v4 as uuidv4 } from 'uuid';
-import { ArpMakerService } from './arp-maker-service';
-import { DomSanitizer } from '@angular/platform-browser';
-import { EditArpeggioData } from './edt-arpeggio-data';
 
 @Component({
   selector: 'app-edit-arpeggio',
@@ -67,7 +67,7 @@ export class EditArpeggioComponent implements OnInit {
     document.body.removeChild(element);
   }
 
-  public changeListener(event: Event)
+  public fileChangeListener(event: Event)
   {
     // @ts-ignore
     const files = event.target.files;
