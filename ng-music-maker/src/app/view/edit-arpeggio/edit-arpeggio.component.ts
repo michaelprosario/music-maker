@@ -1,11 +1,12 @@
 import { ArpeggioPattern, ArpeggioPatternRow, ChordChange, MakeMidiFromArpeggioCommand } from 'src/app/core/services/server-client';
-import { ArpeggioPatternRowType } from 'src/app/core/enums/arp-pattern-row-type';
 import { ArpTrackViewModel } from './arp-track-view-model';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { MusicMakerService } from 'src/app/core/services/music-maker-service';
 import { v4 as uuidv4 } from 'uuid';
 import { ArpMakerService } from './arp-maker-service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { EditArpeggioData } from './edt-arpeggio-data';
 
 @Component({
   selector: 'app-edit-arpeggio',
@@ -26,7 +27,8 @@ export class EditArpeggioComponent implements OnInit {
 
   constructor(
      private musicMakerService: MusicMakerService, 
-     private arpMakerService: ArpMakerService
+     private arpMakerService: ArpMakerService,
+     private sanitizer: DomSanitizer
      ) 
   {
     this.tracks = [];
@@ -49,6 +51,56 @@ export class EditArpeggioComponent implements OnInit {
 
   onClearTracks(){
     this.tracks = this.arpMakerService.setupTrackRows(this.numberOfMeasures, this.beatsPerMeasure);
+  }
+
+  onSavePattern()
+  {
+
+    const data = new EditArpeggioData(this.tempo, this.beatsPerMeasure, this.numberOfMeasures, this.tracks, this.currentId, this.instrument)
+    const json = JSON.stringify(data);
+    var element = document.createElement('a');
+    element.setAttribute('href', "data:text/json;charset=UTF-8," + encodeURIComponent(json));
+    element.setAttribute('download', this.currentId + ".json");
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click(); // simulate click
+    document.body.removeChild(element);
+  }
+
+  public changeListener(event: Event)
+  {
+    // @ts-ignore
+    const files = event.target.files;
+
+    if(files && files.length > 0) 
+    {
+       let file : File | null = files.item(0); 
+        if(!file)
+        {
+            return;
+        }
+        console.log(file.name);
+        console.log(file.size);
+        console.log(file.type);
+        let reader: FileReader = new FileReader();
+        reader.readAsText(file);
+        reader.onload = (e) => {
+          let json: string = reader.result as string;
+          this.loadArpFromJsonString(json);          
+        }
+      }
+  }
+
+  private loadArpFromJsonString(json: string) {
+    let data = JSON.parse(json) as EditArpeggioData;
+
+    this.numberOfMeasures = data.numberOfMeasures;
+    this.beatsPerMeasure = data.beatsPerMeasure;
+    this.tracks = this.arpMakerService.setupTrackRows(this.numberOfMeasures, this.beatsPerMeasure);
+
+    this.tracks = data.tracks;
+    this.tempo = data.tempo;
+    this.instrument = data.instrument;
   }
 
   async onPlayTracks()

@@ -1,6 +1,7 @@
 <button (click)="onPlayTracks()" [disabled]="!playButtonEnabled">Play</button>
 <button (click)="onClearTracks()">Reset</button>
 <button (click)="onDownload()">Save MIDI File</button>
+<button (click)="onSavePattern()">Save Pattern</button>
 <midi-player [src]="midiUrl" sound-font id="midiPlayer">
 </midi-player>
 <p-panel header="NG Music Maker > Arpeggio Editor" [toggleable]="false">
@@ -59,6 +60,6 @@
     </div>
 
 
-
-
 </p-panel>
+
+<input type="file" class="upload" (change)="changeListener($event)">
