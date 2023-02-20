@@ -1,7 +1,8 @@
 <button (click)="onPlayTracks()" [disabled]="!playButtonEnabled">Play</button>
 <button (click)="onClearTracks()">Reset</button>
-<button (click)="onDownload()">Save MIDI File</button>
-<button (click)="onSavePattern()">Save Pattern</button>
+<button (click)="onDownload()">Save MIDI</button>
+<button (click)="onSavePattern()">Export Pattern</button>
+<button (click)="onLoadPattern()">Load Pattern</button>
 <midi-player [src]="midiUrl" sound-font id="midiPlayer">
 </midi-player>
 <p-panel header="NG Music Maker > Arpeggio Editor" [toggleable]="false">
@@ -48,7 +49,7 @@
                                     <option value="minor-2">minor-2</option>
                                     <option value="minor-3">minor-3</option>
                                     <option value="minor-4">minor-4</option>
-                                </select>                                
+                                </select>
                             </div>
 
                         </td>
@@ -62,4 +63,27 @@
 
 </p-panel>
 
-<input type="file" class="upload" (change)="changeListener($event)">
+
+<p-dialog header="Export Arpeggio" [(visible)]="displayModalSaveArpFile" [modal]="true" [style]="{width: '50vw'}"
+    [draggable]="false" [resizable]="false">
+    <div class="m-0">
+        Export File Name:
+        <input [(ngModel)]="exportFileName" style="width: 400px"><br><br>
+
+    </div>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="onSaveArpFile()" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog header="Load Arpeggio" [(visible)]="displayModalLoadArpFile" [modal]="true" [style]="{width: '50vw'}"
+    [draggable]="false" [resizable]="false">
+    <div class="m-0">
+        File Name:
+        <input #txtFile type="file" class="upload" (change)="changeListener($event)">
+
+    </div>
+    <ng-template pTemplate="footer">
+
+    </ng-template>
+</p-dialog>
