@@ -76,7 +76,7 @@ export class EditArpeggioComponent implements OnInit {
     command.channel = 1;
     
     command.pattern = new ArpeggioPattern();
-    command.pattern.rows = this.getTracks();
+    command.pattern.rows = this.arpMakerService.getArpPatternRows(this.tracks);
     command.instrument = this.instrument;
 
     command.id = this.currentId;    
@@ -84,32 +84,6 @@ export class EditArpeggioComponent implements OnInit {
 
     console.log(command);
     return command;
-  }
-
-  getTracks(): ArpeggioPatternRow[] {
-    let arpTracks = [];
-    for(let track of this.tracks)
-    {
-      let arpTrackRow = new ArpeggioPatternRow();
-      arpTrackRow.type = track.rowType;
-      arpTrackRow.octave = track.octave;
-      let arpPatternString = "";
-      for(let i=0; i< track.trackData.length; i++)
-      {
-        let currentValue = track.trackData[i];
-        if(currentValue > 0)
-        {
-          arpPatternString += "s"
-        }else{
-          arpPatternString += "-"
-        }
-      }
-      arpTrackRow.pattern = arpPatternString;
-
-      arpTracks.push(arpTrackRow);
-    }
-
-    return arpTracks;
   }
 
   onProgressionChange(event: any) {

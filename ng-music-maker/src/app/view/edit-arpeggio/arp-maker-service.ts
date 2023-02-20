@@ -1,11 +1,16 @@
 import { Injectable } from "@angular/core";
-import { ArpeggioPatternRowType } from "src/app/core/services/server-client";
+import { ArpeggioPatternRow, ArpeggioPatternRowType } from "src/app/core/services/server-client";
 import { ArpTrackViewModel } from "./arp-track-view-model";
 
 @Injectable({
     providedIn: 'root'
 })
 export class ArpMakerService {
+    constructor() {
+
+    }
+
+
     numberOfMeasures: number = 0;
     beatsPerMeasure: number = 0;
     setupTrackRows(numberOfMeasures: number, beatsPerMeasure: number) {
@@ -39,11 +44,29 @@ export class ArpMakerService {
         return aTrack;
     }
 
-
-    constructor() {
-
-    }
-
-
-
+    getArpPatternRows(tracks: ArpTrackViewModel[]): ArpeggioPatternRow[] {
+        let arpTracks = [];
+        for(let track of tracks)
+        {
+          let arpTrackRow = new ArpeggioPatternRow();
+          arpTrackRow.type = track.rowType;
+          arpTrackRow.octave = track.octave;
+          let arpPatternString = "";
+          for(let i=0; i< track.trackData.length; i++)
+          {
+            let currentValue = track.trackData[i];
+            if(currentValue > 0)
+            {
+              arpPatternString += "s"
+            }else{
+              arpPatternString += "-"
+            }
+          }
+          arpTrackRow.pattern = arpPatternString;
+    
+          arpTracks.push(arpTrackRow);
+        }
+    
+        return arpTracks;
+      }
 }
