@@ -14,6 +14,9 @@ import { EditArpeggioComponent } from './view/edit-arpeggio/edit-arpeggio.compon
 import { ArpTrackCellComponent } from './view/edit-arpeggio/arp-track-cell/arp-track-cell.component';
 import { ArpTrackRowComponent } from './view/edit-arpeggio/arp-track-row/arp-track-row.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {DialogModule} from 'primeng/dialog';
+import {ButtonModule} from 'primeng/button';
+
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
@@ -29,8 +32,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     AppRoutingModule,
+    ButtonModule,
     BrowserModule,
     BrowserAnimationsModule,
+    DialogModule,
     FormsModule,
     PanelModule,
     HttpClientModule,

@@ -63,3 +63,15 @@
 </p-panel>
 
 <input type="file" class="upload" (change)="changeListener($event)">
+
+<p-dialog header="Export Arpeggio" [(visible)]="displayModalSaveArpFile" [modal]="true" [style]="{width: '50vw'}"
+[draggable]="false" [resizable]="false">
+    <div class="m-0">
+    Export File Name:
+    <input [(ngModel)]="exportFileName" style="width: 400px"><br><br>
+    
+    </div>
+    <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="onSaveArpFile()" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>

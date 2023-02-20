@@ -24,6 +24,8 @@ export class EditArpeggioComponent implements OnInit {
   instrument: number = 13;
   chordProgressionString: string = 'Am G F E';
   playButtonEnabled: boolean = true;
+  displayModalSaveArpFile: boolean = false;
+  exportFileName: string = '';
 
   constructor(
      private musicMakerService: MusicMakerService, 
@@ -55,12 +57,23 @@ export class EditArpeggioComponent implements OnInit {
 
   onSavePattern()
   {
+    this.exportFileName = this.currentId + ".json";
+    this.displayModalSaveArpFile = true;
+  }
 
+  onSaveArpFile()
+  {
+    this.displayModalSaveArpFile = false;    
+    this.savePatternToFile();
+  }
+
+  savePatternToFile()
+  {
     const data = new EditArpeggioData(this.tempo, this.beatsPerMeasure, this.numberOfMeasures, this.tracks, this.currentId, this.instrument)
     const json = JSON.stringify(data);
     var element = document.createElement('a');
     element.setAttribute('href', "data:text/json;charset=UTF-8," + encodeURIComponent(json));
-    element.setAttribute('download', this.currentId + ".json");
+    element.setAttribute('download', this.exportFileName);
     element.style.display = 'none';
     document.body.appendChild(element);
     element.click(); // simulate click
