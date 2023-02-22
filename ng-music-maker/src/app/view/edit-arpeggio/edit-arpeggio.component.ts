@@ -50,11 +50,16 @@ export class EditArpeggioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.setupTrackRows();
+  }
+
+  private setupTrackRows() {
     this.tracks = this.arpMakerService.setupTrackRows(this.numberOfMeasures, this.beatsPerMeasure);
   }
 
   onClearTracks() {
-    this.tracks = this.arpMakerService.setupTrackRows(this.numberOfMeasures, this.beatsPerMeasure);
+    if(confirm("Press OK to clear the current work space"))
+      this.setupTrackRows();
   }
 
 
@@ -115,7 +120,7 @@ export class EditArpeggioComponent implements OnInit {
 
     this.numberOfMeasures = data.numberOfMeasures;
     this.beatsPerMeasure = data.beatsPerMeasure;
-    this.tracks = this.arpMakerService.setupTrackRows(this.numberOfMeasures, this.beatsPerMeasure);
+    this.setupTrackRows();
 
     this.tracks = data.tracks;
     this.tempo = data.tempo;

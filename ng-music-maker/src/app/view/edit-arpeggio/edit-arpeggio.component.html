@@ -1,8 +1,8 @@
-<button (click)="onPlayTracks()" [disabled]="!playButtonEnabled">Play</button>
-<button (click)="onClearTracks()">Reset</button>
-<button (click)="onDownload()">Save MIDI</button>
-<button (click)="onSavePattern()">Export Pattern</button>
-<button (click)="onLoadPattern()">Load Pattern</button>
+<p-button (click)="onPlayTracks()" [disabled]="!playButtonEnabled">Play</p-button>
+<p-button (click)="onClearTracks()">Reset</p-button>
+<p-button (click)="onDownload()">Save MIDI</p-button>
+<p-button (click)="onSavePattern()">Export Pattern</p-button>
+<p-button (click)="onLoadPattern()">Load Pattern</p-button>
 <midi-player [src]="midiUrl" sound-font id="midiPlayer">
 </midi-player>
 <p-panel header="NG Music Maker > Arpeggio Editor" [toggleable]="false">
