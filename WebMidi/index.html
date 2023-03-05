@@ -1,0 +1,33 @@
+<html>
+
+<head>
+    <title>Web Midi Demo</title>
+    <script src="https://cdn.jsdelivr.net/npm/webmidi@next/dist/iife/webmidi.iife.js"></script>
+</head>
+<script>
+    function onEnabled() {
+        console.log(WebMidi.inputs)
+        
+        WebMidi.inputs[1].addListener("noteon", e => {
+            console.log(e.note.identifier);
+        })
+
+    }
+
+    function bodyOnLoad() {
+        WebMidi
+            .enable()
+            .then(onEnabled)
+            .catch(err => alert(err));
+
+
+
+
+    }
+</script>
+
+<body onload="bodyOnLoad()">
+
+</body>
+
+</html>
