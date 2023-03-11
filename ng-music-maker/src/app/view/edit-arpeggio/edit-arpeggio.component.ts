@@ -7,6 +7,8 @@ import { EditArpeggioData } from './edt-arpeggio-data';
 import { environment } from 'src/environments/environment';
 import { MusicMakerService } from 'src/app/core/services/music-maker-service';
 import { v4 as uuidv4 } from 'uuid';
+import { IInstrumentItem } from '../../core/services/instrument-item';
+import { InstrumentsService } from '../../core/services/instruments-service';
 
 @Component({
   selector: 'app-edit-arpeggio',
@@ -23,22 +25,27 @@ export class EditArpeggioComponent implements OnInit {
   currentId: string = '';
   displayModalLoadArpFile: boolean = false;
   displayModalSaveArpFile: boolean = false;
+  displayModalSelectInstrument: boolean = false;
   exportFileName: string = '';
   instrument: number = 13;
+  instruments: IInstrumentItem[];
   midiUrl: string;
   numberOfMeasures: number = 1;
   playButtonEnabled: boolean = true;
+  selectedInstrument: IInstrumentItem = { name: 'Foo', id: 1};
   tempo: number = 90;
   tracks: ArpTrackViewModel[];
 
   constructor(
     private musicMakerService: MusicMakerService,
     private arpMakerService: ArpMakerService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private instrumentService: InstrumentsService
   ) {
     this.tracks = [];
     this.setCurrentFile();
     this.midiUrl = `${environment.midiBlobStorage}/${this.currentId}.mid`;
+    this.instruments = this.instrumentService.getInstruments();
   }
 
   private setCurrentFile() {
@@ -62,6 +69,16 @@ export class EditArpeggioComponent implements OnInit {
       this.setupTrackRows();
   }
 
+  onInstrumentSelect()
+  {
+    this.displayModalSelectInstrument = true;
+  }
+
+  onInstrumentSelected()
+  {
+    this.displayModalSelectInstrument = false;
+    this.instrument = this.selectedInstrument.id;
+  }
 
   onLoadPattern() {
     this.displayModalLoadArpFile = true;

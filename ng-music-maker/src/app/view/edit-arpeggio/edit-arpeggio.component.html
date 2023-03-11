@@ -29,8 +29,13 @@
                                 <div><input [(ngModel)]="beatsPerMeasure"></div>
                             </div>
                             <div>
-                                <div>Instrument</div>
-                                <div><input [(ngModel)]="instrument"></div>
+                                <div><a >Instrument</a></div>
+                                <div>
+                                    <input [(ngModel)]="instrument">
+                                    <p-button (click)="onInstrumentSelect()"  >
+                                        Select Instrument
+                                    </p-button>
+                                </div>
                             </div>
 
                             <div>
@@ -83,7 +88,21 @@
         <input #txtFile type="file" class="upload" (change)="fileChangeListener($event)">
 
     </div>
-    <ng-template pTemplate="footer">
+</p-dialog>
 
+
+<p-dialog header="Select Instrument" [(visible)]="displayModalSelectInstrument" [modal]="true" [style]="{width: '50vw'}"
+    [draggable]="false" [resizable]="false">
+    <div class="m-0">        
+        <p-listbox 
+            [options]="instruments" 
+            [(ngModel)]="selectedInstrument"
+            (onDblClick)="onInstrumentSelected()"
+            [filter]="true" 
+            optionLabel="name"></p-listbox>
+    </div>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="onInstrumentSelected()" label="Ok" styleClass="p-button-text"></p-button>
     </ng-template>
+
 </p-dialog>
