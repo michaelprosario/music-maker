@@ -119,9 +119,7 @@ export class EditArpeggioComponent implements OnInit {
       if (!file) {
         return;
       }
-      console.log(file.name);
-      console.log(file.size);
-      console.log(file.type);
+
       let reader: FileReader = new FileReader();
       reader.readAsText(file);
       reader.onload = (e) => {
@@ -145,12 +143,11 @@ export class EditArpeggioComponent implements OnInit {
   }
 
   async onPlayTracks() {
-    //this.playButtonEnabled = false;
     let command = this.buildCommand();
 
     let response = await this.musicMakerService.makeMidiFromArpeggio(command).toPromise();
-
-    this.playCurrentFile();
+    if(response?.code == 200)
+      this.playCurrentFile();
   }
 
   private playCurrentFile() {
