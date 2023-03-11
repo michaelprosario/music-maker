@@ -15,11 +15,14 @@
       </app-arp-track-cell>
     </div>
     <div class="col-5">
-      <button (click)="onPattern4()">Random</button>
-      <button (click)="onPattern1()">1</button>
-      <button (click)="onPattern3()">2</button>
-      <button (click)="onPattern2()">3</button>
-      <button (click)="onClear()">Clear</button>
+      <select (change)="onPatternChange($event)" #sltPattern>
+        <option>Pick pattern</option>
+        <option value="random">Random</option>
+        <option value="down-beats">Down beats</option>
+        <option value="off-beats">Off beats</option>
+        <option value="eigth-notes">Eigth notes</option>
+        <option value="clear">Clear</option>
+      </select>
     </div>    
   </div>
 </div>

@@ -9,6 +9,7 @@ import { MusicMakerService } from 'src/app/core/services/music-maker-service';
 import { v4 as uuidv4 } from 'uuid';
 import { IInstrumentItem } from '../../core/services/instrument-item';
 import { InstrumentsService } from '../../core/services/instruments-service';
+import { NoteLengthConstants } from './note-length-constants';
 
 @Component({
   selector: 'app-edit-arpeggio',
@@ -30,6 +31,7 @@ export class EditArpeggioComponent implements OnInit {
   instrument: number = 13;
   instruments: IInstrumentItem[];
   midiUrl: string;
+  noteLength: string = NoteLengthConstants.SIXTEENTH;
   numberOfMeasures: number = 1;
   playButtonEnabled: boolean = true;
   selectedInstrument: IInstrumentItem = { name: 'Foo', id: 1};
@@ -46,6 +48,11 @@ export class EditArpeggioComponent implements OnInit {
     this.setCurrentFile();
     this.midiUrl = `${environment.midiBlobStorage}/${this.currentId}.mid`;
     this.instruments = this.instrumentService.getInstruments();
+  }
+
+  onNoteLengthChange(event: any) {
+    const selectedValue = event.target.value;
+    this.noteLength = selectedValue;
   }
 
   private setCurrentFile() {
@@ -84,7 +91,6 @@ export class EditArpeggioComponent implements OnInit {
     this.displayModalLoadArpFile = true;
     if(this.txtFile)
       this.txtFile.nativeElement.value = "";
-
   }
 
   onSavePattern() {
@@ -109,8 +115,7 @@ export class EditArpeggioComponent implements OnInit {
     document.body.removeChild(element);
   }
 
-
-  public fileChangeListener(event: Event) {
+  fileChangeListener(event: Event) {
     // @ts-ignore
     const files = event.target.files;
 

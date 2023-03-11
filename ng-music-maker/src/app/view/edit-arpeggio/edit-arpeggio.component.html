@@ -12,9 +12,16 @@
             <div class="col-10">
                 <div class="divTracks">
                     <div *ngFor="let track of tracks; let i = index">
-                        <app-arp-track-row [track]="track"></app-arp-track-row>
+                        <app-arp-track-row [track]="track" [noteLength]="noteLength"></app-arp-track-row>
                     </div>
                 </div>
+                Note length: 
+                <select (change)="onNoteLengthChange($event)">
+                    <option value="s">Sixteenth</option>
+                    <option value="e">Eigth</option>
+                    <option value="h">Half</option>
+                    <option value="w">Whole</option>
+                </select>                
             </div>
             <div class="col-2">
                 <table>
@@ -65,7 +72,6 @@
         </div>
     </div>
 
-
 </p-panel>
 
 
@@ -86,10 +92,8 @@
     <div class="m-0">
         File Name:
         <input #txtFile type="file" class="upload" (change)="fileChangeListener($event)">
-
     </div>
 </p-dialog>
-
 
 <p-dialog header="Select Instrument" [(visible)]="displayModalSelectInstrument" [modal]="true" [style]="{width: '50vw'}"
     [draggable]="false" [resizable]="false">
