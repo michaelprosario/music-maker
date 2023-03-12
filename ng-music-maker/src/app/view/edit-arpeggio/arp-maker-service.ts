@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ArpeggioPatternRow, ArpeggioPatternRowType } from "src/app/core/services/server-client";
 import { ArpTrackViewModel } from "./arp-track-view-model";
+import { NoteLengthConstants } from "./note-length-constants";
 
 @Injectable({
     providedIn: 'root'
@@ -52,16 +53,19 @@ export class ArpMakerService {
           arpTrackRow.type = track.rowType;
           arpTrackRow.octave = track.octave;
           let arpPatternString = "";
-          for(let i=0; i< track.trackData.length; i++)
-          {
-            let currentValue = track.trackData[i];
-            if(currentValue > 0)
-            {
-              arpPatternString += "s"
-            }else{
-              arpPatternString += "-"
-            }
-          }
+          arpPatternString = this.placeNoteStartSymbols(track, arpPatternString);
+
+          // handle eigth notes ...
+          arpPatternString = arpPatternString.replace(/e./g, "e~");
+
+          // handle quarter notes ...
+          arpPatternString = arpPatternString.replace(/q.../g, "q~~~");
+
+          // handle half notes ...
+          arpPatternString = arpPatternString.replace(/h......./g, "h~~~~~~~");
+
+          // handle whole notes ....
+          arpPatternString = arpPatternString.replace(/w.............../g, "h~~~~~~~~~~~~~~~");
           arpTrackRow.pattern = arpPatternString;
     
           arpTracks.push(arpTrackRow);
@@ -69,4 +73,32 @@ export class ArpMakerService {
     
         return arpTracks;
       }
+
+  private placeNoteStartSymbols(track: ArpTrackViewModel, arpPatternString: string) {
+    for (let i = 0; i < track.trackData.length; i++) {
+      let currentValue = track.trackData[i];
+
+      switch (currentValue) {
+        case NoteLengthConstants.SIXTEENTH_NUMBER:
+          arpPatternString += "s";
+          break;
+        case NoteLengthConstants.EIGTH_NUMBER:
+          arpPatternString += "e";
+          break;
+        case NoteLengthConstants.QUARTER_NUMBER:
+          arpPatternString += "q";
+          break;
+        case NoteLengthConstants.HALF_NUMBER:
+          arpPatternString += "h";
+          break;
+        case NoteLengthConstants.WHOLE_NUMBER:
+          arpPatternString += "w";
+          break;
+        case 0:
+          arpPatternString += "-";
+      }
+
+    }
+    return arpPatternString;
+  }
 }
