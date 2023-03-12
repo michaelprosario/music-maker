@@ -1,6 +1,18 @@
-<div class="appContent">
-<p-button (click)="openDrumEditor()">Drum Editor</p-button>
-<p-button (click)="openArpeggioEditor()">Edit Arpeggio</p-button>
-<br>
-<router-outlet></router-outlet>
+<div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+  <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+    <img src="../assets/arp-composer-logo.svg" alt="Arp composer logo" width="50" height="50">
+
+    <span class="fs-4"> ArpComposer </span>
+  </a>
+
+  <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+    <a class="me-3 py-2 text-dark text-decoration-none" (click)="openDrumEditor()">Drum Composer</a>
+    <a class="me-3 py-2 text-dark text-decoration-none" (click)="openArpeggioEditor()">Arp Composer</a>
+    <a class="me-3 py-2 text-dark text-decoration-none" href="#">About</a>
+  </nav>
 </div>
+<main>
+  <div class="appContent">
+    <router-outlet></router-outlet>
+  </div>
+</main>
