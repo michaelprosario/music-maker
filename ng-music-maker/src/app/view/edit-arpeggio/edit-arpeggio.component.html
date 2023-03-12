@@ -3,7 +3,8 @@
 <p-button (click)="onDownload()">Save MIDI</p-button>
 <p-button (click)="onSavePattern()">Export Pattern</p-button>
 <p-button (click)="onLoadPattern()">Load Pattern</p-button>
-<midi-player [src]="midiUrl" sound-font id="midiPlayer">
+<p-button (click)="onMusicView()">View Music</p-button>
+<midi-player [src]="midiUrl" sound-font id="midiPlayer" >
 </midi-player>
 <p-panel header="NG Music Maker > Arpeggio Editor" [toggleable]="false">
 
@@ -76,6 +77,10 @@
     </div>
 </p-panel>
 
+<p-dialog header="Piano roll view" [(visible)]="displayModalPianoRoll" [modal]="true" [style]="{width: '50vw'}"
+    [draggable]="false" [resizable]="false">
+    <midi-visualizer   [src]="midiUrl"  style="background: white;"></midi-visualizer>
+</p-dialog>
 
 <p-dialog header="Export Arpeggio" [(visible)]="displayModalSaveArpFile" [modal]="true" [style]="{width: '50vw'}"
     [draggable]="false" [resizable]="false">

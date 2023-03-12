@@ -27,10 +27,11 @@ export class EditArpeggioComponent implements OnInit {
   displayModalLoadArpFile: boolean = false;
   displayModalSaveArpFile: boolean = false;
   displayModalSelectInstrument: boolean = false;
+  displayModalPianoRoll: boolean = false;
   exportFileName: string = '';
   instrument: number = 13;
   instruments: IInstrumentItem[];
-  midiUrl: string;
+  midiUrl: string = '';
   noteLength: string = NoteLengthConstants.SIXTEENTH;
   numberOfMeasures: number = 1;
   playButtonEnabled: boolean = true;
@@ -46,8 +47,17 @@ export class EditArpeggioComponent implements OnInit {
   ) {
     this.tracks = [];
     this.setCurrentFile();
-    this.midiUrl = `${environment.midiBlobStorage}/${this.currentId}.mid`;
+    this.setMidiFile();
     this.instruments = this.instrumentService.getInstruments();
+  }
+
+  private setMidiFile() {
+    var k = "?k=" + Math.random();
+    this.midiUrl = `${environment.midiBlobStorage}/${this.currentId}.mid${k}`;
+  }
+
+  onMusicView(){
+    this.displayModalPianoRoll = true;
   }
 
   onNoteLengthChange(event: any) {
@@ -157,10 +167,20 @@ export class EditArpeggioComponent implements OnInit {
 
   private playCurrentFile() {
     let midiPlayer = document.getElementById("midiPlayer");
+    let myVisualizer = document.getElementById("myVisualizer");
+
+    this.setMidiFile();
     // @ts-ignore
     midiPlayer.reload();
     // @ts-ignore
-    setTimeout(() => { midiPlayer.start(); this.playButtonEnabled = true; }, 5000);
+    
+    // @ts-ignore
+    setTimeout(() => { 
+      // @ts-ignore
+      midiPlayer.start(); 
+      // @ts-ignore
+      myVisualizer.reload();
+    }, 5000);
   }
 
   private buildCommand(): MakeMidiFromArpeggioCommand {

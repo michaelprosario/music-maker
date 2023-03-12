@@ -5,15 +5,6 @@
     <div class="divTrackName col-sm-1">
       {{track.rowName}}
     </div>
-
-    <div class="divTrackCells col-8">
-      <app-arp-track-cell *ngFor="let cell of track.trackData; let j = index " 
-        (click)="onCellClick(track, j)"
-        [trackCellValue]="track.trackData[j]"
-        [cellIndex]="j"
-        >
-      </app-arp-track-cell>
-    </div>
     <div class="col-2">
       <select (change)="onPatternChange($event)" #sltPattern>
         <option>Pick pattern</option>
@@ -24,5 +15,14 @@
         <option value="clear">Clear</option>
       </select>
     </div>    
+
+    <div class="divTrackCells col-9">
+      <app-arp-track-cell *ngFor="let cell of track.trackData; let j = index " 
+        (click)="onCellClick(track, j)"
+        [trackCellValue]="track.trackData[j]"
+        [cellIndex]="j"
+        >
+      </app-arp-track-cell>
+    </div>
   </div>
 </div>
