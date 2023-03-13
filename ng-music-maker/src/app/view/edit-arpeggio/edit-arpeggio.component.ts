@@ -177,7 +177,9 @@ export class EditArpeggioComponent implements OnInit {
     // @ts-ignore
     setTimeout(() => { 
       // @ts-ignore
-      midiPlayer.start(); 
+      midiPlayer.start();
+      // @ts-ignore
+      midiPlayer.loop = true; 
       // @ts-ignore
       myVisualizer.reload();
     }, 5000);
