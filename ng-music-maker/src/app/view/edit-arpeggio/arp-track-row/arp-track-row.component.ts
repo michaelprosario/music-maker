@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ArpTrackViewModel } from '../arp-track-view-model';
 import { NoteLengthConstants } from '../note-length-constants';
 import { ViewChild, ElementRef } from '@angular/core';
@@ -15,10 +15,10 @@ export class ArpTrackRowComponent implements OnInit {
   track: ArpTrackViewModel
   @Input()
   noteLength: string = NoteLengthConstants.SIXTEENTH
+  @Output() notePlaced = new EventEmitter<ArpTrackViewModel>();
 
   // @ts-ignore
   @ViewChild('sltPattern') sltPattern: ElementRef;
-
     
   constructor() 
   {
@@ -33,30 +33,30 @@ export class ArpTrackRowComponent implements OnInit {
     let cellValue = track.trackData[index];
     if(cellValue === 0)
     {
-      if(this.noteLength === NoteLengthConstants.SIXTEENTH)
-      {
-        track.trackData[index] = 16;
-      }
-      else if(this.noteLength === NoteLengthConstants.EIGTH)
-      {
-        track.trackData[index] = 8;
-      }
-      else if(this.noteLength === NoteLengthConstants.QUARTER)
-      {
-        track.trackData[index] = 4;
-      }
-      else if(this.noteLength === NoteLengthConstants.HALF)
-      {
-        track.trackData[index] = 2;
-      }
-      else if(this.noteLength === NoteLengthConstants.WHOLE)
-      {
-        track.trackData[index] = 1;
-      }      
+      this.addNoteAtIndex(track, index);      
+      this.notePlaced.emit(track);
     }else{
       track.trackData[index] = 0;
     }
     console.log(track);
+  }
+
+  private addNoteAtIndex(track: ArpTrackViewModel, index: number) {
+    if (this.noteLength === NoteLengthConstants.SIXTEENTH) {
+      track.trackData[index] = 16;
+    }
+    else if (this.noteLength === NoteLengthConstants.EIGTH) {
+      track.trackData[index] = 8;
+    }
+    else if (this.noteLength === NoteLengthConstants.QUARTER) {
+      track.trackData[index] = 4;
+    }
+    else if (this.noteLength === NoteLengthConstants.HALF) {
+      track.trackData[index] = 2;
+    }
+    else if (this.noteLength === NoteLengthConstants.WHOLE) {
+      track.trackData[index] = 1;
+    }
   }
 
   applyDownBeats(){

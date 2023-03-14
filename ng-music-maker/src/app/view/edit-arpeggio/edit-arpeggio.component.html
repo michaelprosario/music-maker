@@ -6,20 +6,20 @@
 <p-button (click)="onMusicView()">View Music</p-button>
 <midi-player [src]="midiUrl" sound-font id="midiPlayer" >
 </midi-player>
-<p-panel header="NG Music Maker > Arpeggio Editor" [toggleable]="false">
+<p-panel header=" Arpeggio Editor" [toggleable]="false">
 
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="divTracks">
                     <div *ngFor="let track of tracks; let i = index">
-                        <app-arp-track-row [track]="track" [noteLength]="noteLength"></app-arp-track-row>
+                        <app-arp-track-row [track]="track" [noteLength]="noteLength" (notePlaced)="onNotePlaced($event)"></app-arp-track-row>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-2">
+            <div class="col-4">
                 <div>
                     <div>Note length</div>
                     <div>
@@ -35,7 +35,7 @@
                 <div>
                     <div><a>Instrument</a></div>
                     <div>
-                        <input [(ngModel)]="instrument">
+                        <input [(ngModel)]="instrument" style="width:50px">
                         <p-button (click)="onInstrumentSelect()">
                             Select Instrument
                         </p-button>
@@ -47,7 +47,7 @@
                 </div>
 
             </div>
-            <div class="col-2">
+            <div class="col-4">
                 <div>
                     <div>Beats per measure</div>
                     <div><input [(ngModel)]="beatsPerMeasure"></div>
