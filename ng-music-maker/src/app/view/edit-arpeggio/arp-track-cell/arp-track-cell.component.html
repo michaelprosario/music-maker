@@ -1,3 +1,8 @@
 <span class="spnTrackCell" 
    [ngStyle]="setCellStyle()">
+   <span *ngIf="trackCellValue === 16">s</span>
+   <span *ngIf="trackCellValue === 8">e</span>
+   <span *ngIf="trackCellValue === 4">q</span>
+   <span *ngIf="trackCellValue === 2">h</span>
+   <span *ngIf="trackCellValue === 1">w</span>
 </span>

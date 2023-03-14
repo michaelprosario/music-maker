@@ -7,6 +7,11 @@ import { EditArpeggioData } from './edt-arpeggio-data';
 import { environment } from 'src/environments/environment';
 import { MusicMakerService } from 'src/app/core/services/music-maker-service';
 import { v4 as uuidv4 } from 'uuid';
+import { IInstrumentItem } from '../../core/services/instrument-item';
+import { InstrumentsService } from '../../core/services/instruments-service';
+import { NoteLengthConstants } from './note-length-constants';
+import * as Tone from 'tone'
+import { Note, Scale } from "tonal";
 
 @Component({
   selector: 'app-edit-arpeggio',
@@ -23,22 +28,65 @@ export class EditArpeggioComponent implements OnInit {
   currentId: string = '';
   displayModalLoadArpFile: boolean = false;
   displayModalSaveArpFile: boolean = false;
+  displayModalSelectInstrument: boolean = false;
+  displayModalPianoRoll: boolean = false;
   exportFileName: string = '';
   instrument: number = 13;
-  midiUrl: string;
+  instruments: IInstrumentItem[];
+  midiUrl: string = '';
+  noteLength: string = NoteLengthConstants.SIXTEENTH;
   numberOfMeasures: number = 1;
   playButtonEnabled: boolean = true;
+  selectedInstrument: IInstrumentItem = { name: 'Foo', id: 1};
   tempo: number = 90;
   tracks: ArpTrackViewModel[];
+  synth:any 
 
   constructor(
     private musicMakerService: MusicMakerService,
     private arpMakerService: ArpMakerService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private instrumentService: InstrumentsService
   ) {
     this.tracks = [];
     this.setCurrentFile();
-    this.midiUrl = `${environment.midiBlobStorage}/${this.currentId}.mid`;
+    this.setMidiFile();
+    this.instruments = this.instrumentService.getInstruments();
+  }
+
+  onNotePlaced(eventArgs: ArpTrackViewModel)
+  {
+
+    const map1 = new Map();
+
+    map1.set(1, "2M");
+    map1.set(2, "3M");
+    map1.set(3, "5P");
+
+    const octave = eventArgs.octave;
+    const rowType = eventArgs.rowType;
+    let stepToPlay = 1;
+    let noteToPlay = "C" + (3+octave);
+
+    if(rowType > 0)
+      noteToPlay = Note.transpose(noteToPlay, map1.get(rowType)); 
+    debugger;
+    this.synth.triggerAttackRelease(noteToPlay, "8n");
+  }
+
+  private setMidiFile() {
+    var k = "?k=" + Math.random();
+    this.midiUrl = `${environment.midiBlobStorage}/${this.currentId}.mid${k}`;
+    this.synth = new Tone.Synth().toDestination();
+  }
+
+  onMusicView(){
+    this.displayModalPianoRoll = true;
+  }
+
+  onNoteLengthChange(event: any) {
+    const selectedValue = event.target.value;
+    this.noteLength = selectedValue;
   }
 
   private setCurrentFile() {
@@ -62,12 +110,21 @@ export class EditArpeggioComponent implements OnInit {
       this.setupTrackRows();
   }
 
+  onInstrumentSelect()
+  {
+    this.displayModalSelectInstrument = true;
+  }
+
+  onInstrumentSelected()
+  {
+    this.displayModalSelectInstrument = false;
+    this.instrument = this.selectedInstrument.id;
+  }
 
   onLoadPattern() {
     this.displayModalLoadArpFile = true;
     if(this.txtFile)
       this.txtFile.nativeElement.value = "";
-
   }
 
   onSavePattern() {
@@ -92,8 +149,7 @@ export class EditArpeggioComponent implements OnInit {
     document.body.removeChild(element);
   }
 
-
-  public fileChangeListener(event: Event) {
+  fileChangeListener(event: Event) {
     // @ts-ignore
     const files = event.target.files;
 
@@ -102,9 +158,7 @@ export class EditArpeggioComponent implements OnInit {
       if (!file) {
         return;
       }
-      console.log(file.name);
-      console.log(file.size);
-      console.log(file.type);
+
       let reader: FileReader = new FileReader();
       reader.readAsText(file);
       reader.onload = (e) => {
@@ -128,20 +182,31 @@ export class EditArpeggioComponent implements OnInit {
   }
 
   async onPlayTracks() {
-    //this.playButtonEnabled = false;
     let command = this.buildCommand();
 
     let response = await this.musicMakerService.makeMidiFromArpeggio(command).toPromise();
-
-    this.playCurrentFile();
+    if(response?.code == 200)
+      this.playCurrentFile();
   }
 
   private playCurrentFile() {
     let midiPlayer = document.getElementById("midiPlayer");
+    let myVisualizer = document.getElementById("myVisualizer");
+
+    this.setMidiFile();
     // @ts-ignore
     midiPlayer.reload();
     // @ts-ignore
-    setTimeout(() => { midiPlayer.start(); this.playButtonEnabled = true; }, 5000);
+    
+    // @ts-ignore
+    setTimeout(() => { 
+      // @ts-ignore
+      midiPlayer.start();
+      // @ts-ignore
+      midiPlayer.loop = true; 
+      // @ts-ignore
+      myVisualizer.reload();
+    }, 5000);
   }
 
   private buildCommand(): MakeMidiFromArpeggioCommand {

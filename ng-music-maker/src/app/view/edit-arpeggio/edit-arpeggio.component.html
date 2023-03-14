@@ -3,73 +3,90 @@
 <p-button (click)="onDownload()">Save MIDI</p-button>
 <p-button (click)="onSavePattern()">Export Pattern</p-button>
 <p-button (click)="onLoadPattern()">Load Pattern</p-button>
-<midi-player [src]="midiUrl" sound-font id="midiPlayer">
+<p-button (click)="onMusicView()">View Music</p-button>
+<midi-player [src]="midiUrl" sound-font id="midiPlayer" >
 </midi-player>
-<p-panel header="NG Music Maker > Arpeggio Editor" [toggleable]="false">
+<p-panel header=" Arpeggio Editor" [toggleable]="false">
 
     <div class="container">
         <div class="row">
-            <div class="col-10">
+            <div class="col-12">
                 <div class="divTracks">
                     <div *ngFor="let track of tracks; let i = index">
-                        <app-arp-track-row [track]="track"></app-arp-track-row>
+                        <app-arp-track-row [track]="track" [noteLength]="noteLength" (notePlaced)="onNotePlaced($event)"></app-arp-track-row>
                     </div>
                 </div>
             </div>
-            <div class="col-2">
-                <table>
-                    <tr>
-                        <td>
-                            <div>
-                                <div>Tempo</div>
-                                <div><input [(ngModel)]="tempo"></div>
-                            </div>
-                            <div>
-                                <div>Beats per measure</div>
-                                <div><input [(ngModel)]="beatsPerMeasure"></div>
-                            </div>
-                            <div>
-                                <div>Instrument</div>
-                                <div><input [(ngModel)]="instrument"></div>
-                            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <div>
+                    <div>Note length</div>
+                    <div>
+                        <select (change)="onNoteLengthChange($event)">
+                            <option value="s">Sixteenth</option>
+                            <option value="e">Eigth</option>
+                            <option value="q">Quarter</option>
+                            <option value="h">Half</option>
+                            <option value="w">Whole</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <div><a>Instrument</a></div>
+                    <div>
+                        <input [(ngModel)]="instrument" style="width:50px">
+                        <p-button (click)="onInstrumentSelect()">
+                            Select Instrument
+                        </p-button>
+                    </div>
+                </div>
+                <div>
+                    <div>Tempo</div>
+                    <div><input [(ngModel)]="tempo"></div>
+                </div>
 
-                            <div>
-                                <div>Chord Progression</div>
-                                <div><textarea [(ngModel)]="chordProgressionString" rows="3"></textarea></div>
-                                <select (change)="onProgressionChange($event)">
-                                    <option value="">Select progression</option>
-                                    <option value="major-1">major-1</option>
-                                    <option value="major-2">major-2</option>
-                                    <option value="major-3">major-3</option>
-                                    <option value="major-4">major-4</option>
-                                    <option value="major-5">major-5</option>
-                                    <option value="major-6">major-6</option>
+            </div>
+            <div class="col-4">
+                <div>
+                    <div>Beats per measure</div>
+                    <div><input [(ngModel)]="beatsPerMeasure"></div>
+                </div>
 
-                                    <option value="minor-1">minor-1</option>
-                                    <option value="minor-2">minor-2</option>
-                                    <option value="minor-3">minor-3</option>
-                                    <option value="minor-4">minor-4</option>
-                                </select>
-                            </div>
+                <div>
+                    <div>Chord Progression</div>
+                    <div><textarea [(ngModel)]="chordProgressionString" rows="3"></textarea></div>
+                    <select (change)="onProgressionChange($event)">
+                        <option value="">Select progression</option>
+                        <option value="major-1">major-1</option>
+                        <option value="major-2">major-2</option>
+                        <option value="major-3">major-3</option>
+                        <option value="major-4">major-4</option>
+                        <option value="major-5">major-5</option>
+                        <option value="major-6">major-6</option>
 
-                        </td>
+                        <option value="minor-1">minor-1</option>
+                        <option value="minor-2">minor-2</option>
+                        <option value="minor-3">minor-3</option>
+                        <option value="minor-4">minor-4</option>
+                    </select>
+                </div>
 
-                    </tr>
-                </table>
             </div>
         </div>
     </div>
-
-
 </p-panel>
 
+<p-dialog header="Piano roll view" [(visible)]="displayModalPianoRoll" [modal]="true" [style]="{width: '50vw'}"
+    [draggable]="false" [resizable]="false">
+    <midi-visualizer   [src]="midiUrl"  style="background: white;"></midi-visualizer>
+</p-dialog>
 
 <p-dialog header="Export Arpeggio" [(visible)]="displayModalSaveArpFile" [modal]="true" [style]="{width: '50vw'}"
     [draggable]="false" [resizable]="false">
     <div class="m-0">
         Export File Name:
         <input [(ngModel)]="exportFileName" style="width: 400px"><br><br>
-
     </div>
     <ng-template pTemplate="footer">
         <p-button icon="pi pi-check" (click)="onSaveArpFile()" label="Ok" styleClass="p-button-text"></p-button>
@@ -81,9 +98,16 @@
     <div class="m-0">
         File Name:
         <input #txtFile type="file" class="upload" (change)="fileChangeListener($event)">
+    </div>
+</p-dialog>
 
+<p-dialog header="Select Instrument" [(visible)]="displayModalSelectInstrument" [modal]="true" [style]="{width: '50vw'}"
+    [draggable]="false" [resizable]="false">
+    <div class="m-0">
+        <p-listbox [options]="instruments" [(ngModel)]="selectedInstrument" (onDblClick)="onInstrumentSelected()"
+            [filter]="true" optionLabel="name"></p-listbox>
     </div>
     <ng-template pTemplate="footer">
-
+        <p-button icon="pi pi-check" (click)="onInstrumentSelected()" label="Ok" styleClass="p-button-text"></p-button>
     </ng-template>
 </p-dialog>

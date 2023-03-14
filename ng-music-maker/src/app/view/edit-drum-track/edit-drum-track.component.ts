@@ -129,6 +129,8 @@ export class EditDrumTrackComponent implements OnInit {
     // @ts-ignore
     midiPlayer.reload();
     // @ts-ignore
+    midiPlayer.loop = true; 
+    // @ts-ignore
     setTimeout(() => { midiPlayer.start(); this.playButtonEnabled = true; }, 5000);
   }
 
