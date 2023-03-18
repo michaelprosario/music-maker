@@ -17,6 +17,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {ButtonModule} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
 import {ListboxModule} from 'primeng/listbox';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
@@ -28,7 +29,8 @@ import {ListboxModule} from 'primeng/listbox';
     EditProgressionPlayerComponent,
     EditArpeggioComponent,
     ArpTrackCellComponent,
-    ArpTrackRowComponent
+    ArpTrackRowComponent,
+    AboutComponent
   ],
   imports: [
     AppRoutingModule,

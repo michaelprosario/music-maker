@@ -24,4 +24,8 @@ export class AppComponent {
   openArpeggioEditor(){
     this.router.navigate(["/arp-editor"])
   }
+
+  openAbout(){
+    this.router.navigate(["/about"])
+  }  
 }
