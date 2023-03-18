@@ -1,11 +1,10 @@
-<p-button (click)="onPlayTracks()" [disabled]="!playButtonEnabled">Play</p-button>
-<p-button (click)="onClearTracks()">Reset</p-button>
-<p-button (click)="onDownload()">Save MIDI</p-button>
-<p-button (click)="onSavePattern()">Export Pattern</p-button>
-<p-button (click)="onLoadPattern()">Load Pattern</p-button>
-<p-button (click)="onMusicView()">View Music</p-button>
-<midi-player [src]="midiUrl" sound-font id="midiPlayer" >
-</midi-player>
+<p-button (click)="onPlayTracks()" class="btnTopMenu">Play</p-button>
+<p-button (click)="onClearTracks()"  class="btnTopMenu">Reset</p-button>
+<p-button (click)="onDownload()"  class="btnTopMenu">Save MIDI</p-button>
+<p-button (click)="onSavePattern()"  class="btnTopMenu">Export Pattern</p-button>
+<p-button (click)="onLoadPattern()" class="btnTopMenu">Load Pattern</p-button>
+<p-button (click)="onMusicView()" class="btnTopMenu">View Music</p-button>
+
 <p-panel header=" Arpeggio Editor" [toggleable]="false">
 
     <div class="container">
@@ -16,6 +15,8 @@
                         <app-arp-track-row [track]="track" [noteLength]="noteLength" (notePlaced)="onNotePlaced($event)"></app-arp-track-row>
                     </div>
                 </div>
+                <midi-player [src]="midiUrl" sound-font id="midiPlayer" >
+                </midi-player>                
             </div>
         </div>
         <div class="row">
