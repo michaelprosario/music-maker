@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <span class="spnTrackName">
                 {{track.instrumentName}}
             </span>
@@ -13,7 +13,7 @@
         <div class="col-sm-8">
             <div class="divTrackCells">
                 <app-drum-track-cell *ngFor="let cell of track.trackData; let j = index "
-                    (click)="onCellClick(track, j)" [trackCellValue]="track.trackData[j]">
+                    (click)="onCellClick(track, j)" [trackCellValue]="track.trackData[j]" [cellIndex]="j">
                 </app-drum-track-cell>
             </div><!-- END divTrackCells -->
 
