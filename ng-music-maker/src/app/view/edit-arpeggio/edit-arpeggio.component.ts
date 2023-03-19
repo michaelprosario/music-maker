@@ -12,6 +12,7 @@ import { InstrumentsService } from '../../core/services/instruments-service';
 import { NoteLengthConstants } from './note-length-constants';
 import * as Tone from 'tone'
 import { Note, Scale } from "tonal";
+import { ChordsService, ICommonChordProgression } from './chords-service';
 
 @Component({
   selector: 'app-edit-arpeggio',
@@ -25,6 +26,7 @@ export class EditArpeggioComponent implements OnInit {
 
   beatsPerMeasure: number = 4;
   chordProgressionString: string = 'Am G F E';
+  commonChords: ICommonChordProgression[];
   currentId: string = '';
   displayModalLoadArpFile: boolean = false;
   displayModalSaveArpFile: boolean = false;
@@ -32,7 +34,7 @@ export class EditArpeggioComponent implements OnInit {
   displayModalPianoRoll: boolean = false;
   exportFileName: string = '';
   instrument: number = 13;
-  instruments: IInstrumentItem[];
+  instruments: IInstrumentItem[];  
   midiUrl: string = '';
   noteLength: string = NoteLengthConstants.SIXTEENTH;
   numberOfMeasures: number = 1;
@@ -43,20 +45,26 @@ export class EditArpeggioComponent implements OnInit {
   synth:any 
 
   constructor(
-    private musicMakerService: MusicMakerService,
     private arpMakerService: ArpMakerService,
+    private chordsService: ChordsService,
+    private instrumentService: InstrumentsService,
+    private musicMakerService: MusicMakerService,
     private sanitizer: DomSanitizer,
-    private instrumentService: InstrumentsService
-  ) {
+  ) 
+  {
     this.tracks = [];
     this.setCurrentFile();
     this.setMidiFile();
     this.instruments = this.instrumentService.getInstruments();
+    this.commonChords = this.chordsService.getCommonChords();
   }
 
   onNotePlaced(eventArgs: ArpTrackViewModel)
   {
+    this.playTrackNote(eventArgs);
+  }
 
+  private playTrackNote(eventArgs: ArpTrackViewModel) {
     const map1 = new Map();
 
     map1.set(1, "2M");
@@ -65,12 +73,11 @@ export class EditArpeggioComponent implements OnInit {
 
     const octave = eventArgs.octave;
     const rowType = eventArgs.rowType;
-    let stepToPlay = 1;
-    let noteToPlay = "C" + (3+octave);
+    let noteToPlay = "C" + (3 + octave);
 
-    if(rowType > 0)
-      noteToPlay = Note.transpose(noteToPlay, map1.get(rowType)); 
-    debugger;
+    if (rowType > 0)
+      noteToPlay = Note.transpose(noteToPlay, map1.get(rowType));
+
     this.synth.triggerAttackRelease(noteToPlay, "8n");
   }
 
@@ -237,40 +244,14 @@ export class EditArpeggioComponent implements OnInit {
     this.beatsPerMeasure = map1.get(selectedValue);
   }
 
-  onProgressionChange(event: any) {
+  onProgressionChange(event: any) 
+  {
     const selectedValue = event.target.value;
-    if (selectedValue.length === 0)
-      return;
+    this.chordProgressionString = selectedValue;
+  }
 
-    if (selectedValue === "major-1") {
-      this.chordProgressionString = "C G Am F";
-    }
-    else if (selectedValue === "major-2") {
-      this.chordProgressionString = "C F G F";
-    }
-    else if (selectedValue === "major-3") {
-      this.chordProgressionString = "C Am F G";
-    }
-    else if (selectedValue === "major-4") {
-      this.chordProgressionString = "C G Am Em F C F G";
-    }
-    else if (selectedValue === "major-5") {
-      this.chordProgressionString = "G Am F C";
-    }
-    else if (selectedValue === "major-6") {
-      this.chordProgressionString = "F C G Am";
-    }
-    else if (selectedValue === "minor-1") {
-      this.chordProgressionString = "Dm G C C";
-    }
-    else if (selectedValue === "minor-2") {
-      this.chordProgressionString = "Am F C G";
-    }
-    else if (selectedValue === "minor-3") {
-      this.chordProgressionString = "Am G F E";
-    }
-    else if (selectedValue === "minor-4") {
-      this.chordProgressionString = "Dm A Dm C F C Dm A Dm A Dm C F C Dm:2 A:2 Dm";
-    }
+  makeRandomSong()
+  {
+    this.chordProgressionString = this.chordsService.getRandomProgression();
   }
 }
