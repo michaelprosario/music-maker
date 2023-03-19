@@ -1,0 +1,5 @@
+- create arp patterns
+- add sustain to music core
+x- arp / add validation to limit BPN to 3,4 or 6
+- chord manager
+- generate random chord progression
