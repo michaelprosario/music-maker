@@ -226,6 +226,17 @@ export class EditArpeggioComponent implements OnInit {
     return command;
   }
 
+  onBeatsPerMeasureChange(event: any)
+  {
+    const selectedValue = event.target.value;
+    const map1 = new Map();
+    map1.set('3', 3);
+    map1.set('4', 4);
+    map1.set('5', 5);
+    map1.set('6', 6);
+    this.beatsPerMeasure = map1.get(selectedValue);
+  }
+
   onProgressionChange(event: any) {
     const selectedValue = event.target.value;
     if (selectedValue.length === 0)

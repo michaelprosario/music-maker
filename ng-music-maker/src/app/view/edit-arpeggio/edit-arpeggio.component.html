@@ -1,7 +1,7 @@
 <p-button (click)="onPlayTracks()" class="btnTopMenu">Play</p-button>
-<p-button (click)="onClearTracks()"  class="btnTopMenu">Reset</p-button>
-<p-button (click)="onDownload()"  class="btnTopMenu">Save MIDI</p-button>
-<p-button (click)="onSavePattern()"  class="btnTopMenu">Export Pattern</p-button>
+<p-button (click)="onClearTracks()" class="btnTopMenu">Reset</p-button>
+<p-button (click)="onDownload()" class="btnTopMenu">Save MIDI</p-button>
+<p-button (click)="onSavePattern()" class="btnTopMenu">Export Pattern</p-button>
 <p-button (click)="onLoadPattern()" class="btnTopMenu">Load Pattern</p-button>
 <p-button (click)="onMusicView()" class="btnTopMenu">View Music</p-button>
 
@@ -12,11 +12,12 @@
             <div class="col-12">
                 <div class="divTracks">
                     <div *ngFor="let track of tracks; let i = index">
-                        <app-arp-track-row [track]="track" [noteLength]="noteLength" (notePlaced)="onNotePlaced($event)"></app-arp-track-row>
+                        <app-arp-track-row [track]="track" [noteLength]="noteLength"
+                            (notePlaced)="onNotePlaced($event)"></app-arp-track-row>
                     </div>
                 </div>
-                <midi-player [src]="midiUrl" sound-font id="midiPlayer" >
-                </midi-player>                
+                <midi-player [src]="midiUrl" sound-font id="midiPlayer">
+                </midi-player>
             </div>
         </div>
         <div class="row">
@@ -51,7 +52,14 @@
             <div class="col-4">
                 <div>
                     <div>Beats per measure</div>
-                    <div><input [(ngModel)]="beatsPerMeasure"></div>
+                    <div>
+                        <select (change)="onBeatsPerMeasureChange($event)">
+                            <option value="4">4</option>
+                            <option value="3">3</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>                            
+                        </select>                    
+                    </div>
                 </div>
 
                 <div>
@@ -80,7 +88,7 @@
 
 <p-dialog header="Piano roll view" [(visible)]="displayModalPianoRoll" [modal]="true" [style]="{width: '50vw'}"
     [draggable]="false" [resizable]="false">
-    <midi-visualizer   [src]="midiUrl"  style="background: white;"></midi-visualizer>
+    <midi-visualizer [src]="midiUrl" style="background: white;"></midi-visualizer>
 </p-dialog>
 
 <p-dialog header="Export Arpeggio" [(visible)]="displayModalSaveArpFile" [modal]="true" [style]="{width: '50vw'}"
