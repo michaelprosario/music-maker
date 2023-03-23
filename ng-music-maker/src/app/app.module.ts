@@ -18,6 +18,7 @@ import {ButtonModule} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
 import {ListboxModule} from 'primeng/listbox';
 import { AboutComponent } from './about/about.component';
+import { ChordMakerComponent } from './view/chord-maker/chord-maker.component';
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
@@ -30,7 +31,8 @@ import { AboutComponent } from './about/about.component';
     EditArpeggioComponent,
     ArpTrackCellComponent,
     ArpTrackRowComponent,
-    AboutComponent
+    AboutComponent,
+    ChordMakerComponent
   ],
   imports: [
     AppRoutingModule,
