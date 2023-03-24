@@ -20,22 +20,37 @@ export class ChordsService
 
     getRandomProgression() : string
     {
-        debugger;
-        let commonChords = this.getCommonChords();
 
-        // find minor idea
-        let minorProgressions = commonChords.filter(r => r.value.startsWith('Am'));
-        let minorPart = this.getRandom(minorProgressions);
-
-        // find major idea
-        let majorProgressions = commonChords.filter(r => r.value.startsWith('C'));
-        let majorPart = this.getRandom(majorProgressions);        
+        let minorPart = this.getMinorProgressions();
+        let majorPart = this.getMajorProgressions();        
 
         // mix
         let verseRefrain = `${minorPart.value} ${minorPart.value} ${majorPart.value} ${majorPart.value}`;
         
-        return `${verseRefrain} ${verseRefrain}`
+        return `${verseRefrain}`
     }
+
+    getMajorProgressions() {
+        let commonChords = this.getCommonChords();
+        let majorProgressions = commonChords.filter(r => r.value.startsWith('C'));
+        let majorPart = this.getRandom(majorProgressions);
+        return majorPart;
+    }
+
+    getMinorProgressions() {
+        let commonChords = this.getCommonChords();
+        let minorProgressions = commonChords.filter(r => r.value.startsWith('Am'));
+        let minorPart = this.getRandom(minorProgressions);
+        return minorPart;
+    }
+
+    getMinor2Progressions() {
+        let commonChords = this.getCommonChords();
+        let minorProgressions = commonChords.filter(r => r.value.startsWith('Dm'));
+        let minorPart = this.getRandom(minorProgressions);
+        return minorPart;
+    }
+
 
     getCommonChords()
     {
