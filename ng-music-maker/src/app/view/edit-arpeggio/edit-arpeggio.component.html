@@ -64,7 +64,7 @@
 
                 <div>
                     <div>Chord Progression</div>
-                    <div><textarea [(ngModel)]="chordProgressionString" rows="3"></textarea></div>
+                    <div><textarea [(ngModel)]="chordProgressionString" rows="3" class="txtChords"></textarea></div>
                     <select (change)="onProgressionChange($event)">
                         <option value="">Select progression</option>
                         <option *ngFor="let progression of commonChords" value={{progression.value}}>{{progression.name}}</option>
