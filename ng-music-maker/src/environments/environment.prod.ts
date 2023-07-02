@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl:"https://music-maker.v6.rocks",
+  apiUrl:"https://musicmakerservice.azurewebsites.net",
   midiBlobStorage: "https://rosarioappdata.blob.core.windows.net/midi-files"
 };
