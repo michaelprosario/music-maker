@@ -20,6 +20,7 @@ export class ChordMakerComponent implements OnInit {
     this.makeChords();
   }
 
+  /*
   transposeChords(progression: string)
   {
     const chords = progression.split(' ');
@@ -34,6 +35,7 @@ export class ChordMakerComponent implements OnInit {
 
     return response;
   }
+  */
 
   makeChords()
   {
@@ -41,10 +43,11 @@ export class ChordMakerComponent implements OnInit {
     this.group2Chords = this.chordServices.getMinorProgressions().value;
     this.group3Chords = this.chordServices.getMinor2Progressions().value;
 
+    /*
     this.group1Chords = this.transposeChords(this.group1Chords);
     this.group2Chords = this.transposeChords(this.group2Chords);
     this.group3Chords = this.transposeChords(this.group3Chords);
-
+    */
   }
 
 }

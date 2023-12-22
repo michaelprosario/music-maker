@@ -75,8 +75,9 @@ export class EditArpeggioComponent implements OnInit {
     const rowType = eventArgs.rowType;
     let noteToPlay = "C" + (3 + octave);
 
-    if (rowType > 0)
-      noteToPlay = Note.transpose(noteToPlay, map1.get(rowType));
+    // todo - fix me!
+    //if (rowType > 0)
+    //noteToPlay = Note.transpose(noteToPlay, map1.get(rowType));
 
     this.synth.triggerAttackRelease(noteToPlay, "8n");
   }
