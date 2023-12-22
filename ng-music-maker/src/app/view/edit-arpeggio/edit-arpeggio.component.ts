@@ -61,9 +61,12 @@ export class EditArpeggioComponent implements OnInit {
 
   onNotePlaced(eventArgs: ArpTrackViewModel)
   {
-    this.playTrackNote(eventArgs);
+    console.log("play note ....");
+    console.log(eventArgs);
+    // this.playTrackNote(eventArgs);
   }
 
+  /* todo - fix me 
   private playTrackNote(eventArgs: ArpTrackViewModel) {
     const map1 = new Map();
 
@@ -81,6 +84,7 @@ export class EditArpeggioComponent implements OnInit {
 
     this.synth.triggerAttackRelease(noteToPlay, "8n");
   }
+  */
 
   private setMidiFile() {
     var k = "?k=" + Math.random();
