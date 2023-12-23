@@ -19,6 +19,7 @@ import {DialogModule} from 'primeng/dialog';
 import {ListboxModule} from 'primeng/listbox';
 import { AboutComponent } from './about/about.component';
 import { ChordMakerComponent } from './view/chord-maker/chord-maker.component';
+import { EditArpeggio2Component } from './edit-arpeggio2/edit-arpeggio2.component';
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
@@ -29,6 +30,7 @@ import { ChordMakerComponent } from './view/chord-maker/chord-maker.component';
     DrumTrackCellComponent,
     EditProgressionPlayerComponent,
     EditArpeggioComponent,
+    EditArpeggio2Component,
     ArpTrackCellComponent,
     ArpTrackRowComponent,
     AboutComponent,
