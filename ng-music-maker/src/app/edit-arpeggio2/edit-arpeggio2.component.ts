@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ArpMakerService } from '../view/edit-arpeggio/arp-maker-service';
+import { ArpTrackViewModel } from '../view/edit-arpeggio/arp-track-view-model';
 
 
 
@@ -231,9 +233,40 @@ export class ArpModel {
   templateUrl: './edit-arpeggio2.component.html',
   styleUrl: './edit-arpeggio2.component.scss'
 })
-export class EditArpeggio2Component {
+export class EditArpeggio2Component implements OnInit
+{
+	timerInterval: number = 0;
+	isPlaying: boolean = false;
+	currentTick: number = 0;
+	currentChordTick: number = 0;
+	playEnabled: boolean = true;
+	numberOfMeasures: number;
+	beatsPerMeasure: number;
+	tracks: ArpTrackViewModel[] = [];
+
+	constructor(private arpMakerService: ArpMakerService)
+	{
+		this.numberOfMeasures = 2;
+		this.beatsPerMeasure = 4;
+	}
+
+	start() {
+		this.enablePlayButton();
+	}
+
+	enablePlayButton() {
+		this.playEnabled = true;
+	}	
   
-  
+	ngOnInit(): void {
+		this.setupTrackRows();
+	}
+	
+	private setupTrackRows() 
+	{
+		this.tracks = this.arpMakerService.setupTrackRows(this.numberOfMeasures, this.beatsPerMeasure);
+	}
+	
 
 
 }

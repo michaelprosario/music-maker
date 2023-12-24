@@ -1,5 +1,1 @@
-- create arp patterns
-- add sustain to music core
-x- arp / add validation to limit BPN to 3,4 or 6
-- chord manager
-- generate random chord progression
+- compare arp1 track model and cells vs. arp2 track model and cell
