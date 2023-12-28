@@ -1,4 +1,4 @@
-import { ChordChange } from './ChordChange';
+import { ChordChange } from './chord-change';
 
 
 export class ChordSequence {
