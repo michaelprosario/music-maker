@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-3">
+      {{row.instrumentName}}
+      <button (click)='onClear()'>Clear</button>
+      <button (click)='onPattern1()'>1</button>
+      <button (click)='onPattern2()'>2</button>
+      <button (click)='onRandom()'>Rnd</button>        
+    </div>
+    <div class="col-5">
+      @for(cell of row.cells; track cell)
+      {
+        <app-arp2-track-cell [cell]="cell"   
+              [cellValue]="cell.value"
+        />
+      }
+    </div>
+  </div>

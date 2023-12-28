@@ -3,7 +3,11 @@
 <button onclick="onStop()" id="btnStop" class="btn btn-primary" [disabled]="playEnabled">Stop</button>
 <button onclick="onClear()" id="btnClear"  class="btn btn-primary">Clear</button>
 
-<div id="divGrid"  class="container"></div>
+<div id="divGrid"  class="container">
+  @for(row of arpGridModel.rows; track row){
+    <app-arp2-track-row [row]="row" [totalTicks]="arpGridModel.totalTicks"></app-arp2-track-row>
+  }
+</div>
 
 <div class="mb-3">
   <label class="form-label">Tempo:</label>

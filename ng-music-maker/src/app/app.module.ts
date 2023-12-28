@@ -20,21 +20,25 @@ import {ListboxModule} from 'primeng/listbox';
 import { AboutComponent } from './about/about.component';
 import { ChordMakerComponent } from './view/chord-maker/chord-maker.component';
 import { EditArpeggio2Component } from './edit-arpeggio2/edit-arpeggio2.component';
+import { Arp2TrackCellComponent } from './arp2-track-cell/arp2-track-cell.component';
+import { Arp2TrackRowComponent } from './arp2-track-row/arp2-track-row.component';
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
   declarations: [
+    AboutComponent,
     AppComponent,
-    EditDrumTrackComponent,
-    DrumTrackRowComponent,
-    DrumTrackCellComponent,
-    EditProgressionPlayerComponent,
-    EditArpeggioComponent,
-    EditArpeggio2Component,
+    Arp2TrackCellComponent,
+    Arp2TrackRowComponent,
     ArpTrackCellComponent,
     ArpTrackRowComponent,
-    AboutComponent,
-    ChordMakerComponent
+    ChordMakerComponent,
+    DrumTrackCellComponent,
+    DrumTrackRowComponent,
+    EditArpeggio2Component,
+    EditArpeggioComponent,
+    EditDrumTrackComponent,
+    EditProgressionPlayerComponent,
   ],
   imports: [
     AppRoutingModule,

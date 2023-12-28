@@ -1,1 +1,4 @@
-- compare arp1 track model and cells vs. arp2 track model and cell
+- enable the user to toggle a cell on a row
+- implement the clear button
+- implement the 1 button
+- implement the 2 button
