@@ -25,6 +25,10 @@ export class AppComponent {
     this.router.navigate(["/arp-editor"])
   }
 
+  openArpeggioEditor2(){
+    this.router.navigate(["/arp-editor2"])
+  }  
+
   openChordMaker(){
     this.router.navigate(["/chord-maker"])
   }

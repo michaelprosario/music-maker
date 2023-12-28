@@ -83,10 +83,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ng-music-maker:build:production"
+              "buildTarget": "ng-music-maker:build:production"
             },
             "development": {
-              "browserTarget": "ng-music-maker:build:development"
+              "buildTarget": "ng-music-maker:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -94,7 +94,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ng-music-maker:build"
+            "buildTarget": "ng-music-maker:build"
           }
         },
         "test": {

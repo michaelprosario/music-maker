@@ -1,5 +1,11 @@
-- create arp patterns
-- add sustain to music core
-x- arp / add validation to limit BPN to 3,4 or 6
-- chord manager
-- generate random chord progression
+x- enable the user to toggle a cell on a row
+x- implement the clear button
+x- implement the 1 button
+x- implement the 2 button
+x- setup current tick row
+x- setup jzzy
+x- current tick row
+- fix stop button
+- setup master clear button
+- create way to adjust the measure count
+- create way to export pattern to midi server

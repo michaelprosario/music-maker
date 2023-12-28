@@ -1,0 +1,32 @@
+<h3>JS Arp Composer</h3>
+<button (click)="onPlay()" id="btnPlay" class="btn btn-primary" [disabled]="isPlaying">Play</button>
+<button (click)="onStop()" id="btnStop" class="btn btn-primary" [disabled]="!isPlaying">Stop</button>
+<button onclick="onClear()" id="btnClear"  class="btn btn-primary">Clear</button>
+
+<div id="divGrid"  class="container">
+  <div class="row" #divTickVizRow>
+    <div class="col-3"></div>
+    <div class="col-5">
+      @for(tick of arpGridModel.ticks; track tick){
+        <span class="spnTick"></span>
+      }
+    </div>
+
+  </div>
+  @for(row of arpGridModel.rows; track row){
+    <app-arp2-track-row [row]="row" [totalTicks]="arpGridModel.totalTicks"></app-arp2-track-row>
+  }
+</div>
+
+<div class="mb-3">
+  <label class="form-label">Tempo:</label>
+  <input type="text" id="txtTempo" [(ngModel)]="tempo" class="form-control">    
+</div>
+<div class="mb-3">
+  <label class="form-label">Chord Progression:</label>
+  <input type="text" id="txtChordProgression"  [(ngModel)]="chordProgression"  class="form-control">
+</div>
+<div class="mb-3">
+  <label class="form-label">Instrument:</label>
+  <input type="text" id="txtInstrument" [(ngModel)]="instrument" class="form-control">
+</div>  

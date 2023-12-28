@@ -10,9 +10,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { IInstrumentItem } from '../../core/services/instrument-item';
 import { InstrumentsService } from '../../core/services/instruments-service';
 import { NoteLengthConstants } from './note-length-constants';
-import * as Tone from 'tone'
-import { Note, Scale } from "tonal";
 import { ChordsService, ICommonChordProgression } from './chords-service';
+import { Tone } from 'tone/build/esm/core/Tone';
 
 @Component({
   selector: 'app-edit-arpeggio',
@@ -61,9 +60,12 @@ export class EditArpeggioComponent implements OnInit {
 
   onNotePlaced(eventArgs: ArpTrackViewModel)
   {
-    this.playTrackNote(eventArgs);
+    console.log("play note ....");
+    console.log(eventArgs);
+    // this.playTrackNote(eventArgs);
   }
 
+  /* todo - fix me 
   private playTrackNote(eventArgs: ArpTrackViewModel) {
     const map1 = new Map();
 
@@ -75,15 +77,18 @@ export class EditArpeggioComponent implements OnInit {
     const rowType = eventArgs.rowType;
     let noteToPlay = "C" + (3 + octave);
 
-    if (rowType > 0)
-      noteToPlay = Note.transpose(noteToPlay, map1.get(rowType));
+    // todo - fix me!
+    //if (rowType > 0)
+    //noteToPlay = Note.transpose(noteToPlay, map1.get(rowType));
 
     this.synth.triggerAttackRelease(noteToPlay, "8n");
   }
+  */
 
   private setMidiFile() {
     var k = "?k=" + Math.random();
     this.midiUrl = `${environment.midiBlobStorage}/${this.currentId}.mid${k}`;
+    // @ts-ignore
     this.synth = new Tone.Synth().toDestination();
   }
 
