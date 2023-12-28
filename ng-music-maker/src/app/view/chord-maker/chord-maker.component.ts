@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ChordsService } from '../edit-arpeggio/chords-service';
-import { Chord } from 'tonal';
 
 @Component({
   selector: 'app-chord-maker',

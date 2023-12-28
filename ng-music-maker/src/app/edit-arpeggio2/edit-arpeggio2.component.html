@@ -1,5 +1,5 @@
 <h3>JS Arp Composer</h3>
-<button onclick="onPlay()" id="btnPlay" class="btn btn-primary" [disabled]="!playEnabled">Play</button>
+<button (click)="onPlay()" id="btnPlay" class="btn btn-primary" [disabled]="!playEnabled">Play</button>
 <button onclick="onStop()" id="btnStop" class="btn btn-primary" [disabled]="playEnabled">Stop</button>
 <button onclick="onClear()" id="btnClear"  class="btn btn-primary">Clear</button>
 
@@ -20,13 +20,13 @@
 
 <div class="mb-3">
   <label class="form-label">Tempo:</label>
-  <input type="text" id="txtTempo" [[(ngModel)]="tempo"] class="form-control">    
+  <input type="text" id="txtTempo" [(ngModel)]="tempo" class="form-control">    
 </div>
 <div class="mb-3">
   <label class="form-label">Chord Progression:</label>
-  <input type="text" id="txtChordProgression"  [[(ngModel)]="chordProgression"]  class="form-control">
+  <input type="text" id="txtChordProgression"  [(ngModel)]="chordProgression"  class="form-control">
 </div>
 <div class="mb-3">
   <label class="form-label">Instrument:</label>
-  <input type="text" id="txtInstrument" [[(ngModel)]="instrument"] class="form-control">
+  <input type="text" id="txtInstrument" [(ngModel)]="instrument" class="form-control">
 </div>  

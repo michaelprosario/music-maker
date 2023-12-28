@@ -1,8 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ArpMakerService } from '../view/edit-arpeggio/arp-maker-service';
 import { ArpModel } from './arp-model';
-import { JZZ } from 'jzz';
-import { Tiny } from 'jzz-synth-tiny';
 import { ChordSequence } from './chord-sequence';
 
 export let cellSize = 50;
@@ -68,8 +66,9 @@ export class EditArpeggio2Component implements OnInit
 	}
 
 	onPlay() {
-
+		this.setupChordProgression();
 		
+		// @ts-ignore
 		var synth = JZZ.synth.Tiny();
 		var s1 = synth.getSynth(this.instrument);
 		synth.setSynth(0, s1);
@@ -102,9 +101,11 @@ export class EditArpeggio2Component implements OnInit
 		}
 	}	
 
-	@ViewChild('divTickVizRow', { static: false }) divTickVizRow!: ElementRef;
+	@ViewChild('divTickVizRow', {read: ElementRef}) divTickVizRow: ElementRef<HTMLElement> | undefined;
 	visualizeTickRow() {
-		
+		if(!this.divTickVizRow)
+			return;
+
 		for (let tick = 0; tick < this.arpGridModel.getTotalTicks(); tick++) {
 			if (tick === this.currentTick) {
 				this.divTickVizRow.nativeElement.children[1].children[tick].className = "spnTickActive";
@@ -122,7 +123,7 @@ export class EditArpeggio2Component implements OnInit
 			let cellValue = this.arpGridModel.getInstrumentRowValue(instrument, this.currentTick);
 			if (cellValue > 0) 
 			{
-				this.playInstrument(instrument, cellValue);
+				this.playInstrument(instrument);
 			}
 		}
 
@@ -150,15 +151,18 @@ export class EditArpeggio2Component implements OnInit
 
 		// check root 1 - play it if needed
 		let octaveLevel = arpRow.level+3;
+		//alert(this.chordSchedule);
+		//alert(this.currentChordTick);
 
 		let currentChord = this.chordSchedule[this.currentChordTick];
+		// @ts-ignore
 		const triad = Tonal.Chord.degrees(currentChord);
 		let triad2 = [1, 2, 3].map(triad);
 
 
-		let rootTone = triad2[0];
-		let thirdTone = triad2[1];
-		let fifthTone = triad2[2];
+		let rootTone:any = triad2[0];
+		let thirdTone:any = triad2[1];
+		let fifthTone:any = triad2[2];
 
 		if(arpRow.triadNote === ROOT_OF_TRIAD)
 		{
@@ -167,10 +171,11 @@ export class EditArpeggio2Component implements OnInit
 
 		// check 2nd - play it if needed
 		if(arpRow.triadNote === SECOND_OF_TRIAD)
-		{
+		{			
 			let rootTone2 = rootTone + octaveLevel;
+			// @ts-ignore
 			let rootToneNumber = Tonal.Note.midi(rootTone2);
-			let secondTone = rootToneNumber - 10;
+			let secondTone = rootToneNumber! - 10;
 
 			this.port.noteOn(channel, secondTone, 127).wait(500).noteOff(channel, secondTone);
 		}

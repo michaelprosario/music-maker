@@ -10,9 +10,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { IInstrumentItem } from '../../core/services/instrument-item';
 import { InstrumentsService } from '../../core/services/instruments-service';
 import { NoteLengthConstants } from './note-length-constants';
-import * as Tone from 'tone'
-import { Note, Scale } from "tonal";
 import { ChordsService, ICommonChordProgression } from './chords-service';
+import { Tone } from 'tone/build/esm/core/Tone';
 
 @Component({
   selector: 'app-edit-arpeggio',
@@ -89,6 +88,7 @@ export class EditArpeggioComponent implements OnInit {
   private setMidiFile() {
     var k = "?k=" + Math.random();
     this.midiUrl = `${environment.midiBlobStorage}/${this.currentId}.mid${k}`;
+    // @ts-ignore
     this.synth = new Tone.Synth().toDestination();
   }
 
