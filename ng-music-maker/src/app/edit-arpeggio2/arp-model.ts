@@ -12,9 +12,11 @@ export class ArpModel {
 	rows: Array<ArpRow> = [];
 	totalTicks = 0;
 	bpm = 120;
+	ticks: Array<number> = [];
 
 	setup() {
 		this.rows = [];
+		this.totalTicks = this.getTotalTicks();
 
 		this.setupInstrumentRow(4, "Fifth-2", FIFTH_OF_TRIAD, 2, PIANO);
 		this.setupInstrumentRow(5, "Third-2", THIRD_OF_TRIAD, 2, PIANO);
@@ -27,6 +29,10 @@ export class ArpModel {
 		this.setupInstrumentRow(10, "2nd-1", SECOND_OF_TRIAD, 1, PIANO);
 		this.setupInstrumentRow(11, "Root-1", ROOT_OF_TRIAD, 1, PIANO);
 
+		for(let i=0; i<this.totalTicks; i++)
+		{
+			this.ticks.push(i);
+		}
 		this.instrumentCount = this.rows.length;
 	}
 
@@ -38,8 +44,7 @@ export class ArpModel {
 		row.triadNote = triadNote; // See ROOT_OF_TRIAD ... FIFTH_OF_TRIAD
 		row.level = level; // Octave {1,2,3}
 		this.rows.push(row);
-
-		this.totalTicks = this.getTotalTicks();
+		
 		for (let t = 0; t < this.totalTicks; t++) {
 			let cell = new ArpCell();
 			cell.tick = t;

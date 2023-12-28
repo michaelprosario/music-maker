@@ -1,4 +1,7 @@
-- enable the user to toggle a cell on a row
-- implement the clear button
-- implement the 1 button
-- implement the 2 button
+x- enable the user to toggle a cell on a row
+x- implement the clear button
+x- implement the 1 button
+x- implement the 2 button
+x- setup current tick row
+- setup jzzy
+- current tick row
