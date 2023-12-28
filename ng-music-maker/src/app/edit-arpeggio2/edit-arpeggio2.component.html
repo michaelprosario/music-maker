@@ -1,6 +1,6 @@
 <h3>JS Arp Composer</h3>
-<button (click)="onPlay()" id="btnPlay" class="btn btn-primary" [disabled]="!playEnabled">Play</button>
-<button onclick="onStop()" id="btnStop" class="btn btn-primary" [disabled]="playEnabled">Stop</button>
+<button (click)="onPlay()" id="btnPlay" class="btn btn-primary" [disabled]="isPlaying">Play</button>
+<button (click)="onStop()" id="btnStop" class="btn btn-primary" [disabled]="!isPlaying">Stop</button>
 <button onclick="onClear()" id="btnClear"  class="btn btn-primary">Clear</button>
 
 <div id="divGrid"  class="container">

@@ -80,6 +80,11 @@ export class EditArpeggio2Component implements OnInit
 		this.onTick();
 	}	
 
+	onStop()
+	{
+		this.isPlaying = false;
+	}
+
 	onTick() {
 		
 		try {
