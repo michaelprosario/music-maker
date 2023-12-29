@@ -1,4 +1,5 @@
-import { NoteLength } from './note-length';
+
+import { NoteLengthConstants } from '../view/edit-arpeggio/note-length-constants';
 import { cellSize } from './edit-arpeggio2.component';
 
 export class ArpCell {
@@ -8,6 +9,6 @@ export class ArpCell {
 	height = cellSize;
 	x = 0;
 	y = 0;
-	noteLength = NoteLength.SIXTEENTH;
+	noteLength: number = NoteLengthConstants.SIXTEENTH_NUMBER;
 	cellSize: number = cellSize;
 }

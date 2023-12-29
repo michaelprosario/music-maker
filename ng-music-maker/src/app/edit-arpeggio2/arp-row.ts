@@ -1,6 +1,5 @@
-import { MAX_VELOCITY } from './edit-arpeggio2.component';
+import { NoteLengthConstants } from '../view/edit-arpeggio/note-length-constants';
 import { ArpCell } from './arp-cell';
-
 
 export class ArpRow {
 	cells: Array<ArpCell> = [];
@@ -21,7 +20,7 @@ export class ArpRow {
 		for (let tick = 0; tick < totalTicks; tick++) {
 			let currentCell = this.cells[tick];
 			if (tick % 4 === 0) {
-				currentCell.value = MAX_VELOCITY;
+				currentCell.value = NoteLengthConstants.SIXTEENTH_NUMBER;
 			} else {
 				currentCell.value = 0;
 			}
@@ -33,7 +32,7 @@ export class ArpRow {
 		for (let tick = 0; tick < totalTicks; tick++) {
 			let currentCell = this.cells[tick];
 			if (tick % 8 === 4) {
-				currentCell.value = MAX_VELOCITY;
+				currentCell.value = NoteLengthConstants.SIXTEENTH_NUMBER;
 			} else {
 				currentCell.value = 0;
 			}
@@ -48,7 +47,7 @@ export class ArpRow {
 			let r = Math.random();
 
 			if (r < 0.2) {
-				currentCell.value = MAX_VELOCITY;
+				currentCell.value = NoteLengthConstants.SIXTEENTH_NUMBER;
 			} else {
 				currentCell.value = 0;
 			}

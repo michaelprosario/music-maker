@@ -1,0 +1,73 @@
+{
+    "instrument": 13,
+    "id": "63f6750f-39da-4d5d-8d59-db43c21a471d",
+    "chordChanges": [],
+    "chordChangesAsString": "Am Em F G Am Em F G C F Am G C F Am G",
+    "pattern": {
+      "rows": [
+        {
+          "octave": 2,
+          "type": 3,
+          "pattern": "----------------"
+        },
+        {
+          "octave": 2,
+          "type": 2,
+          "pattern": "----------------"
+        },
+        {
+          "octave": 2,
+          "type": 1,
+          "pattern": "----------------"
+        },
+        {
+          "octave": 2,
+          "type": 0,
+          "pattern": "------------s---"
+        },
+        {
+          "octave": 1,
+          "type": 3,
+          "pattern": "----------s---s-"
+        },
+        {
+          "octave": 1,
+          "type": 2,
+          "pattern": "--------s-------"
+        },
+        {
+          "octave": 1,
+          "type": 1,
+          "pattern": "----------------"
+        },
+        {
+          "octave": 1,
+          "type": 0,
+          "pattern": "------s---------"
+        },
+        {
+          "octave": 0,
+          "type": 3,
+          "pattern": "----s-----------"
+        },
+        {
+          "octave": 0,
+          "type": 2,
+          "pattern": "--s-------------"
+        },
+        {
+          "octave": 0,
+          "type": 1,
+          "pattern": "----------------"
+        },
+        {
+          "octave": 0,
+          "type": 0,
+          "pattern": "s-----------s---"
+        }
+      ]
+    },
+    "beatsPerMinute": 90,
+    "channel": 1,
+    "userId": "user1"
+  }

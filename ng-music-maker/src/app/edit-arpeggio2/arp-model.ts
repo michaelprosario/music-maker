@@ -1,6 +1,7 @@
 import { ArpRow } from './arp-row';
-import { FIFTH_OF_TRIAD, PIANO, THIRD_OF_TRIAD, SECOND_OF_TRIAD, ROOT_OF_TRIAD, cellSize } from './edit-arpeggio2.component';
+import { PIANO, cellSize } from './edit-arpeggio2.component';
 import { ArpCell } from './arp-cell';
+import { NoteInChord } from './note-in-chord';
 
 
 export class ArpModel {
@@ -18,16 +19,16 @@ export class ArpModel {
 		this.rows = [];
 		this.totalTicks = this.getTotalTicks();
 
-		this.setupInstrumentRow(4, "Fifth-2", FIFTH_OF_TRIAD, 2, PIANO);
-		this.setupInstrumentRow(5, "Third-2", THIRD_OF_TRIAD, 2, PIANO);
-		this.setupInstrumentRow(6, "2nd-2", SECOND_OF_TRIAD, 2, PIANO);
-		this.setupInstrumentRow(7, "Root-2", ROOT_OF_TRIAD, 2, PIANO);
+		this.setupInstrumentRow(4, "Fifth-2", NoteInChord.FIFTH_OF_TRIAD, 2, PIANO);
+		this.setupInstrumentRow(5, "Third-2", NoteInChord.THIRD_OF_TRIAD, 2, PIANO);
+		this.setupInstrumentRow(6, "2nd-2", NoteInChord.SECOND_OF_TRIAD, 2, PIANO);
+		this.setupInstrumentRow(7, "Root-2", NoteInChord.ROOT_OF_TRIAD, 2, PIANO);
 
 
-		this.setupInstrumentRow(8, "Fifth-1", FIFTH_OF_TRIAD, 1, PIANO);
-		this.setupInstrumentRow(9, "Third-1", THIRD_OF_TRIAD, 1, PIANO);
-		this.setupInstrumentRow(10, "2nd-1", SECOND_OF_TRIAD, 1, PIANO);
-		this.setupInstrumentRow(11, "Root-1", ROOT_OF_TRIAD, 1, PIANO);
+		this.setupInstrumentRow(8, "Fifth-1", NoteInChord.FIFTH_OF_TRIAD, 1, PIANO);
+		this.setupInstrumentRow(9, "Third-1", NoteInChord.THIRD_OF_TRIAD, 1, PIANO);
+		this.setupInstrumentRow(10, "2nd-1", NoteInChord.SECOND_OF_TRIAD, 1, PIANO);
+		this.setupInstrumentRow(11, "Root-1", NoteInChord.ROOT_OF_TRIAD, 1, PIANO);
 
 		for(let i=0; i<this.totalTicks; i++)
 		{

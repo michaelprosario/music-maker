@@ -1,7 +1,8 @@
 <h3>JS Arp Composer</h3>
 <button (click)="onPlay()" id="btnPlay" class="btn btn-primary" [disabled]="isPlaying">Play</button>
 <button (click)="onStop()" id="btnStop" class="btn btn-primary" [disabled]="!isPlaying">Stop</button>
-<button onclick="onClear()" id="btnClear"  class="btn btn-primary">Clear</button>
+<button (click)="onClear()" id="btnClear"  class="btn btn-primary">Clear</button>
+<button (click)="onDownload()" id="btnMidiDownload"  class="btn btn-primary">Midi Export</button>
 
 <div id="divGrid"  class="container">
   <div class="row" #divTickVizRow>

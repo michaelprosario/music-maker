@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ArpCell } from '../edit-arpeggio2/arp-cell';
-import { NoteLength } from '../edit-arpeggio2/note-length';
+import { NoteLengthConstants } from '../view/edit-arpeggio/note-length-constants';
 
 @Component({
   selector: 'app-arp2-track-cell',
@@ -32,8 +32,8 @@ export class Arp2TrackCellComponent implements OnChanges {
   {
     if(this.cellValue === 0)
     {
-      this.cell.value = NoteLength.SIXTEENTH
-      this.cellValue = NoteLength.SIXTEENTH;
+      this.cell.value = NoteLengthConstants.SIXTEENTH_NUMBER
+      this.cellValue = NoteLengthConstants.SIXTEENTH_NUMBER;
       this.cellClass = 'spnTrackCell spnCellSelected';
     }else{
       this.cell.value = 0;

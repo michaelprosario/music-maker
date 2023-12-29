@@ -1,20 +1,20 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+
+
+import { ArpeggioPattern, MakeMidiFromArpeggioCommand } from '../core/services/server-client';
 import { ArpMakerService } from '../view/edit-arpeggio/arp-maker-service';
 import { ArpModel } from './arp-model';
 import { ChordSequence } from './chord-sequence';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { v4 as uuidv4 } from 'uuid';
+import { NoteInChord } from './note-in-chord';
+import { MusicMakerService } from '../core/services/music-maker-service';
+import { environment } from 'src/environments/environment';
 
+// Can we put this in a Arp composer constants class?
 export let cellSize = 50;
 export let MAX_VELOCITY = 127;
 
-
-
-export let ROOT_OF_TRIAD = 0;
-export let SECOND_OF_TRIAD = 2;
-export let THIRD_OF_TRIAD = 3;
-export let FIFTH_OF_TRIAD = 5;
-
 export let PIANO = 0;
-
 
 @Component({
   selector: 'app-edit-arpeggio2',
@@ -37,8 +37,12 @@ export class EditArpeggio2Component implements OnInit
 	tempo = 80;
 	chordSchedule: any;
 	chordProgression = "Em C D G";
+	currentId = '';
 
-	constructor(private arpMakerService: ArpMakerService)
+	constructor(
+		private arpMakerService: ArpMakerService, 
+		private musicMakerService: MusicMakerService
+		)
 	{
 		this.numberOfMeasures = 2;
 		this.beatsPerMeasure = 4;
@@ -61,6 +65,7 @@ export class EditArpeggio2Component implements OnInit
 	}	
   
 	ngOnInit(): void {
+		this.currentId = uuidv4();
 		this.arpGridModel = new ArpModel();
 		this.arpGridModel.setup();		
 	}
@@ -80,9 +85,54 @@ export class EditArpeggio2Component implements OnInit
 		this.onTick();
 	}	
 
+	private buildCommand(): MakeMidiFromArpeggioCommand {
+		let command = new MakeMidiFromArpeggioCommand();
+		command.beatsPerMinute = this.tempo;
+		command.userId = "user1";
+		command.channel = 1;
+	
+		command.pattern = new ArpeggioPattern();
+		command.pattern.rows = this.arpMakerService.getArpPatternRows2(this.arpGridModel.rows);
+		command.instrument = this.instrument;
+	
+		command.id = this.currentId;
+		command.chordChangesAsString = this.chordProgression.trim();
+	
+		console.log(command);
+		return command;
+	}
+	
+	async onDownload() 
+	{
+		let command = this.buildCommand();
+	
+		let response = await this.musicMakerService.makeMidiFromArpeggio(command).toPromise();
+		if(response?.code == 200)
+		{
+			this.openMidiFile();
+		}else{
+			alert('Failed to make midi file.  See console.')
+			console.log(response);
+		}		
+	}
+		 
+	openMidiFile() 
+	{
+		var k = "?k=" + Math.random();
+		let midiUrl = `${environment.midiBlobStorage}/${this.currentId}.mid${k}`;
+		window.open(midiUrl);
+	}
+
 	onStop()
 	{
 		this.isPlaying = false;
+	}
+
+	onClear(){
+		if(confirm("Press OK to clear the grid"))
+		{
+			this.arpGridModel.clearRows();
+		}		
 	}
 
 	onTick() {
@@ -169,13 +219,13 @@ export class EditArpeggio2Component implements OnInit
 		let thirdTone:any = triad2[1];
 		let fifthTone:any = triad2[2];
 
-		if(arpRow.triadNote === ROOT_OF_TRIAD)
+		if(arpRow.triadNote === NoteInChord.ROOT_OF_TRIAD)
 		{
 			this.port.noteOn(channel, rootTone + octaveLevel, 127).wait(500).noteOff(channel, rootTone + octaveLevel);
 		}
 
 		// check 2nd - play it if needed
-		if(arpRow.triadNote === SECOND_OF_TRIAD)
+		if(arpRow.triadNote === NoteInChord.SECOND_OF_TRIAD)
 		{			
 			let rootTone2 = rootTone + octaveLevel;
 			// @ts-ignore
@@ -186,13 +236,13 @@ export class EditArpeggio2Component implements OnInit
 		}
 
 		// check third - play it if needed
-		if(arpRow.triadNote === THIRD_OF_TRIAD)
+		if(arpRow.triadNote === NoteInChord.THIRD_OF_TRIAD)
 		{
 			this.port.noteOn(channel, thirdTone + octaveLevel, 127).wait(500).noteOff(channel, thirdTone + octaveLevel);
 		}
 
 		// check fifth - play it if needed
-		if(arpRow.triadNote === FIFTH_OF_TRIAD)
+		if(arpRow.triadNote === NoteInChord.FIFTH_OF_TRIAD)
 		{
 			this.port.noteOn(channel, fifthTone + octaveLevel, 127).wait(500).noteOff(channel, fifthTone + octaveLevel);
 		}
