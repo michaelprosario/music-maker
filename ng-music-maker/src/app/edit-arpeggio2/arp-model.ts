@@ -19,10 +19,12 @@ export class ArpModel {
 		this.rows = [];
 		this.totalTicks = this.getTotalTicks();
 
+		/*
 		this.setupInstrumentRow(0, "Fifth-3", NoteInChord.FIFTH_OF_TRIAD, 3, PIANO);
 		this.setupInstrumentRow(1, "Third-3", NoteInChord.THIRD_OF_TRIAD, 3, PIANO);
 		this.setupInstrumentRow(2, "2nd-3", NoteInChord.SECOND_OF_TRIAD, 3, PIANO);
 		this.setupInstrumentRow(3, "Root-3", NoteInChord.ROOT_OF_TRIAD, 3, PIANO);
+		*/
 
 		this.setupInstrumentRow(4, "Fifth-2", NoteInChord.FIFTH_OF_TRIAD, 2, PIANO);
 		this.setupInstrumentRow(5, "Third-2", NoteInChord.THIRD_OF_TRIAD, 2, PIANO);

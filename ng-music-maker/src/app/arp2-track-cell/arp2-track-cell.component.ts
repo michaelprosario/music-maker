@@ -48,7 +48,12 @@ export class Arp2TrackCellComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if(this.cellValue === 0)
     {      
-      this.cellClass = 'spnTrackCell spnCellNotSelected';
+      if(this.cell.tick % 4 === 0)
+      {
+        this.cellClass = 'spnTrackCell spnCellNotSelected1';
+      }else{
+        this.cellClass = 'spnTrackCell spnCellNotSelected2';
+      }      
     }else{
       this.cellClass = 'spnTrackCell spnCellSelected';
     }

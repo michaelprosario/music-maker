@@ -1,5 +1,5 @@
 .spnTrackCell {
-    border: 2px solid black;
+    border: 1px solid black;
     display: inline-block;
     height: 25px;
     text-align: center;
@@ -12,10 +12,15 @@
     background-color: purple;
 }
 
-.spnCellNotSelected {
-    background-color: silver;
+.spnCellNotSelected1 {
+    background-color: rgb(211, 93, 211);
 }
 
+.spnCellNotSelected2 {
+    background-color: rgb(240, 207, 240);
+}
+
+
 .spnTrackCell:hover {
-    border: 2px solid white;
+    border: 1px solid white;
 }

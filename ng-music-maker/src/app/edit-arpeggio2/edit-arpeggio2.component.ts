@@ -4,13 +4,13 @@ import { ArpeggioPattern, MakeMidiFromArpeggioCommand } from '../core/services/s
 import { ArpMakerService } from '../view/edit-arpeggio/arp-maker-service';
 import { ArpModel } from './arp-model';
 import { ChordSequence } from './chord-sequence';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { v4 as uuidv4 } from 'uuid';
-import { NoteInChord } from './note-in-chord';
-import { MusicMakerService } from '../core/services/music-maker-service';
-import { environment } from 'src/environments/environment';
 import { ChordsService, ICommonChordProgression } from '../view/edit-arpeggio/chords-service';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { MusicMakerService } from '../core/services/music-maker-service';
+import { NoteInChord } from './note-in-chord';
 import { NoteLengthConstants } from '../view/edit-arpeggio/note-length-constants';
+import { v4 as uuidv4 } from 'uuid';
 
 // Can we put this in a Arp composer constants class?
 export let cellSize = 30;
