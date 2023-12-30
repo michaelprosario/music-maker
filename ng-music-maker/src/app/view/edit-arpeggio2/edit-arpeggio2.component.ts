@@ -11,6 +11,7 @@ import { MusicMakerService } from '../../core/services/music-maker-service';
 import { NoteInChord } from './note-in-chord';
 import { NoteLengthConstants } from '../edit-arpeggio/note-length-constants';
 import { v4 as uuidv4 } from 'uuid';
+import { plainToClassFromExist } from 'class-transformer';
 
 // Can we put this in a Arp composer constants class?
 export let cellSize = 30;
@@ -44,6 +45,10 @@ export class EditArpeggio2Component implements OnInit {
 	port: any;
 	tempo = 80;
 	timerInterval: number = 0;
+
+	@ViewChild("txtFile", {static: false})
+	txtFile: ElementRef | undefined;
+  
 
 	onNoteLengthChange(event: any) {
 		const selectedValue = event.target.value;
@@ -290,6 +295,48 @@ export class EditArpeggio2Component implements OnInit {
 		this.savePatternToFile();
 	}
 
+	fileChangeListener(event: Event) {
+		// @ts-ignore
+		const files = event.target.files;
+	
+		if (files && files.length > 0) {
+		  let file: File | null = files.item(0);
+		  if (!file) {
+			return;
+		  }
+	
+		  let reader: FileReader = new FileReader();
+		  reader.readAsText(file);
+		  reader.onload = (e) => {
+			debugger;
+			let json: string = reader.result as string;
+			this.loadArpFromJsonString(json);
+			this.displayModalLoadArpFile = false;
+		  }
+		}
+	  }
 
+	  onLoadPattern() {
+		this.displayModalLoadArpFile = true;
+		//if(this.txtFile)
+		//  this.txtFile.nativeElement.value = "";
+	  }
+		  
+	  private loadArpFromJsonString(json: string) {
+		let data = JSON.parse(json) as ArpModel;
+		const model = new ArpModel();
+		let fullObject = plainToClassFromExist(model, data); // mixed user should have the value role = user when no value is set otherwise.
+		this.arpGridModel = fullObject;
+		console.log(this.arpGridModel);
+	
+		//this.numberOfMeasures = data.numberOfMeasures;
+		//this.beatsPerMeasure = data.beatsPerMeasure;
+		//this.setupTrackRows();
+	
+		//this.tracks = data.tracks;
+		//this.tempo = data.tempo;
+		//this.instrument = data.instrument;
+	  }
+	
 
 }

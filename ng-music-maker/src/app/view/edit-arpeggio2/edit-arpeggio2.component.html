@@ -5,6 +5,7 @@
     <p-button (click)="onClear()" id="btnClear" class="btnTopMenu">Clear</p-button>
     <p-button (click)="onDownload()" id="btnMidiDownload" class="btnTopMenu">Midi Export</p-button>    
     <p-button (click)="onSavePattern()" id="btnExportArp" class="btnTopMenu">Export Arp</p-button>    
+    <p-button (click)="onLoadPattern()" id="btnLoadArp" class="btnTopMenu">Load Arp</p-button>    
 
   </div>
 
@@ -90,4 +91,12 @@
     <ng-template pTemplate="footer">
         <p-button icon="pi pi-check" (click)="onSaveArpFile()" label="Ok" styleClass="p-button-text"></p-button>
     </ng-template>
+</p-dialog>
+
+<p-dialog header="Load Arpeggio" [(visible)]="displayModalLoadArpFile" [modal]="true" [style]="{width: '50vw'}"
+    [draggable]="false" [resizable]="false">
+    <div class="m-0">
+        File Name:
+        <input #txtFile type="file" class="upload" (change)="fileChangeListener($event)">
+    </div>
 </p-dialog>
