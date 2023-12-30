@@ -25,28 +25,31 @@ export let PIANO = 0;
 	styleUrl: './edit-arpeggio2.component.scss'
 })
 export class EditArpeggio2Component implements OnInit {
-	timerInterval: number = 0;
-	isPlaying: boolean = false;
-	currentTick: number = 0;
-	currentChordTick: number = 0;
-	playEnabled: boolean = true;
-	numberOfMeasures: number;
-	beatsPerMeasure: number;
 	arpGridModel!: ArpModel;
+	beatsPerMeasure: number;
+	chordProgression = "Em C D G";
+	chordSchedule: any;
+	commonChords: ICommonChordProgression[];
+	currentChordTick: number = 0;
+	currentId = '';
+	currentTick: number = 0;
+	displayModalLoadArpFile: boolean = false;
+	displayModalSaveArpFile: boolean = false;
+	exportFileName: string = '';
 	instrument = 12;
+	isPlaying: boolean = false;
+	noteLength: number = NoteLengthConstants.SIXTEENTH_NUMBER;
+	numberOfMeasures: number;
+	playEnabled: boolean = true;
 	port: any;
 	tempo = 80;
-	chordSchedule: any;
-	chordProgression = "Em C D G";
-	currentId = '';
-	commonChords: ICommonChordProgression[];
-	noteLength: number = NoteLengthConstants.SIXTEENTH_NUMBER;
+	timerInterval: number = 0;
 
 	onNoteLengthChange(event: any) {
 		const selectedValue = event.target.value;
 		this.noteLength = parseInt(selectedValue);
 	}
-	
+
 	constructor(
 		private arpMakerService: ArpMakerService,
 		private musicMakerService: MusicMakerService,
@@ -75,8 +78,7 @@ export class EditArpeggio2Component implements OnInit {
 		this.setupGridModel(1);
 	}
 
-	private setupGridModel(measureCount: number) 
-	{
+	private setupGridModel(measureCount: number) {
 		this.currentId = uuidv4();
 		this.arpGridModel = new ArpModel();
 		this.arpGridModel.measureCount = measureCount;
@@ -213,12 +215,10 @@ export class EditArpeggio2Component implements OnInit {
 		this.chordProgression = selectedValue;
 	}
 
-	setMeasureCount(event: any)
-	{
-		if(confirm("Press OK to resize grid"))
-		{
+	setMeasureCount(event: any) {
+		if (confirm("Press OK to resize grid")) {
 			let x = parseInt(event.target.value);
-			this.setupGridModel(x);	
+			this.setupGridModel(x);
 		}
 	}
 
@@ -267,4 +267,29 @@ export class EditArpeggio2Component implements OnInit {
 			this.port.noteOn(channel, fifthTone + octaveLevel, 127).wait(500).noteOff(channel, fifthTone + octaveLevel);
 		}
 	}
+
+	onSavePattern() {
+		this.exportFileName = this.currentId + ".json";
+		this.displayModalSaveArpFile = true;
+	}
+
+	savePatternToFile() {
+		const data = this.arpGridModel;
+		const json = JSON.stringify(data);
+		var element = document.createElement('a');
+		element.setAttribute('href', "data:text/json;charset=UTF-8," + encodeURIComponent(json));
+		element.setAttribute('download', this.exportFileName);
+		element.style.display = 'none';
+		document.body.appendChild(element);
+		element.click(); // simulate click
+		document.body.removeChild(element);
+	}
+
+	onSaveArpFile() {
+		this.displayModalSaveArpFile = false;
+		this.savePatternToFile();
+	}
+
+
+
 }

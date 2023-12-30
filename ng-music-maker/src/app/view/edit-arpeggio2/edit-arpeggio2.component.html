@@ -4,6 +4,8 @@
     <p-button (click)="onStop()" id="btnStop" class="btnTopMenu" [disabled]="!isPlaying">Stop</p-button>
     <p-button (click)="onClear()" id="btnClear" class="btnTopMenu">Clear</p-button>
     <p-button (click)="onDownload()" id="btnMidiDownload" class="btnTopMenu">Midi Export</p-button>    
+    <p-button (click)="onSavePattern()" id="btnExportArp" class="btnTopMenu">Export Arp</p-button>    
+
   </div>
 
   <div class="col-2">
@@ -76,3 +78,16 @@
     </div>
   </div>
 </p-panel>
+
+
+
+<p-dialog header="Export Arpeggio" [(visible)]="displayModalSaveArpFile" [modal]="true" [style]="{width: '50vw'}"
+    [draggable]="false" [resizable]="false">
+    <div class="m-0">
+        Export File Name:
+        <input [(ngModel)]="exportFileName" style="width: 400px"><br><br>
+    </div>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="onSaveArpFile()" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>
