@@ -72,7 +72,7 @@ export class EditArpeggio2Component implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.setupGridModel(2);
+		this.setupGridModel(1);
 	}
 
 	private setupGridModel(measureCount: number) 
