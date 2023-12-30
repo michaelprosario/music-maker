@@ -1,33 +1,42 @@
-<h3>JS Arp Composer</h3>
-<button (click)="onPlay()" id="btnPlay" class="btn btn-primary" [disabled]="isPlaying">Play</button>
-<button (click)="onStop()" id="btnStop" class="btn btn-primary" [disabled]="!isPlaying">Stop</button>
-<button (click)="onClear()" id="btnClear"  class="btn btn-primary">Clear</button>
-<button (click)="onDownload()" id="btnMidiDownload"  class="btn btn-primary">Midi Export</button>
+<p-button (click)="onPlay()" id="btnPlay" class="btnTopMenu" [disabled]="isPlaying">Play</p-button>
+<p-button (click)="onStop()" id="btnStop" class="btnTopMenu" [disabled]="!isPlaying">Stop</p-button>
+<p-button (click)="onClear()" id="btnClear" class="btnTopMenu">Clear</p-button>
+<p-button (click)="onDownload()" id="btnMidiDownload" class="btnTopMenu">Midi Export</p-button>
 
-<div id="divGrid"  class="container">
-  <div class="row" #divTickVizRow>
-    <div class="col-3"></div>
-    <div class="col-5">
-      @for(tick of arpGridModel.ticks; track tick){
+<p-panel header=" Arp Composer" [toggleable]="false">
+
+  <div id="divGrid" class="container">
+    <div class="row" #divTickVizRow>
+      <div class="col-3"></div>
+      <div class="col-5">
+        @for(tick of arpGridModel.ticks; track tick){
         <span class="spnTick"></span>
-      }
+        }
+      </div>
+
     </div>
-
-  </div>
-  @for(row of arpGridModel.rows; track row){
+    @for(row of arpGridModel.rows; track row){
     <app-arp2-track-row [row]="row" [totalTicks]="arpGridModel.totalTicks"></app-arp2-track-row>
-  }
-</div>
+    }
+  </div>
 
-<div class="mb-3">
-  <label class="form-label">Tempo:</label>
-  <input type="text" id="txtTempo" [(ngModel)]="tempo" class="form-control">    
-</div>
-<div class="mb-3">
-  <label class="form-label">Chord Progression:</label>
-  <input type="text" id="txtChordProgression"  [(ngModel)]="chordProgression"  class="form-control">
-</div>
-<div class="mb-3">
-  <label class="form-label">Instrument:</label>
-  <input type="text" id="txtInstrument" [(ngModel)]="instrument" class="form-control">
-</div>  
+  <div class="mb-3">
+    <label class="form-label">Chord Progression:</label>
+    <div>
+      <textarea [(ngModel)]="chordProgression" rows="3" class="txtChords"></textarea>
+    </div>
+    <select (change)="onProgressionChange($event)">
+        <option value="">Select progression</option>
+        <option *ngFor="let progression of commonChords" value={{progression.value}}>{{progression.name}}</option>
+    </select>
+    <p-button (click)="makeRandomSong()">Random Song</p-button>    
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Tempo:</label>
+    <input type="text" id="txtTempo" [(ngModel)]="tempo" class="form-control">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Instrument:</label>
+    <input type="text" id="txtInstrument" [(ngModel)]="instrument" class="form-control">
+  </div>
+</p-panel>
