@@ -10,9 +10,10 @@ import { NoteInChord } from './note-in-chord';
 import { MusicMakerService } from '../core/services/music-maker-service';
 import { environment } from 'src/environments/environment';
 import { ChordsService, ICommonChordProgression } from '../view/edit-arpeggio/chords-service';
+import { NoteLengthConstants } from '../view/edit-arpeggio/note-length-constants';
 
 // Can we put this in a Arp composer constants class?
-export let cellSize = 50;
+export let cellSize = 30;
 export let MAX_VELOCITY = 127;
 
 export let PIANO = 0;
@@ -31,7 +32,7 @@ export class EditArpeggio2Component implements OnInit {
 	playEnabled: boolean = true;
 	numberOfMeasures: number;
 	beatsPerMeasure: number;
-	arpGridModel: ArpModel;
+	arpGridModel!: ArpModel;
 	instrument = 12;
 	port: any;
 	tempo = 80;
@@ -39,7 +40,13 @@ export class EditArpeggio2Component implements OnInit {
 	chordProgression = "Em C D G";
 	currentId = '';
 	commonChords: ICommonChordProgression[];
+	noteLength: number = NoteLengthConstants.SIXTEENTH_NUMBER;
 
+	onNoteLengthChange(event: any) {
+		const selectedValue = event.target.value;
+		this.noteLength = parseInt(selectedValue);
+	}
+	
 	constructor(
 		private arpMakerService: ArpMakerService,
 		private musicMakerService: MusicMakerService,
@@ -47,9 +54,7 @@ export class EditArpeggio2Component implements OnInit {
 	) {
 		this.numberOfMeasures = 2;
 		this.beatsPerMeasure = 4;
-		this.arpGridModel = new ArpModel();
 		this.commonChords = this.chordsService.getCommonChords();
-
 	}
 
 	start() {
@@ -67,8 +72,14 @@ export class EditArpeggio2Component implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.setupGridModel(2);
+	}
+
+	private setupGridModel(measureCount: number) 
+	{
 		this.currentId = uuidv4();
 		this.arpGridModel = new ArpModel();
+		this.arpGridModel.measureCount = measureCount;
 		this.arpGridModel.setup();
 	}
 
@@ -200,6 +211,15 @@ export class EditArpeggio2Component implements OnInit {
 	onProgressionChange(event: any) {
 		const selectedValue = event.target.value;
 		this.chordProgression = selectedValue;
+	}
+
+	setMeasureCount(event: any)
+	{
+		if(confirm("Press OK to resize grid"))
+		{
+			let x = parseInt(event.target.value);
+			this.setupGridModel(x);	
+		}
 	}
 
 	playInstrument(arpRowIndex: number) {

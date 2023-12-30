@@ -8,12 +8,10 @@
       <button (click)='onPattern2()'>2</button>
       <button (click)='onRandom()'>Rnd</button>        
     </div>
-    <div class="col-5">
+    <div class="col-9">
       @for(cell of row.cells; track cell)
       {
-        <app-arp2-track-cell [cell]="cell"   
-              [cellValue]="cell.value"
-        />
+        <app-arp2-track-cell [cell]="cell" [cellValue]="cell.value" [noteLength]="noteLength"  />
       }
     </div>
   </div>

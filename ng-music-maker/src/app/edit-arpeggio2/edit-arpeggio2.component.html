@@ -3,20 +3,45 @@
 <p-button (click)="onClear()" id="btnClear" class="btnTopMenu">Clear</p-button>
 <p-button (click)="onDownload()" id="btnMidiDownload" class="btnTopMenu">Midi Export</p-button>
 
+Measure count: 
+<select (change)="setMeasureCount($event)">
+  <option value="1">1</option>
+  <option value="2" selected>2</option>
+</select>
+
+Note length:
+<select (change)="onNoteLengthChange($event)">
+  <option value="16">Sixteenth</option>
+  <option value="8">Eigth</option>
+  <option value="4">Quarter</option>
+  <option value="2">Half</option>
+  <option value="1">Whole</option>
+</select>
+
+Tempo: 
+<input type="text" id="txtTempo" [(ngModel)]="tempo" >
+
+Instrument:
+<input type="text" id="txtInstrument" [(ngModel)]="instrument" >
+
 <p-panel header=" Arp Composer" [toggleable]="false">
 
   <div id="divGrid" class="container">
     <div class="row" #divTickVizRow>
       <div class="col-3"></div>
-      <div class="col-5">
+      <div class="col-9">
         @for(tick of arpGridModel.ticks; track tick){
         <span class="spnTick"></span>
         }
       </div>
 
     </div>
-    @for(row of arpGridModel.rows; track row){
-    <app-arp2-track-row [row]="row" [totalTicks]="arpGridModel.totalTicks"></app-arp2-track-row>
+    @for(row of arpGridModel.rows; track row)
+    {
+      <app-arp2-track-row [noteLength]="noteLength" 
+                          [row]="row" 
+                          [totalTicks]="arpGridModel.totalTicks">
+      </app-arp2-track-row>
     }
   </div>
 
@@ -30,13 +55,5 @@
         <option *ngFor="let progression of commonChords" value={{progression.value}}>{{progression.name}}</option>
     </select>
     <p-button (click)="makeRandomSong()">Random Song</p-button>    
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Tempo:</label>
-    <input type="text" id="txtTempo" [(ngModel)]="tempo" class="form-control">
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Instrument:</label>
-    <input type="text" id="txtInstrument" [(ngModel)]="instrument" class="form-control">
   </div>
 </p-panel>

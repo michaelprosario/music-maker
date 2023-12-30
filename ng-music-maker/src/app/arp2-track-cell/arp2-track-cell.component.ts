@@ -11,7 +11,33 @@ import { NoteLengthConstants } from '../view/edit-arpeggio/note-length-constants
 export class Arp2TrackCellComponent implements OnChanges {
   @Input() cell: ArpCell;
   @Input() cellValue: number;
+  @Input() noteLength: number = 16;
+  displayChar: string = "s";
+
   cellClass = 'spnTrackCell spnCellNotSelected';
+
+  setDisplayChar()
+  {
+    switch(this.cellValue)
+    {
+      case 16: 
+        this.displayChar = 's';
+        break;
+      case 8: 
+        this.displayChar = 'e';
+        break;
+      case 4: 
+        this.displayChar = 'q';
+        break;
+      case 2: 
+        this.displayChar = 'h';
+        break;
+      case 1: 
+        this.displayChar = 'w';
+        break;
+
+    } 
+  }
 
   constructor()
   {
@@ -26,19 +52,19 @@ export class Arp2TrackCellComponent implements OnChanges {
     }else{
       this.cellClass = 'spnTrackCell spnCellSelected';
     }
+
+    this.setDisplayChar();
   }
 
   onCellToggle()
   {
     if(this.cellValue === 0)
     {
-      this.cell.value = NoteLengthConstants.SIXTEENTH_NUMBER
-      this.cellValue = NoteLengthConstants.SIXTEENTH_NUMBER;
-      this.cellClass = 'spnTrackCell spnCellSelected';
+      this.cell.value = this.noteLength;
+      this.cellValue = this.noteLength;
     }else{
       this.cell.value = 0;
       this.cellValue = 0;
-      this.cellClass = 'spnTrackCell spnCellNotSelected';
     }
   }
 }

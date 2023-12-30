@@ -11,6 +11,7 @@ import { MAX_VELOCITY } from '../edit-arpeggio2/edit-arpeggio2.component';
 export class Arp2TrackRowComponent {
   @Input() row: ArpRow;
   @Input() totalTicks: number = 16;
+  @Input() noteLength: number = 16;
 
   constructor()
   {

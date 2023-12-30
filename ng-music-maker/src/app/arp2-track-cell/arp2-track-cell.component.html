@@ -1,1 +1,10 @@
-<span [ngClass]="cellClass" (click)="onCellToggle()"></span>
+<span 
+    [ngClass]="cellClass" 
+    [noteLength]="noteLength"
+    (click)="onCellToggle()">
+    
+    @if(cellValue > 0 )
+    {
+        {{  displayChar }}
+    }
+</span>
