@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ArpRow } from '../edit-arpeggio2/arp-row';
-import { MAX_VELOCITY } from '../edit-arpeggio2/edit-arpeggio2.component';
+import { ArpRow } from '../arp-row';
 
 @Component({
   selector: 'app-arp2-track-row',

@@ -1,5 +1,5 @@
 
-import { NoteLengthConstants } from '../view/edit-arpeggio/note-length-constants';
+import { NoteLengthConstants } from '../edit-arpeggio/note-length-constants';
 import { cellSize } from './edit-arpeggio2.component';
 
 export class ArpCell {

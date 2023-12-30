@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { ArpCell } from '../edit-arpeggio2/arp-cell';
-import { NoteLengthConstants } from '../view/edit-arpeggio/note-length-constants';
+import { ArpCell } from '../arp-cell';
+import { NoteLengthConstants } from '../../edit-arpeggio/note-length-constants';
 
 @Component({
   selector: 'app-arp2-track-cell',

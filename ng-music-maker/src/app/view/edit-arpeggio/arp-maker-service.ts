@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core";
 import { ArpeggioPatternRow, ArpeggioPatternRowType } from "src/app/core/services/server-client";
 import { ArpTrackViewModel } from "./arp-track-view-model";
 import { NoteLengthConstants } from "./note-length-constants";
-import { ArpRow } from "src/app/edit-arpeggio2/arp-row";
-import { NoteInChord } from "src/app/edit-arpeggio2/note-in-chord";
+import { ArpRow } from "src/app/view/edit-arpeggio2/arp-row";
+import { NoteInChord } from "src/app/view/edit-arpeggio2/note-in-chord";
 
 @Injectable({
   providedIn: 'root'

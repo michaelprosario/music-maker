@@ -5,7 +5,7 @@ import { ChordMakerComponent } from './view/chord-maker/chord-maker.component';
 import { EditArpeggioComponent } from './view/edit-arpeggio/edit-arpeggio.component';
 import { EditDrumTrackComponent } from './view/edit-drum-track/edit-drum-track.component';
 import { EditProgressionPlayerComponent } from './view/edit-progression-player/edit-progression-player.component';
-import { EditArpeggio2Component } from './edit-arpeggio2/edit-arpeggio2.component';
+import { EditArpeggio2Component } from './view/edit-arpeggio2/edit-arpeggio2.component';
 
 const routes: Routes = [
   { path: '', component: EditDrumTrackComponent },
