@@ -144,7 +144,7 @@ export class ArpMakerService {
       arpPatternString = arpPatternString.replace(/h......./g, "h~~~~~~~");
 
       // handle whole notes ....
-      arpPatternString = arpPatternString.replace(/w.............../g, "h~~~~~~~~~~~~~~~");
+      arpPatternString = arpPatternString.replace(/w.............../g, "w~~~~~~~~~~~~~~~");
       arpTrackRow.pattern = arpPatternString;
 
       arpTracks.push(arpTrackRow);

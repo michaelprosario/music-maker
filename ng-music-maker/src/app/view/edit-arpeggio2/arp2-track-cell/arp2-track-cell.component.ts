@@ -20,19 +20,19 @@ export class Arp2TrackCellComponent implements OnChanges {
   {
     switch(this.cellValue)
     {
-      case 16: 
+      case NoteLengthConstants.SIXTEENTH_NUMBER: 
         this.displayChar = 's';
         break;
-      case 8: 
+      case NoteLengthConstants.EIGTH_NUMBER: 
         this.displayChar = 'e';
         break;
-      case 4: 
+      case NoteLengthConstants.QUARTER_NUMBER: 
         this.displayChar = 'q';
         break;
-      case 2: 
+      case NoteLengthConstants.HALF_NUMBER: 
         this.displayChar = 'h';
         break;
-      case 1: 
+      case NoteLengthConstants.WHOLE_NUMBER: 
         this.displayChar = 'w';
         break;
 
